@@ -1,0 +1,15 @@
+*.out
+*.bbl
+*.blg
+*.log
+*.fls
+*.ptc
+*.toc
+*.gz
+*.pdf
+*.aux
+*.gz
+*.pdf
+*.aux
+*.fdb_latexmk
+

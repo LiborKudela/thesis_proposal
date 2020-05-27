@@ -1,0 +1,239 @@
+%------------------------------------------------------------------------------
+% zpracování / processing: make, make pdf, make clean
+%==============================================================================
+\documentclass[]{fitthesis} % bez zadání - pro začátek práce, aby nebyl problém s překladem
+%---rm---------------
+\renewcommand{\rmdefault}{lmr}%zavede Latin Modern Roman jako rm / set Latin Modern Roman as rm
+%---sf---------------
+\renewcommand{\sfdefault}{qhv}%zavede TeX Gyre Heros jako sf
+%---tt------------
+\renewcommand{\ttdefault}{lmtt}% zavede Latin Modern tt jako tt
+\csdoublequotesoff
+\usepackage{url}
+\ifWis
+\ifx\pdfoutput\undefined % nejedeme pod pdflatexem / we are not using pdflatex
+\else
+  \usepackage{color}
+  \usepackage[unicode,colorlinks,hyperindex,plainpages=false,pdftex]{hyperref}
+  \definecolor{hrcolor-ref}{RGB}{223,52,30}
+  \definecolor{hrcolor-cite}{HTML}{2F8F00}
+  \definecolor{hrcolor-urls}{HTML}{092EAB}
+  \hypersetup{
+	linkcolor=hrcolor-ref,
+	citecolor=hrcolor-cite,
+	filecolor=magenta,
+	urlcolor=hrcolor-urls
+  }
+  \def\pdfBorderAttrs{/Border [0 0 0] }  % bez okrajů kolem odkazů / without margins around links
+  \pdfcompresslevel=9
+\fi
+\else % pro tisk budou odkazy, na které se dá klikat, černé / for the print clickable links will be black
+\ifx\pdfoutput\undefined % nejedeme pod pdflatexem / we are not using pdflatex
+\else
+  \usepackage{color}
+  \usepackage[unicode,colorlinks,hyperindex,plainpages=false,pdftex,urlcolor=black,linkcolor=black,citecolor=black]{hyperref}
+  \definecolor{links}{rgb}{0,0,0}
+  \definecolor{anchors}{rgb}{0,0,0}
+  \def\AnchorColor{anchors}
+  \def\LinkColor{links}
+  \def\pdfBorderAttrs{/Border [0 0 0] } % bez okrajů kolem odkazů / without margins around links
+  \pdfcompresslevel=9
+\fi
+\fi
+% Řešení problému, kdy klikací odkazy na obrázky vedou za obrázek
+% This solves the problems with links which leads after the picture
+\usepackage[all]{hypcap}
+
+% Informace o práci/projektu / Information about the thesis
+%---------------------------------------------------------------------------
+\projectinfo{
+  %Prace / Thesis
+  project={DT},
+  year={2020},
+  date=\today,
+  faculty={FSI},
+  department.cs={Energetický ústav},
+  department.en={Energy institute},
+  title.cs={Optimalizace numerické efektivnosti simulací komponent CZT},
+  title.en={Thesis title},
+  title.length={13.5cm},
+  %sectitle.length={12.5cm},
+  %Autor / Author
+  author.name={Libor},
+  author.surname={Kudela},
+  author.title.p={Ing.},
+  % Školitel / supervisor
+  supervisor.name={Jiří},
+  supervisor.surname={Pospíšil},   
+  supervisor.title.p={doc. Ing.},
+  supervisor.title.a={Ph.D.},
+  % Klíčová slova / keywords
+  keywords.cs={Teplárenství, matematické modelování, počítačové učení},
+  keywords.en={Sem budou zapsána jednotlivá klíčová slova v anglickém jazyce, oddělená čárkami.},
+  % Abstrakt / Abstract
+  abstract.cs={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v českém (slovenském) jazyce.},
+  abstract.en={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce.},
+  % Prohlášení
+  declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením pana X...
+Další informace mi poskytli...
+Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých jsem čerpal.},
+  % Poděkování
+  acknowledgment={V této sekci je možno uvést poděkování vedoucímu práce a těm, kteří poskytli odbornou pomoc
+(externí zadavatel, konzultant apod.).},
+  %extendedabstract={Do tohoto odstavce bude zapsán rozšířený výtah (abstrakt) práce v českém (slovenském) jazyce.},
+}
+
+\clubpenalty=10000
+\widowpenalty=10000
+
+% checklist
+\newlist{checklist}{itemize}{1}
+\setlist[checklist]{label=$\square$}
+
+\begin{document}
+  % Vysazeni titulnich stran / Typesetting of the title pages
+  % ----------------------------------------------
+  \maketitle
+  % Obsah
+  % ----------------------------------------------
+  \setlength{\parskip}{0pt}
+
+  {\hypersetup{hidelinks}\tableofcontents}
+  
+  % Seznam obrazku a tabulek (pokud prace obsahuje velke mnozstvi obrazku, tak se to hodi)
+  % List of figures and list of tables (if the thesis contains a lot of pictures, it is good)
+  \ifczech
+    \renewcommand\listfigurename{Seznam obrázků}
+  \fi
+  \ifslovak
+    \renewcommand\listfigurename{Zoznam obrázkov}
+  \fi
+  % {\hypersetup{hidelinks}\listoffigures}
+  
+  \ifczech
+    \renewcommand\listtablename{Seznam tabulek}
+  \fi
+  \ifslovak
+    \renewcommand\listtablename{Zoznam tabuliek}
+  \fi
+  % {\hypersetup{hidelinks}\listoftables}
+
+  \ifODSAZ
+    \setlength{\parskip}{0.5\bigskipamount}
+  \else
+    \setlength{\parskip}{0pt}
+  \fi
+
+  % vynechani stranky v oboustrannem rezimu
+  % Skip the page in the two-sided mode
+  \iftwoside
+    \cleardoublepage
+  \fi
+
+  % Text prace / Thesis text
+  % ----------------------------------------------
+  \ifenglish
+    \input{thesis-chapters-en}
+  \else
+    \input{thesis-chapters}
+  \fi
+  
+  % Kompilace po částech (viz výše, nutno odkomentovat)
+  % Compilation piecewise (see above, it is necessary to uncomment it)
+  %\subfile{projekt-01-uvod-introduction}
+  % ...
+  %\subfile{chapters/projekt-05-conclusion}
+
+
+  % Pouzita literatura / Bibliography
+  % ----------------------------------------------
+\ifslovak
+  \makeatletter
+  \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatúra}}
+  \makeatother
+  \bibliographystyle{bib-styles/Pysny/skplain}
+\else
+  \ifczech
+    \makeatletter
+    \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatura}}
+    \makeatother
+    \bibliographystyle{bib-styles/Pysny/czplain}
+  \else 
+    \makeatletter
+    \def\@openbib@code{\addcontentsline{toc}{chapter}{Bibliography}}
+    \makeatother
+    \bibliographystyle{bib-styles/Pysny/enplain}
+  %  \bibliographystyle{alpha}
+  \fi
+\fi
+  \begin{flushleft}
+  \bibliography{thesis-bibliography}
+  \end{flushleft}
+
+  % vynechani stranky v oboustrannem rezimu
+  % Skip the page in the two-sided mode
+  \iftwoside
+    \cleardoublepage
+  \fi
+
+  % Prilohy / Appendices
+  % ---------------------------------------------
+  \appendix
+\ifczech
+  \renewcommand{\appendixpagename}{Přílohy}
+  \renewcommand{\appendixtocname}{Přílohy}
+  \renewcommand{\appendixname}{Příloha}
+\fi
+\ifslovak
+  \renewcommand{\appendixpagename}{Prílohy}
+  \renewcommand{\appendixtocname}{Prílohy}
+  \renewcommand{\appendixname}{Príloha}
+\fi
+%  \appendixpage
+
+% vynechani stranky v oboustrannem rezimu
+% Skip the page in the two-sided mode
+%\iftwoside
+%  \cleardoublepage
+%\fi
+  
+\ifslovak
+%  \section*{Zoznam príloh}
+%  \addcontentsline{toc}{section}{Zoznam príloh}
+\else
+  \ifczech
+%    \section*{Seznam příloh}
+%    \addcontentsline{toc}{section}{Seznam příloh}
+  \else
+%    \section*{List of Appendices}
+%    \addcontentsline{toc}{section}{List of Appendices}
+  \fi
+\fi
+  \startcontents[chapters]
+  \setlength{\parskip}{0pt} 
+  % seznam příloh / list of appendices
+  % \printcontents[chapters]{l}{0}{\setcounter{tocdepth}{2}}
+  
+  \ifODSAZ
+    \setlength{\parskip}{0.5\bigskipamount}
+  \else
+    \setlength{\parskip}{0pt}
+  \fi
+  
+  % vynechani stranky v oboustrannem rezimu
+  \iftwoside
+    \cleardoublepage
+  \fi
+  
+  % Přílohy / Appendices
+  %\ifenglish
+  %  \input{thesis-appendices-en}
+  %\else
+  %  \input{thesis-appendices}
+  %\fi
+  
+  % Kompilace po částech (viz výše, nutno odkomentovat)
+  % Compilation piecewise (see above, it is necessary to uncomment it)
+  %\subfile{projekt-30-prilohy-appendices}
+  
+\end{document}
