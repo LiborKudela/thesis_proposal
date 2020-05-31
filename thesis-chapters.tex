@@ -94,6 +94,54 @@ problém zjednodušit na součinnost třech fyzikálních jevů:
 \item Příspěvky do veličin vnitřními a/či externími zdroji
 \end{itemize}
 
+\begin{figure} \capstart
+\includegraphics[width=\textwidth]{figures/heat_front}
+\caption{Proces šíření teplotní vlny v potrubí}
+\end{figure}
+
+Parciální diferenciální rovnice (PDR) pro celkovou dynamiku je pak v tomto 
+kontextu následující:
+\begin{equation} 
+\frac{dy}{dt} = -u \frac{dy}{dx} + D\frac{d^{2}y}{dx^2} + {S_y}  
+\end{equation}
+kde \(y\) je unášená veličina, \(t\) je čas, \(x\) je podélná poloha, \(u\) je
+rychlost tekutiny, \(D\) je celkový koeficient difúze a \(Sy\) je celkový
+zdroj unášené veličiny. Z hlediska tepelného chování může být touto veličinou 
+měrná entalpie, ale lze pracovat i s teplotou.
+
+Advekce je jev, při kterém se transportují veličiny (jsou unášeny) ve směru
+objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce, neboť z velké
+části určuje čas transportu (zpoždění) teplotní fronty.
+
+Intenzita axiální difúze (velikost koeficientu D) je složena jednak z difúze
+kodkukcí tepla v tekutině a dále z efektu tzv. turbulentního míchání v axiálním
+směru. Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná [x].
+Za to turbulentní difúze roste dle přibližně lineárně s Reynoldsovým číslem
+[x].  Axiální difúze způsobuje rozpínání (vyhlazování) teplotní fronty, což
+znamená, že náhlé změny na vstupu do potrubí se projevují pozvolnými změnami na
+jeho konci. V případě uvažování horizontálně uloženého potrubí lze tímto
+způsobem zahrnout i vliv gravitace. Nemá tak vliv na zpoždění teplotní fronty,
+ale výrazně ovlivňuje její tvar.
+
+Zdrojový termín Sy(x) zahrnuje především výměnu tepla mezi tekutinou a vnitřním
+povrchem přilehlé stěny ve kterém tekutina proudí (což v důsledku určuje vliv
+akumulace tepla na vývoj teplotní fronty). Velikost hustoty tepelného toku je
+závislá na rozdílu teploty vody a povrchu, vlastnostech tekutiny, velikosti a
+drsnosti povrchu a na rychlosti proudění. Výměna tepla ovlivňuje jak zpoždění
+teplotní fronty tak její tvar. Intenzitu výměny tepla lze vyjádřit zcela běžnou
+konvekcí,
+
+\begin{equation} 
+Q = \alpha S \Delta T 
+\end{equation}
+kde \(Q\) je tepelný tok ze stěny do tekutiny,\(\alpha\) je součinitel přestupu
+tepla, \(S\) je velikost plochy kde je styčného povrchu a \(\Delta T\) je 
+rozdíl teplot povrchu a tekutiny. Koeficient přenosu tepla  je možné určovat z
+tzv. Nusseltova čísla, které vyjadřuje poměr mezi konvektivním a koduktivním 
+přestupem tepla. Známe-li tedy množství tepla, jež by procházelo mezní vrstvou 
+v případě čisté kondukce tepla je možné určit množství tepla v případě 
+konvektivního přestupu tepla:
+
 \subsection*{Musíme mít co říci}
 Nejdůležitějším předpokladem dobrého odborného textu je myšlenka. Je-li myšlenka dost závažná, tak přetrvá, i když je neobratně a zmateně podaná. Chceme-li však myšlenku podat co nejvýstižněji a ušetřit tak čtenáři čas, musíme dodržet určité zásady, o kterých pojednáme dále.
 
@@ -319,7 +367,6 @@ Tato podkapitola je převzata ze stránek doc. Jana Černockého \cite{Cernocky}
   \item{\textbf{Čeština/Slovenština nebo English?}
     \begin{itemize}
       \item Pokud umíte slušně anglicky a Vaše práce má potenciál být čtena někde jinde než na FIT VUT (součást mezinárodního projektu, práce pro nadnárodní firmu, popis SW, který chcete dát na GooglePlay, atd. atd.), velmi doporučuji psát anglicky. Můžete si 100x říkat, že to pak z češtiny přeložíte, ale už na to nikdy není čas. Navíc nemusíte psát háčky a čárky.
-      \item  Pokud pracujete na BP/DP lokálního významu a víte, že Vaše angličtina za~moc nestojí, doporučuji naopak ušetřit sobě i vedoucímu a oponentovi utrpení a psát česky nebo slovensky. Rady pro psaní práce v angličtině a chyby, kterých se studenti často dopouštějí, najdete v~příloze~\ref{anglicky}. 
     \end{itemize}}
   \item{Nemějte strach z toho, že budete mít málo stran! Nerozepisujte se zbytečně, nekopírujte zbytečné věci z Wikipedie -- jen tím naštvete Vašeho vedoucího a oponenta. Pokud budete následovat doporučenou strukturu a budete psát o tom, co jste skutečně udělali, budete mít na závěr dost kvalitního materiálu. }
   \item{Pište průběžně -- nemusíte psát přímo text technické zprávy se vším možným formátováním, ale mějte aspoň nějaký soubor README, kam si budete značit, na čem děláte, průběžné výsledky, co jste četli, co jste použili, o čem to zhruba je atd. Důrazně varuji před systémem \uv{hrnu práci, pak to celé napíšu} -- za půl roku už vůbec nebudete vědět, co jste dělali, a budete si na to (v lepším případě) horko těžko vzpomínat, v horším případě si to budete muset zopakovat. Průběžné psaní Vám také pomáhá strukturovat Vaší technickou zprávu.}
