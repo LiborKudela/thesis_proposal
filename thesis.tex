@@ -132,40 +132,15 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
 
   % Text prace / Thesis text
   % ----------------------------------------------
-  \ifenglish
-    \input{thesis-chapters-en}
-  \else
     \input{thesis-chapters}
-  \fi
   
-  % Kompilace po částech (viz výše, nutno odkomentovat)
-  % Compilation piecewise (see above, it is necessary to uncomment it)
-  %\subfile{projekt-01-uvod-introduction}
-  % ...
-  %\subfile{chapters/projekt-05-conclusion}
-
-
   % Pouzita literatura / Bibliography
   % ----------------------------------------------
-\ifslovak
   \makeatletter
-  \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatúra}}
+  \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatura}}
   \makeatother
-  \bibliographystyle{bib-styles/Pysny/skplain}
-\else
-  \ifczech
-    \makeatletter
-    \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatura}}
-    \makeatother
-    \bibliographystyle{bib-styles/Pysny/czplain}
-  \else 
-    \makeatletter
-    \def\@openbib@code{\addcontentsline{toc}{chapter}{Bibliography}}
-    \makeatother
-    \bibliographystyle{bib-styles/Pysny/enplain}
+  \bibliographystyle{bib-styles/Pysny/czplain}
   %  \bibliographystyle{alpha}
-  \fi
-\fi
   \begin{flushleft}
   \bibliography{thesis-bibliography}
   \end{flushleft}
@@ -224,16 +199,5 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
   \iftwoside
     \cleardoublepage
   \fi
-  
-  % Přílohy / Appendices
-  %\ifenglish
-  %  \input{thesis-appendices-en}
-  %\else
-  %  \input{thesis-appendices}
-  %\fi
-  
-  % Kompilace po částech (viz výše, nutno odkomentovat)
-  % Compilation piecewise (see above, it is necessary to uncomment it)
-  %\subfile{projekt-30-prilohy-appendices}
   
 \end{document}
