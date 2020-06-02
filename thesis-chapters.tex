@@ -62,7 +62,7 @@ efektivnost.
 Teplárenské potrubí slouží k dopravě tepla od jeho výrobce k jeho spotřebiteli 
 pomocí teplonosného média. V minulosti se jako první teplonosné médium 
 používala pára o teplotě i přes 240 °C. Tyto rozvody generovaly značné tepelné 
-ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i vážné 
+ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i váž:né 
 explozivní nehody. Kvůli kondenzaci páry ve vratném potrubí docházelo k jeho 
 korozi. Pára se jako hlavní teplonosné médium stále využívá například v Paříži 
 či Manhattanu. Nástupce tohoto provedení využíval tlakovou horkou vodu většinou 
@@ -81,7 +81,7 @@ zdrojů, budou využívány akumulační systémy společně s prediktivním ř�
 využívající předpovědi meteorologických podmínek a matematické modely 
 jednotlivých součástí systému se zaměřením na jejich dynamiku \cite{Lund2014}.
 
-\section{Fyzika teplárenských rozvodů/potrubí}
+\section{Tepelná dynamika teplárenských rozvodů/potrubí}
 Moderní teplárenské systémy s teplonosným médiem v kapalném skupenství. Fluidní 
 dynamika je prostorovým fenoménem, ale lze zavádět zjednodušující předpoklady 
 odpovídající kontextu aplikace. Při uvažování zjednodušené fyziky proudění 
@@ -105,7 +105,7 @@ kontextu následující:
 \frac{dy}{dt} = -u \frac{dy}{dx} + D\frac{d^{2}y}{dx^2} + {S_y}  
 \end{equation}
 kde \(y\) je unášená veličina, \(t\) je čas, \(x\) je podélná poloha, \(u\) je
-rychlost tekutiny, \(D\) je celkový koeficient difúze a \(Sy\) je celkový
+rychlost tekutiny, \(D\) je celkový koeficient difúze a \(S_y\) je celkový
 zdroj unášené veličiny. Z hlediska tepelného chování může být touto veličinou 
 měrná entalpie, ale lze pracovat i s teplotou.
 
@@ -115,21 +115,21 @@ objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce, neboť z ve
 
 Intenzita axiální difúze (velikost koeficientu D) je složena jednak z difúze
 kodkukcí tepla v tekutině a dále z efektu tzv. turbulentního míchání v axiálním
-směru. Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná [x].
-Za to turbulentní difúze roste dle přibližně lineárně s Reynoldsovým číslem
-[x].  Axiální difúze způsobuje rozpínání (vyhlazování) teplotní fronty, což
-znamená, že náhlé změny na vstupu do potrubí se projevují pozvolnými změnami na
-jeho konci. V případě uvažování horizontálně uloženého potrubí lze tímto
-způsobem zahrnout i vliv gravitace. Nemá tak vliv na zpoždění teplotní fronty,
-ale výrazně ovlivňuje její tvar.
+směru. Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná
+\todo{cite}. Za to turbulentní difúze roste dle přibližně lineárně s 
+Reynoldsovým číslem \todo{cite}. Axiální difúze způsobuje rozpínání 
+(vyhlazování) teplotní fronty, což znamená, že náhlé změny na vstupu do potrubí 
+se projevují pozvolnými změnami na jeho konci. V případě uvažování horizontálně 
+uloženého potrubí lze tímto způsobem zahrnout i vliv gravitace. Nemá tak vliv 
+na zpoždění teplotní fronty, ale výrazně ovlivňuje její tvar.
 
-Zdrojový termín Sy(x) zahrnuje především výměnu tepla mezi tekutinou a vnitřním
-povrchem přilehlé stěny ve kterém tekutina proudí (což v důsledku určuje vliv
-akumulace tepla na vývoj teplotní fronty). Velikost hustoty tepelného toku je
-závislá na rozdílu teploty vody a povrchu, vlastnostech tekutiny, velikosti a
-drsnosti povrchu a na rychlosti proudění. Výměna tepla ovlivňuje jak zpoždění
-teplotní fronty tak její tvar. Intenzitu výměny tepla lze vyjádřit zcela běžnou
-konvekcí,
+Zdrojový termín \(S_y\) zahrnuje především výměnu tepla mezi tekutinou a 
+vnitřním povrchem přilehlé stěny ve kterém tekutina proudí (což v důsledku 
+určuje vliv akumulace tepla na vývoj teplotní fronty). Velikost hustoty 
+tepelného toku je závislá na rozdílu teploty vody a povrchu, vlastnostech 
+tekutiny, velikosti a drsnosti povrchu a na rychlosti proudění. Výměna tepla 
+ovlivňuje jak zpoždění teplotní fronty tak její tvar. Intenzitu výměny tepla 
+lze vyjádřit zcela běžnou konvekcí.
 
 \begin{equation} 
 Q = \alpha S \Delta T 
@@ -143,7 +143,8 @@ v případě čisté kondukce tepla je možné určit množství tepla v přípa
 konvektivního přestupu tepla:
 
 \begin{equation} 
-Nu = \frac{\alpha L}{\lambda} 
+  \label{eq:ConvTransfer}
+  Nu = \frac{\alpha L}{\lambda} 
 \end{equation}
 kde je \(Nu\) Nusseltovo číslo, \(L\) je charakteristický rozměr (pro kruhové 
 potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny.
@@ -151,6 +152,7 @@ potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny
 \begin{figure}[h] \centering \capstart
 \includegraphics[scale=0.3]{figures/nusselt}
 \caption{Závislost Nusseltova čísla na Reynoldsově čísle \cite{Abraham2009}}
+\label{fig:NuReynolds}
 \end{figure}
 
 Hodnotu Nusseltova čísla je možné určit na základě vztahů jak pro rovnoměrné 
@@ -158,30 +160,26 @@ rozložení teploty na stěně (označováno jako UWT), tak pro rovnoměrné roz
 tepelného toku (označované jako UHF). Dle \cite{Abraham2009} je pro všecny
 režimi proudění vhodné používat následující model Nusseltova čísla:
 \begin{equation}
-Nu = 
-\begin{dcases}
-  c_0 & Re\leq 2300 \\
-  c_1\left(\frac{Re}{1000}\right)^4
-  -c_2\left(\frac{Re}{1000}\right)^3
-  +c_3\left(\frac{Re}{1000}\right)^2
-  -c_4\left(\frac{Re}{1000}\right)
-  +c_5 & 2300 < Re\le 3100 \\
-  \frac{\frac{f}{8}(Re-1000)Pr}
-  {1+12.7{\frac{f}{8}}^{(1/2)}(Pr^{(2/3)}-1)} & 3100 < Re
-\end{dcases} 
+\label{eq:NuModel}
+  Nu = 
+  \begin{dcases}
+    c_0 & Re\leq 2300 \\
+    \sum_{i=1}^{5} c_i\left(\frac{Re}{10^3}\right)^{5-i} & 2300 < Re\le 3100 \\
+    \frac{\frac{f}{8}(Re-1000)Pr}
+    {1+12.7{\frac{f}{8}}^{(1/2)}(Pr^{(2/3)}-1)} & 3100 < Re
+  \end{dcases} 
 \end{equation}
 kde \(Pr\) je Prandtlovo číslo (vlastnost tekutiny) a \(f\) je Darcy-Weisbachův 
-koeficient tření který je popsán v podkapitole o tlakových ztrátách (skrze něj 
+koeficient tření který je popsán v podkapitole \todo{ref section} (skrze něj 
 se projevuje vliv drsnosti). Jednotlivé hodnoty parametrů tohoto modelu jsou:
-
 \begin{table}[H]
-  \vskip6pt
+  \label{tab:NuModel}
   \caption{Parametry modelu Nusseltova čísla}
-    \vskip6pt
+  \vskip6pt
   \centering
   \begin{tabular}{ccc}
     \toprule
-    Konstanta & UWT & UHF \\ [0.5ex]
+    Parameter & UWT & UHF \\ [0.5ex]
     \hline
     \(c_0\) & 3,66 & 4,36 \\ 
     \(c_1\) & 3,52 & 2,2407 \\
@@ -191,15 +189,14 @@ se projevuje vliv drsnosti). Jednotlivé hodnoty parametrů tohoto modelu jsou:
     \(c_5\) & 316,08 & 219,88 \\
     \bottomrule \\[0.1mm]
   \end{tabular}
-  \label{tab:ExampleTable2}
 \end{table}
-
-V případě, že je teplota vnitřního povrchu potrubí
-známa je možné na základě rovnic (2-5) určit intenzitu výměny tepla v
-konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež
+V případě, že je teplota vnitřního povrchu potrubí známa je možné na základě 
+rovnic \ref{eq:ConvTransfer} a \ref{eq:NuModel} určit intenzitu výměny tepla v
+konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež 
 obklopuje fluidní region (např. ocelová trubka, izolace, zemina apod.) a tudíž
-je je nutno korektně matematicky zachytit (viz podkapitola 5.2.3).
-kde jednotlivé konstany jsou:
+je je nutno korektně matematicky zachytit \todo{ref-solid model}.
+\section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
+
 \chapter{Jednotlivé kapitoly práce}
 \label{kapitoly}
 
