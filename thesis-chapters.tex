@@ -102,7 +102,8 @@ problém zjednodušit na součinnost třech fyzikálních jevů:
 Parciální diferenciální rovnice (PDR) pro celkovou dynamiku je pak v tomto 
 kontextu následující:
 \begin{equation} 
-\frac{dy}{dt} = -u \frac{dy}{dx} + D\frac{d^{2}y}{dx^2} + {S_y}  
+  \label{eq:AdvDiff}
+  \frac{dy}{dt} = -u \frac{dy}{dx} + D\frac{d^{2}y}{dx^2} + {S_y}  
 \end{equation}
 kde \(y\) je unášená veličina, \(t\) je čas, \(x\) je podélná poloha, \(u\) je
 rychlost tekutiny, \(D\) je celkový koeficient difúze a \(S_y\) je celkový
@@ -129,10 +130,11 @@ určuje vliv akumulace tepla na vývoj teplotní fronty). Velikost hustoty
 tepelného toku je závislá na rozdílu teploty vody a povrchu, vlastnostech 
 tekutiny, velikosti a drsnosti povrchu a na rychlosti proudění. Výměna tepla 
 ovlivňuje jak zpoždění teplotní fronty tak její tvar. Intenzitu výměny tepla 
-lze vyjádřit zcela běžnou konvekcí.
+lze vyjádřit obyčejnou rovnicí konvekce tepla \ref{eq:ConvHeatTransfer}.
 
 \begin{equation} 
-Q = \alpha S \Delta T 
+  \label{eq:ConvHeatTransfer}
+  Q = \alpha S \Delta T 
 \end{equation}
 kde \(Q\) je tepelný tok ze stěny do tekutiny,\(\alpha\) je součinitel přestupu
 tepla, \(S\) je velikost plochy kde je styčného povrchu a \(\Delta T\) je 
@@ -143,7 +145,7 @@ v případě čisté kondukce tepla je možné určit množství tepla v přípa
 konvektivního přestupu tepla:
 
 \begin{equation} 
-  \label{eq:ConvTransfer}
+  \label{eq:NusseltDef}
   Nu = \frac{\alpha L}{\lambda} 
 \end{equation}
 kde je \(Nu\) Nusseltovo číslo, \(L\) je charakteristický rozměr (pro kruhové 
@@ -191,20 +193,108 @@ se projevuje vliv drsnosti). Jednotlivé hodnoty parametrů tohoto modelu jsou:
   \end{tabular}
 \end{table}
 V případě, že je teplota vnitřního povrchu potrubí známa je možné na základě 
-rovnic \ref{eq:ConvTransfer} a \ref{eq:NuModel} určit intenzitu výměny tepla v
-konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež 
-obklopuje fluidní region (např. ocelová trubka, izolace, zemina apod.) a tudíž
-je je nutno korektně matematicky zachytit \todo{ref-solid model}.
-\section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
+rovnic \ref{eq:ConvHeatTransfer} až \ref{eq:NuModel} určit intenzitu výměny 
+tepla v konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež 
+obklopuje fluidní region (např. ocelová trubka, izolace, zemina apod.) a tudíž 
+je nutno korektně matematicky zachytit \todo{ref-solid model}.
 
-\chapter{Jednotlivé kapitoly práce}
+\section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
+Tlakové vlny se v potrubí šíří výrazně rychleji (rychlostí zvuku) než vlny 
+teplotní (přibližně rychlost proudění tekutiny), což znamená že lokální
+události probíhají v daleko kratším časovém měřítku. Z tohoto důvodu je potřeba
+v immulacích s tlakovými pulsacemi využívat krátký časový krok. Predikce 
+tlakových vln je užitečná pouze z hlediska ochrany proti poškození způsobených 
+tlakovými rázy a na vývoj distribuce tepla nemá výraznější vliv.
+Při zandebání rychlých tlakových pulsací lze akceleraci tekutiny podél potrubí
+modelovat pomocí následující PDR:
+
+\begin{equation} 
+  \label{eq:momentum}
+  \frac{du}{dt} = -\frac{dp}{dx} - \frac{1}{2}\frac{f}{D}u|u|
+\end{equation}
+kde \(\rho\) je hustota tekutiny (závislá na teplotě), \(p\) je tlak a \(D\) je 
+vnitřní průměr potrubí. Hodnotu třecího koeficinetu \(f\) lze určit z 
+explicitní Churchilovy rovnice \ref{eq:Churchill} \todo{cite}, která je 
+relativně přesná pro všechny režimy proudění.
+
+\begin{equation} 
+  \label{eq:Churchill}
+  \begin{gathered}
+    f=8\left(\left(\frac{8}{Re}\right)^{12}+(A+B)^{-1.5}\right)^\frac{1}{12} \\
+    A=\left(2.457\ln\left(\left(\frac{7}{Re}\right)^{0.9}
+      +0.27\frac{\epsilon}{D}\right)^{-1}\right)^{16} \\
+    B=\left(\frac{37530}{Re}\right)^{16}
+  \end{gathered}
+\end{equation}
+
+\section{Okolní hmota – kovová stěna, izolace, zemina}
+Pro popis vedení tepla v okolí fluidního regionu potrubí je vhodné využít
+obecnou PDR vedení tepla \ref{eq:HeatEq} v obecném \(\mathcal{R}^n\) prostoru.
+\begin{equation} 
+  \label{eq:HeatEq}
+  \frac{dT}{dt}\rho{c_p}=\nabla(\lambda\nabla{T})+S
+\end{equation}
+kde \(\rho\) je hustota, \(c_p\) je měrná tepelná kapacita, \(\lambda\) je 
+tepelná vodivost, \(T\) je teplota a \(S\) je zdroj tepla. Tato rovnice platí 
+pro všechny souřadnicové systémy, jelikož pro každý souřadnicový systém
+existuje konkrétní rozvin operátoru \(\nabla\).
+
+\section{Vlastnosti média a materiálu}
+Vlastnosti tekutiny a materiálů jež vystupují v rovnicích \ref{eq:AdvDiff} až 
+\ref{eq:HeatEq} jsou ve skutečnosti závislé na teplotě a na tlaku (nebo 
+obecněji na stavových veličinách). Existují implementace programů mezinárodní 
+asociace pro vlastnosti vody a páry (IAPWS) \todo{cite IAPWS}, které popisují 
+vlastnosti vody a páry velmi přesně. Při uvažování nestlačitelnosti vody jsou 
+vlastnosti jako hustota, či viskozita stále výrazně proměnlivé s teplotou. Pro 
+tuhé skupenství je zpravidla dostačující popis polynomiální funkcí nebo i 
+konstantou. Při popisu zeminy se může výrazně projevit vliv její vlhkosti, což 
+znamená že její vlastnosti jsou proměnlivé v čase.
+
+\begin{figure}[h] \centering \capstart
+  \includegraphics[scale=0.7]{figures/IF97}
+  \caption{Regiony implementace vlastností vody a páry IF97 \todo{cite IAPWS}}
+  \label{fig:IF97}
+\end{figure}
+
+\section{Numerické řešení a rychlost simulací}
+\todo{OpenSource proč – dostupnost vědecké komunitě, cutting edge atd}
+
+V rovnicích \ref{eq:AdvDiff}, \ref{eq:momentum} a \ref{eq:HeatEq} vystupují 
+diferenciální operátory a zejména tyto jsou častou příčinnou numerické 
+náročnosti simulací. I přesto, že je fyzika popsaná v kapilole 5.2 výrazně 
+zjednodušena, je stále nutné diskretizovat v prostoru a čase (linearizovat 
+problém). Lze využít metody jež jsou určeny a optimalizovány přímo pro daný 
+kontext. Například pro rovnici \ref{eq:AdvDiff} lze využít integrační metody, 
+které jsou přímo vyvinuté pro advektivně-difúzivní fyziku. Takových řešení lze 
+nalézt např. v \todo{cite leonard}, kde jedním z nejefektivnější schémat je
+ULTIMATE QUICKEST. 
+
+Velmi častý postup při řešení PDR je její převedení na systém ordinárních 
+diferenciálních rovnic (ODR), jež je dále integrován (simulován) v čase pomocí 
+separátních algoritmů. PDR jsou v prostoru nejčastěji linearizovány pomocí 
+metody konečných diferencí (MKD), metody konečných objemů (MKO) či metody 
+konečných prvků (MKP). Pro sestavení matic a následnou integraci v čase
+existuje celá řada komerčních nástrojů s přednastavenými řešiči pro jednotlivé
+systémy PDR. Z Open-Source projektů zabývajícími se automatizovaným řešení PDR
+je nutné zmínit FeniCS \todo{cite FeniCS}, kterým je možné řešit PDR pomocí MKP 
+(umožňuje i tzv. nespojitou Galerkinovu metodu jež kombinuje vlastnosti MKP a 
+MKO a je vhodná i pro fluidní dynamiku). Tato knihovna umožňuje velmi detailně
+kontrolovat jakým způsobem jsou sestavovány matice, jaké konečné elementy jsou
+využívány, jakým způsobem bude během výpočtů manipulováno s objekty lineární
+algebry.
+
+Výsledkem procesu linearizace je systém lineárních rovnic z pravidla
+reprezentovaný maticemi (tj. lineární algebra). Velikost a hustota (podíl
+nenulových hodnot) těchto matic pak přímo ovlivňují rychlost simulace, neboť
+přímo korespondují s počtem CPU cyklů, které musí procesor (či procesory)
+využít na aritmetické operace během jednoho časového kroku. V případě, že je
+výsledný systém nelineární (např. jsou-li tepelné vlastnosti závislé na
+teplotě) je tento vliv ještě umocněn. Pro integraci v čase existují explicitní
+či implicitní algoritmy s konstantním nebo adaptivním časovým krokem. Jedny z
+nejefektivnějších algoritmů jsou součástí knihovny SUNDIALS 
+\todo{cite sundials}, která je implementována v jazyce C.
 \label{kapitoly}
 
-\section{Obsah}
-\label{obsah}
-
-\section{Úvod}
-\label{uvod}
 
 \textbf{Příklad}:
 \begin{verbatim}
