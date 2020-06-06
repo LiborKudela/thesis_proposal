@@ -1,47 +1,56 @@
 %------------------------------------------------------------------------------
-% zpracování / processing: make, make pdf, make clean
+% processing: make, make pdf, make clean
 %==============================================================================
-\documentclass[]{fitthesis} % bez zadání - pro začátek práce, aby nebyl problém s překladem
+\documentclass[]{fitthesis}
 %---rm---------------
-\renewcommand{\rmdefault}{lmr}%zavede Latin Modern Roman jako rm / set Latin Modern Roman as rm
+\renewcommand{\rmdefault}{lmr}
 %---sf---------------
-\renewcommand{\sfdefault}{qhv}%zavede TeX Gyre Heros jako sf
+\renewcommand{\sfdefault}{qhv}
 %---tt------------
-\renewcommand{\ttdefault}{lmtt}% zavede Latin Modern tt jako tt
+\renewcommand{\ttdefault}{lmtt}
 \csdoublequotesoff
 \usepackage{url}
+\usepackage{mathtools}
 \ifWis
-\ifx\pdfoutput\undefined % nejedeme pod pdflatexem / we are not using pdflatex
+  \ifx\pdfoutput\undefined
 \else
   \usepackage{color}
-  \usepackage{mathtools}
-  \usepackage[unicode,colorlinks,hyperindex,plainpages=false,pdftex]{hyperref}
+  \usepackage[unicode,
+              colorlinks,
+              hyperindex,
+              plainpages=false,
+              pdftex]{hyperref}
   \definecolor{hrcolor-ref}{RGB}{223,52,30}
   \definecolor{hrcolor-cite}{HTML}{2F8F00}
   \definecolor{hrcolor-urls}{HTML}{092EAB}
-  \hypersetup{
-	linkcolor=hrcolor-ref,
-	citecolor=hrcolor-cite,
-	filecolor=magenta,
-	urlcolor=hrcolor-urls
-  }
-  \def\pdfBorderAttrs{/Border [0 0 0] }  % bez okrajů kolem odkazů / without margins around links
+  \hypersetup{linkcolor=hrcolor-ref,
+	            citecolor=hrcolor-cite,
+	            filecolor=magenta,
+	            urlcolor=hrcolor-urls}
+  \def\pdfBorderAttrs{/Border [0 0 0] }
   \pdfcompresslevel=9
 \fi
-\else % pro tisk budou odkazy, na které se dá klikat, černé / for the print clickable links will be black
-\ifx\pdfoutput\undefined % nejedeme pod pdflatexem / we are not using pdflatex
+\else % for the print clickable links will be black
+\ifx\pdfoutput\undefined % we are not using pdflatex
 \else
-  \usepackage{color}
-  \usepackage[unicode,colorlinks,hyperindex,plainpages=false,pdftex,urlcolor=black,linkcolor=black,citecolor=black]{hyperref}
-  \definecolor{links}{rgb}{0,0,0}
-  \definecolor{anchors}{rgb}{0,0,0}
-  \def\AnchorColor{anchors}
-  \def\LinkColor{links}
-  \def\pdfBorderAttrs{/Border [0 0 0] } % bez okrajů kolem odkazů / without margins around links
-  \pdfcompresslevel=9
+    \usepackage{color}
+    \usepackage[unicode,
+                colorlinks,
+                hyperindex,
+                plainpages=false,
+                pdftex,
+                urlcolor=black,
+                linkcolor=black,
+                citecolor=black]{hyperref}
+    \definecolor{links}{rgb}{0,0,0}
+    \definecolor{anchors}{rgb}{0,0,0}
+    \def\AnchorColor{anchors}
+    \def\LinkColor{links}
+    \def\pdfBorderAttrs{/Border [0 0 0] } % without margins around links
+    \pdfcompresslevel=9
+  \fi
 \fi
-\fi
-% Řešení problému, kdy klikací odkazy na obrázky vedou za obrázek
+
 % This solves the problems with links which leads after the picture
 \usepackage[all]{hypcap}
 
@@ -70,18 +79,22 @@
   supervisor.title.a={Ph.D.},
   % Klíčová slova / keywords
   keywords.cs={Teplárenství, matematické modelování, počítačové učení},
-  keywords.en={Sem budou zapsána jednotlivá klíčová slova v anglickém jazyce, oddělená čárkami.},
+  keywords.en={.},
   % Abstrakt / Abstract
-  abstract.cs={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v českém (slovenském) jazyce.},
-  abstract.en={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce.},
+  abstract.cs={.},
+  abstract.en={.},
   % Prohlášení
-  declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením pana X...
-Další informace mi poskytli...
-Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých jsem čerpal.},
+  declaration={
+  Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením
+  pana X... Další informace mi poskytli... Uvedl jsem všechny literární prameny,
+  publikace a další zdroje, ze kterých jsem čerpal.
+  },
   % Poděkování
-  acknowledgment={V této sekci je možno uvést poděkování vedoucímu práce a těm, kteří poskytli odbornou pomoc
-(externí zadavatel, konzultant apod.).},
-  %extendedabstract={Do tohoto odstavce bude zapsán rozšířený výtah (abstrakt) práce v českém (slovenském) jazyce.},
+  acknowledgment={
+  V této sekci je možno uvést poděkování vedoucímu práce a těm, kteří poskytli
+  odbornou pomoc (externí zadavatel, konzultant apod.).
+  },
+  %extendedabstract={.},
 }
 
 \clubpenalty=10000
@@ -92,31 +105,18 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
 \setlist[checklist]{label=$\square$}
 
 \begin{document}
-  % Vysazeni titulnich stran / Typesetting of the title pages
-  % ----------------------------------------------
+  % Typesetting of the title pages
   \maketitle
-  % Obsah
-  % ----------------------------------------------
+  % Contents
   \setlength{\parskip}{0pt}
-
   {\hypersetup{hidelinks}\tableofcontents}
   
-  % Seznam obrazku a tabulek (pokud prace obsahuje velke mnozstvi obrazku, tak se to hodi)
-  % List of figures and list of tables (if the thesis contains a lot of pictures, it is good)
-  \ifczech
-    \renewcommand\listfigurename{Seznam obrázků}
-  \fi
-  \ifslovak
-    \renewcommand\listfigurename{Zoznam obrázkov}
-  \fi
+  % List of figures 
+  \renewcommand\listfigurename{Seznam obrázků}
   % {\hypersetup{hidelinks}\listoffigures}
   
-  \ifczech
-    \renewcommand\listtablename{Seznam tabulek}
-  \fi
-  \ifslovak
-    \renewcommand\listtablename{Zoznam tabuliek}
-  \fi
+  % List of tables 
+  \renewcommand\listtablename{Seznam tabulek}
   % {\hypersetup{hidelinks}\listoftables}
 
   \ifODSAZ
@@ -125,66 +125,42 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
     \setlength{\parskip}{0pt}
   \fi
 
-  % vynechani stranky v oboustrannem rezimu
   % Skip the page in the two-sided mode
   \iftwoside
     \cleardoublepage
   \fi
 
-  % Text prace / Thesis text
-  % ----------------------------------------------
-    \input{thesis-chapters}
+  % Thesis text
+  \input{thesis-chapters}
   
-  % Pouzita literatura / Bibliography
-  % ----------------------------------------------
+  % Bibliography
   \makeatletter
   \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatura}}
   \makeatother
   \bibliographystyle{bib-styles/Pysny/czplain}
-  %  \bibliographystyle{alpha}
   \begin{flushleft}
-  \bibliography{thesis-bibliography}
+    \bibliography{thesis-bibliography}
   \end{flushleft}
 
-  % vynechani stranky v oboustrannem rezimu
   % Skip the page in the two-sided mode
   \iftwoside
     \cleardoublepage
   \fi
 
-  % Prilohy / Appendices
-  % ---------------------------------------------
+  % Appendices
   \appendix
-\ifczech
   \renewcommand{\appendixpagename}{Přílohy}
   \renewcommand{\appendixtocname}{Přílohy}
   \renewcommand{\appendixname}{Příloha}
-\fi
-\ifslovak
-  \renewcommand{\appendixpagename}{Prílohy}
-  \renewcommand{\appendixtocname}{Prílohy}
-  \renewcommand{\appendixname}{Príloha}
-\fi
-%  \appendixpage
+  %\appendixpage
 
-% vynechani stranky v oboustrannem rezimu
-% Skip the page in the two-sided mode
-%\iftwoside
-%  \cleardoublepage
-%\fi
+  % Skip the page in the two-sided mode
+  %\iftwoside
+  %  \cleardoublepage
+  %\fi
   
-\ifslovak
-%  \section*{Zoznam príloh}
-%  \addcontentsline{toc}{section}{Zoznam príloh}
-\else
-  \ifczech
-%    \section*{Seznam příloh}
-%    \addcontentsline{toc}{section}{Seznam příloh}
-  \else
-%    \section*{List of Appendices}
-%    \addcontentsline{toc}{section}{List of Appendices}
-  \fi
-\fi
+  %\section*{Seznam příloh}
+  %\addcontentsline{toc}{section}{Seznam příloh}
   \startcontents[chapters]
   \setlength{\parskip}{0pt} 
   % seznam příloh / list of appendices
@@ -196,7 +172,7 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
     \setlength{\parskip}{0pt}
   \fi
   
-  % vynechani stranky v oboustrannem rezimu
+  % Skip the page in the two-sided mode
   \iftwoside
     \cleardoublepage
   \fi
