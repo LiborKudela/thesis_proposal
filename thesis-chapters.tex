@@ -97,8 +97,9 @@ problém zjednodušit na součinnost třech fyzikálních jevů:
 \end{itemize}
 
 \begin{figure}[h] \capstart
-\includegraphics[width=\textwidth]{figures/heat_front}
-\caption{Proces šíření teplotní vlny v potrubí \cite{Abraham2009}}
+  \label{fig:heatwave}
+  \includegraphics[width=\textwidth]{figures/heat_front}
+  \caption{Proces šíření teplotní vlny v potrubí} 
 \end{figure}
 
 Parciální diferenciální rovnice (PDR) pro celkovou dynamiku je pak v tomto
@@ -109,7 +110,7 @@ kontextu následující:
 \end{equation}
 kde \(y\) je unášená veličina, \(t\) je čas, \(x\) je podélná poloha, \(u\) je
 rychlost tekutiny, \(D\) je celkový koeficient difúze a \(S_y\) je celkový
-zdroj unášené veličiny. Z hlediska tepelného chování může být touto veličinou 
+zdroj unášené veličiny. Z hlediska tepelného chování může být touto veličinou
 měrná entalpie, ale lze pracovat i s teplotou.
 
 Advekce je jev, při kterém se transportují veličiny (jsou unášeny) ve směru
@@ -117,14 +118,15 @@ objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce, neboť z ve
 části určuje čas transportu (zpoždění) teplotní fronty.
 
 Intenzita axiální difúze (velikost koeficientu D) je složena jednak z difúze
-kodkukcí tepla v tekutině a dále z efektu tzv. turbulentního míchání v axiálním
-směru. Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná
-\todo{cite}. Za to turbulentní difúze roste dle přibližně lineárně s
-Reynoldsovým číslem \todo{cite}. Axiální difúze způsobuje rozpínání
-(vyhlazování) teplotní fronty, což znamená, že náhlé změny na vstupu do potrubí
-se projevují pozvolnými změnami na jeho konci. V případě uvažování horizontálně
-uloženého potrubí lze tímto způsobem zahrnout i vliv gravitace. Nemá tak vliv
-na zpoždění teplotní fronty, ale výrazně ovlivňuje její tvar.
+kodkukcí tepla v tekutině a dále z tzv. turbulentního míchání v axiálním směru.
+Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná
+\cite{VanderHeijde2017a,VanderHeijde2017b}. Za to turbulentní difúze roste dle
+přibližně lineárně s Reynoldsovým číslem \cite{Chertkov2018}. Axiální difúze
+způsobuje rozpínání (vyhlazování) teplotní fronty, což znamená, že náhlé změny
+na vstupu do potrubí se projevují pozvolnými změnami na jeho konci. V případě
+uvažování horizontálně uloženého potrubí lze tímto způsobem zahrnout i vliv
+gravitace. Nemá tak vliv na zpoždění teplotní fronty, ale výrazně ovlivňuje
+její tvar.
 
 Zdrojový termín \(S_y\) zahrnuje především výměnu tepla mezi tekutinou a
 vnitřním povrchem přilehlé stěny ve kterém tekutina proudí (což v důsledku
@@ -146,9 +148,9 @@ přestupem tepla. Známe-li tedy množství tepla, jež by procházelo mezní vr
 v případě čisté kondukce tepla je možné určit množství tepla v případě
 konvektivního přestupu tepla:
 
-\begin{equation} 
+\begin{equation}
   \label{eq:NusseltDef}
-  Nu = \frac{\alpha L}{\lambda} 
+  Nu = \frac{\alpha L}{\lambda}
 \end{equation}
 kde je \(Nu\) Nusseltovo číslo, \(L\) je charakteristický rozměr (pro kruhové
 potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny.
@@ -174,8 +176,9 @@ režimi proudění vhodné používat následující model Nusseltova čísla:
   \end{dcases}
 \end{equation}
 kde \(Pr\) je Prandtlovo číslo (vlastnost tekutiny) a \(f\) je Darcy-Weisbachův
-koeficient tření který je popsán v podkapitole \todo{ref section} (skrze něj
-se projevuje vliv drsnosti). Jednotlivé hodnoty parametrů tohoto modelu jsou:
+koeficient tření který je popsán v podkapitole \ref{sec:PressureLoss} (skrze
+něj se projevuje vliv drsnosti). Jednotlivé hodnoty parametrů tohoto modelu
+jsou:
 \begin{table}[H]
   \label{tab:NuModel}
   \caption{Parametry modelu Nusseltova čísla}
@@ -198,7 +201,7 @@ V případě, že je teplota vnitřního povrchu potrubí známa je možné na z
 rovnic \ref{eq:ConvHeatTransfer} až \ref{eq:NuModel} určit intenzitu výměny
 tepla v konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež
 obklopuje fluidní region (např. ocelová trubka, izolace, zemina apod.) a tudíž
-je nutno korektně matematicky zachytit \todo{ref-solid model}.
+je nutno korektně matematicky zachytit (viz kapitola \ref{sec:SurroundingMass}).
 
 \section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
 \label{sec:PressureLoss}
@@ -217,8 +220,8 @@ modelovat pomocí následující PDR:
 \end{equation}
 kde \(\rho\) je hustota tekutiny (závislá na teplotě), \(p\) je tlak a \(D\) je
 vnitřní průměr potrubí. Hodnotu třecího koeficinetu \(f\) lze určit z
-explicitní Churchilovy rovnice \ref{eq:Churchill} \todo{cite}, která je
-relativně přesná pro všechny režimy proudění.
+explicitní Churchilovy rovnice \ref{eq:Churchill} \cite{Churchill1977}, která
+je relativně přesná pro všechny režimy proudění.
 
 \begin{equation}
   \label{eq:Churchill}
@@ -247,7 +250,7 @@ existuje konkrétní rozvin operátoru \(\nabla\).
 Vlastnosti tekutiny a materiálů jež vystupují v rovnicích \ref{eq:AdvDiff} až
 \ref{eq:HeatEq} jsou ve skutečnosti závislé na teplotě a na tlaku (nebo
 obecněji na stavových veličinách). Existují implementace programů mezinárodní
-asociace pro vlastnosti vody a páry (IAPWS) \todo{cite IAPWS}, které popisují
+asociace pro vlastnosti vody a páry (IAPWS) \cite{IAPWS2007}, které popisují
 vlastnosti vody a páry velmi přesně. Při uvažování nestlačitelnosti vody jsou
 vlastnosti jako hustota, či viskozita stále výrazně proměnlivé s teplotou. Pro
 tuhé skupenství je zpravidla dostačující popis polynomiální funkcí nebo i
@@ -256,57 +259,101 @@ znamená že její vlastnosti jsou proměnlivé v čase.
 
 \begin{figure}[h] \centering \capstart
   \includegraphics[scale=0.7]{figures/IF97}
-  \caption{Regiony implementace vlastností vody a páry IF97 \todo{cite IAPWS}}
+  \caption{Regiony implementace vlastností vody a páry IF97 \cite{IAPWS2007}}
   \label{fig:IF97}
 \end{figure}
 
 \section{Numerické řešení a rychlost simulací}
-\todo{OpenSource proč – dostupnost vědecké komunitě, cutting edge atd}
-
+\label{sec:NumSpeed}
 V rovnicích \ref{eq:AdvDiff}, \ref{eq:momentum} a \ref{eq:HeatEq} vystupují
-diferenciální operátory a zejména tyto jsou fundamentálně příčinnou numerické
-náročnosti simulací. I přesto, že je fyzika popsaná v sekcích
-\ref{sec:HeatDynamics}, \ref{sec:PressureLoss} a \ref{sec:SurroundingMass} je
-výrazně zjednodušena, je stále nutné diskretizovat v prostoru a čase
-(linearizovat problém). Lze využít metody jež jsou určeny a optimalizovány
-přímo pro daný kontext. Například pro rovnici \ref{eq:AdvDiff} lze využít
-integrační metody vyvinuté v NASA, které využívají aproximace derivací vyšších
-řádů nežli je definováno v samotné PDR. Takových řešení lze nalézt např. v 
-\todo{cite leonard}, kde jedním znejefektivnější schémat je ULTIMATE QUICKEST.
+diferenciální operátory jež jsou fundamentální příčinnou numerické náročnosti
+simulací. I přesto, že je fyzika popsaná v sekcích \ref{sec:HeatDynamics},
+\ref{sec:PressureLoss} a \ref{sec:SurroundingMass} výrazně zjednodušena, je
+tyto PDR nutné diskretizovat v prostoru a čase (tzv. linearizovat problém). Lze
+využít metody jež jsou určeny a optimalizovány přímo pro daný kontext.
+Například pro rovnici \ref{eq:AdvDiff} lze využít integrační metody vyvinuté v
+NASA, které využívají aproximace derivací vyšších řádů nežli je v samotné PDR.
+Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním
+znejefektivnější schémat je ULTIMATE QUICKEST.
 
-Velmi častý postup při řešení PDR je její převedení na systém ordinárních
+Mnohem častější postup při řešení PDR je její převedení na systém ordinárních
 diferenciálních rovnic (ODR), jež je dále integrován (simulován) v čase pomocí
 separátních algoritmů. PDR jsou v prostoru nejčastěji linearizovány pomocí
 metody konečných diferencí (MKD), metody konečných objemů (MKO) či metody
 konečných prvků (MKP). Pro sestavení matic a následnou integraci v čase
 existuje celá řada komerčních nástrojů s přednastavenými řešiči pro jednotlivé
 systémy PDR. Z Open-Source projektů zabývajícími se automatizovaným řešení PDR
-je vhodné  zmínit FeniCS \todo{cite FeniCS}, kterým je možné řešit PDR pomocí
-MKP (umožňuje i tzv. nespojitou Galerkinovu metodu jež kombinuje vlastnosti MKP
-a MKO a je vhodná i pro fluidní dynamiku). Tato knihovna umožňuje velmi 
-detailně kontrolovat jakým způsobem jsou sestavovány matice, jaké konečné 
-elementy jsou využívány, jakým způsobem bude během výpočtů manipulováno s 
-objekty lineární algebry a mnoho dalšího.
+je vhodné zmínit FeniCS \cite{AlnaesBlechta2015a}, kterým je možné řešit PDR pomocí
+MKP (umožňuje i tzv. nespojitou Galerkinovu metodu, která je vhodná i pro
+fluidní dynamiku). Tato knihovna umožňuje velmi detailně kontrolovat jakým
+způsobem jsou sestavovány matice, jaké konečné elementy jso využívány, jakým
+způsobem bude během výpočtů manipulováno s objekty lineární algebry a mnoho
+dalšího.
 
 Výsledkem procesu linearizace je systém lineárních rovnic z pravidla
-reprezentovaný v maticové formě (tj. lineární algebra). Velikost a hustota 
-(podíl nenulových hodnot) těchto matic pak přímo ovlivňují rychlost simulace, 
-neboť přímo korespondují s počtem CPU cyklů, které musí procesor (či procesory)
-využít na aritmetické operace během jednoho časového kroku. V případě, že je
-výsledný systém nelineární (např. jsou-li tepelné vlastnosti závislé na
-teplotě) je tento vliv ještě umocněn. Pro integraci v čase existují explicitní
-či implicitní algoritmy s konstantním nebo adaptivním časovým krokem. Jedny z
-nejefektivnějších algoritmů jsou součástí knihovny SUNDIALS
-\todo{cite sundials}, která je implementována v jazyce C.
-\label{kapitoly}
+reprezentovaný v maticové formě. Velikost a hustota (podíl nenulových hodnot)
+těchto matic pak přímo ovlivňují rychlost simulace, neboť přímo korespondují
+počtem CPU cyklů, které musí procesor (či procesory) využít na aritmetické
+operace během jednoho časového kroku. V případě, že je výsledný systém
+nelineární (např. jsou-li tepelné vlastnosti závislé na teplotě) je tento vliv
+ještě umocněn. Pro integraci v čase existují explicitní či implicitní algoritmy
+s konstantním nebo adaptivním časovým krokem. Jedny z nejefektivnějších
+algoritmů jsou součástí knihovny SUNDIALS \cite{sundials}, která je
+implementována v jazyce C.
 
+\section{Prorgamovací jazyk}
+\label{sec:proglang}
+Programovací jazyky využité v jednotlivých modulech simulací mohou výrazně
+ovlivnit výpočtovou rychlost. Kompilované jazyky jako jsou C, C++ či Fortran
+jsou zpravidla jedny z nejrychlejších avšak za cenu náročnějšího často velmi
+nízkoúrovňového programovaní. Naopak interpretované vysokoúrovňové programovací
+jazyky jako Python či Matlab jsou z hlediska programovaní mnohem jednodušší
+protože poskytují výrazně vyšší úroveň abstrakce. Programy napsané v těchto
+jazycích jsou však až o dva řády pomalejší o proti kompilovaným protějškům.
+Existují i jazyky jako je Julia \cite{julia2017} s tzv. just-in-time (JIT)
+kompilací, které v mnoha oblastech dosahují rychlosti srovnatelné s jazykem C,
+ale zároveň poskytují velmi vysokou úroveň abstrakce. Nevýhoda jazyku Julia
+oproti zavedeným jazykům spočívá v jeho novosti, což znamená, že mnoho
+vysokoúrovňových knihoven neexistuje nebo nejsou ve stavu ve kterém se na ně
+lze spoléhat.
 
+Všechny výše zmíněné jazyky jsou imperativní (programy jsou definované sekvence
+výpočtových kroků), avšak existují i deklarativní programovací jazyky ve kterých
+programátor definuje logické a matematické výroky mezi objekty a konkrétní
+výpočtové posloupnosti jsou vytvářeny počítačem. To znamená, že programy mohou
+být z principu spouštěny libovolným směrem. Jeden z takových jazyků je například
+modelica, který byl vyvinut pro matematické modelování systémů složených z
+interagujících komponent. OpenModelica \todo{cite OM} je open-source verze
+kompilátoru, který překládá modely ze syntaxe modelica do imperatiních jazyků
+(např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
+z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
+implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
+pak relativně rychlé a také velmi modulární.
+
+\section{Počítačové učení}
+\label{sec:ML}
+Počítačové učení (anglicky machine learning) je metoda tvorby programů. Jedná
+se o postup kdy je program (nebo jeho část) vytvořen počítačem. Tato oblast se
+dále dělí na supervised learning, unsupervised learning a reinforcement
+learning. Supervised learning je metoda učení, která využívá člověkem přiřazené
+výsledky ke vstupním trénovacím datům. Unsupervised learning metoda kdy nejsou
+data nijak označena, ale algoritmus odhaluje klíčové znaky samostatně bez
+pomoci člověka. Reinforcement learning je metoda kdy prostředí ve kterém
+program operuje (např.jako řídící prvek) poskytuje informace o dopadu zásahů
+tohoto programu na dané prostředí. Programy v machine learning jsou v podstatě
+parametrizované matematické struktury a optimalizací jejich parametrů je možné
+měnit/zlepšovat chování programu.
+
+Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě (NN). Jsou
+totiž velmi univerzálními aproximátory matematických funkcí což je jejich
+velkou výhodou. Jejich nevýhodou je naopak poměrně náročný proces učení a také
+fakt, že vyžadují poměrně velké množství dat. Poměrně nedávno se objevily
+vědecké práce, které navrhují a demonstrují využití NN pro matematické
+modelování ODR systému \cite{diffEqFlux2019, chen2018neural}. Machine
+learning a mechanistické modelování na základě PDR lze tedy kombinovat. Tímto
+je možné modelovat procesy na základě experimentálních dat nebo zjednodušovat
+komplexnost programu na základě extrahovaných veličin z více komplexních
+simulací.
+\chapter{Analýza, interpretace a zhodnocení pooznatků získanných na základě
+kritické rešerše}
 \textbf{Příklad}:
-\begin{verbatim}
-   @Article{Cech:2020:Citace,
-	   author               = "Čech, Jan",
-	   key                  = "Cech",
-	   ... 
-\end{verbatim}
-
-
