@@ -74,7 +74,9 @@ snižování teploty v rozvodech pod 100 °C. Stále byla využívána tlaková 
 voda. Začalo se značně využívat prefabrikované a před-izolované potrubí
 snižující množství lidské práce při výstavbě a obnově rozvodů. Začala se
 využívat lokální paliva, odpady a na několika místech i sluneční či geotermální
-energie. V následujících dvou až třech dekádách bude trend snižování teploty v
+energie.
+
+V následujících dvou až třech dekádách bude trend snižování teploty v
 rozvodech pokračovat ruku v ruce se snižující se náročností budov na prostorové
 vytápění. Bude existovat snaha o výraznější implementaci obnovitelných a
 odpadních zdrojů energie a k využívání synergií. Pro snížení následků fluktuací
@@ -91,9 +93,9 @@ tekutiny v potrubí (tj. na nestlačitelné a jedno-dimenzionální proudění) 
 problém zjednodušit na součinnost třech fyzikálních jevů:
 
 \begin{itemize}
-\item Advekce veličin jež jsou unášeny proudem podél potrubí
-\item Difůze veličin v tekutině podél potrubí
-\item Příspěvky do veličin vnitřními a/či externími zdroji
+  \item Advekce veličin jež jsou unášeny proudem podél potrubí
+  \item Difůze veličin v tekutině podél potrubí
+  \item Příspěvky do veličin vnitřními a/či externími zdroji
 \end{itemize}
 
 \begin{figure}[h] \capstart
@@ -113,10 +115,12 @@ rychlost tekutiny, \(D\) je celkový koeficient difúze a \(S_y\) je celkový
 zdroj unášené veličiny. Z hlediska tepelného chování může být touto veličinou
 měrná entalpie, ale lze pracovat i s teplotou.
 
+\begin{itemize}
+  \item
 Advekce je jev, při kterém se transportují veličiny (jsou unášeny) ve směru
 objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce, neboť z velké
 části určuje čas transportu (zpoždění) teplotní fronty.
-
+  \item
 Intenzita axiální difúze (velikost koeficientu D) je složena jednak z difúze
 kodkukcí tepla v tekutině a dále z tzv. turbulentního míchání v axiálním směru.
 Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná
@@ -127,7 +131,7 @@ na vstupu do potrubí se projevují pozvolnými změnami na jeho konci. V příp
 uvažování horizontálně uloženého potrubí lze tímto způsobem zahrnout i vliv
 gravitace. Nemá tak vliv na zpoždění teplotní fronty, ale výrazně ovlivňuje
 její tvar.
-
+  \item
 Zdrojový termín \(S_y\) zahrnuje především výměnu tepla mezi tekutinou a
 vnitřním povrchem přilehlé stěny ve kterém tekutina proudí (což v důsledku
 určuje vliv akumulace tepla na vývoj teplotní fronty). Velikost hustoty
@@ -135,6 +139,7 @@ tepelného toku je závislá na rozdílu teploty vody a povrchu, vlastnostech
 tekutiny, velikosti a drsnosti povrchu a na rychlosti proudění. Výměna tepla
 ovlivňuje jak zpoždění teplotní fronty tak její tvar. Intenzitu výměny tepla
 lze vyjádřit obyčejnou rovnicí konvekce tepla \ref{eq:ConvHeatTransfer}.
+\end{itemize}
 
 \begin{equation}
   \label{eq:ConvHeatTransfer}
@@ -164,7 +169,7 @@ potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny
 Hodnotu Nusseltova čísla je možné určit na základě vztahů jak pro rovnoměrné
 rozložení teploty na stěně (označováno jako UWT), tak pro rovnoměrné rozložení
 tepelného toku (označované jako UHF). Dle \cite{Abraham2009} je pro všecny
-režimi proudění vhodné používat následující model Nusseltova čísla:
+režimy proudění vhodné používat následující model Nusseltova čísla:
 \begin{equation}
 \label{eq:NuModel}
   Nu =
@@ -276,16 +281,16 @@ NASA, které využívají aproximace derivací vyšších řádů nežli je v sa
 Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním
 znejefektivnější schémat je ULTIMATE QUICKEST.
 
-Mnohem častější postup při řešení PDR je její převedení na systém ordinárních
-diferenciálních rovnic (ODR), jež je dále integrován (simulován) v čase pomocí
-separátních algoritmů. PDR jsou v prostoru nejčastěji linearizovány pomocí
-metody konečných diferencí (MKD), metody konečných objemů (MKO) či metody
-konečných prvků (MKP). Pro sestavení matic a následnou integraci v čase
+Av3ak mnohem častější postup při řešení PDR je její převedení na systém
+ordinárních diferenciálních rovnic (ODR), jež je dále integrován (simulován) v
+čase pomocí separátních algoritmů. PDR jsou v prostoru nejčastěji linearizovány
+pomocí metody konečných diferencí (MKD), metody konečných objemů (MKO) či
+metod konečných prvků (MKP). Pro sestavení matic a následnou integraci v čase
 existuje celá řada komerčních nástrojů s přednastavenými řešiči pro jednotlivé
 systémy PDR. Z Open-Source projektů zabývajícími se automatizovaným řešení PDR
-je vhodné zmínit FeniCS \cite{AlnaesBlechta2015a}, kterým je možné řešit PDR pomocí
-MKP (umožňuje i tzv. nespojitou Galerkinovu metodu, která je vhodná i pro
-fluidní dynamiku). Tato knihovna umožňuje velmi detailně kontrolovat jakým
+je vhodné zmínit FeniCS \cite{AlnaesBlechta2015a}, kterým je možné řešit PDR
+pomocí MKP (umožňuje i tzv. nespojitou Galerkinovu metodu, která je vhodná i
+pro fluidní dynamiku). Tato knihovna umožňuje velmi detailně kontrolovat jakým
 způsobem jsou sestavovány matice, jaké konečné elementy jso využívány, jakým
 způsobem bude během výpočtů manipulováno s objekty lineární algebry a mnoho
 dalšího.
@@ -301,22 +306,40 @@ s konstantním nebo adaptivním časovým krokem. Jedny z nejefektivnějších
 algoritmů jsou součástí knihovny SUNDIALS \cite{sundials}, která je
 implementována v jazyce C.
 
-\section{Prorgamovací jazyk}
+\section{Prorgamovací jazyky}
 \label{sec:proglang}
 Programovací jazyky využité v jednotlivých modulech simulací mohou výrazně
-ovlivnit výpočtovou rychlost. Kompilované jazyky jako jsou C, C++ či Fortran
-jsou zpravidla jedny z nejrychlejších avšak za cenu náročnějšího často velmi
-nízkoúrovňového programovaní. Naopak interpretované vysokoúrovňové programovací
-jazyky jako Python či Matlab jsou z hlediska programovaní mnohem jednodušší
-protože poskytují výrazně vyšší úroveň abstrakce. Programy napsané v těchto
-jazycích jsou však až o dva řády pomalejší o proti kompilovaným protějškům.
-Existují i jazyky jako je Julia \cite{julia2017} s tzv. just-in-time (JIT)
-kompilací, které v mnoha oblastech dosahují rychlosti srovnatelné s jazykem C,
-ale zároveň poskytují velmi vysokou úroveň abstrakce. Nevýhoda jazyku Julia
-oproti zavedeným jazykům spočívá v jeho novosti, což znamená, že mnoho
-vysokoúrovňových knihoven neexistuje nebo nejsou ve stavu ve kterém se na ně
-lze spoléhat.
-
+ovlivnit výpočtovou rychlost.
+\begin{itemize}
+  \item
+    \textbf{Kompilované jazyky} jako jsou C, C++ či Fortran jsou zpravidla
+    jedny z nejrychlejších avšak za cenu náročnějšího často velmi
+    nízkoúrovňového programovaní. Tato náročnost je způsobena faktem, že tyto
+    jazyky (zejména jazyk C), jsou ''mnohem~blíže'' hardwaru. Programátor musí
+    například staticky určit všechny typy proměnných a také zabezpečit, že
+    nedojde k nesprávnému přístupu do paměti počítače.
+  \item
+    \textbf{Interpretované jazyky} jako Python či Matlab jsou z hlediska
+    programovaní mnohem jednodušší protože poskytují výrazně vyšší úroveň
+    abstrakce a existuje k nim velké množství modulů a knihoven. Úkol spojený s
+    hlídáním datových typů proměnných a správnosti přístupů do paměti počítače,
+    zajišťuje tzv. interpretr a programátor má výrazně ''jednodušší život'',
+    protože se může soustředit pouze na vysokoúrovňový koncept výpočtů.
+    Programy (nebo přesněji skripty) napsané v těchto jazycích jsou tak až o
+    dva řády pomalejší o proti svým kompilovaným protějškům.
+  \item
+    \textbf{Just-in-time kompilovaný jazyk} jako je Julia \cite{julia2017}
+    dosahuje rychlosti srovnatelné s jazykem C, ale zároveň poskytuje velmi
+    vysokou úroveň abstrakce. Jednotlivé varianty funkcí (určeno dle typu
+    argumentů, které vstupují do funkce) jsou průběžně kompilovány. Julia
+    udržuje v paměti, které verze jsou již zkompilovány a které nikoliv.
+    To znamená, že každé další použití již zkompilované varianty se bude chovat
+    velmi podobně jako běžný kompilovaný objekt a čas potřebný na interpretaci
+    v tomto okamžiku již není relevantní. Nevýhoda jazyku Julia oproti výše
+    zmíněným interpretovaným jazykům spočívá v jeho novosti, což znamená, že
+    mnoho vysokoúrovňových knihoven neexistuje nebo nejsou ve stavu ve kterém
+    se na ně lze spoléhat.
+\end{itemize}
 Všechny výše zmíněné jazyky jsou imperativní (programy jsou definované sekvence
 výpočtových kroků), avšak existují i deklarativní programovací jazyky ve kterých
 programátor definuje logické a matematické výroky mezi objekty a konkrétní
@@ -324,7 +347,7 @@ výpočtové posloupnosti jsou vytvářeny počítačem. To znamená, že progra
 být z principu spouštěny libovolným směrem. Jeden z takových jazyků je například
 modelica, který byl vyvinut pro matematické modelování systémů složených z
 interagujících komponent. OpenModelica \todo{cite OM} je open-source verze
-kompilátoru, který překládá modely ze syntaxe modelica do imperatiních jazyků
+kompilátoru, který překládá modely ze syntaxe modelica do imperativních jazyků
 (např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
 z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
 implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
@@ -334,15 +357,26 @@ pak relativně rychlé a také velmi modulární.
 \label{sec:ML}
 Počítačové učení (anglicky machine learning) je metoda tvorby programů. Jedná
 se o postup kdy je program (nebo jeho část) vytvořen počítačem. Tato oblast se
-dále dělí na supervised learning, unsupervised learning a reinforcement
-learning. Supervised learning je metoda učení, která využívá člověkem přiřazené
-výsledky ke vstupním trénovacím datům. Unsupervised learning metoda kdy nejsou
-data nijak označena, ale algoritmus odhaluje klíčové znaky samostatně bez
-pomoci člověka. Reinforcement learning je metoda kdy prostředí ve kterém
-program operuje (např.jako řídící prvek) poskytuje informace o dopadu zásahů
-tohoto programu na dané prostředí. Programy v machine learning jsou v podstatě
+dále dělí na následující oblasti:
+\begin{itemize}
+  \item
+    \textbf{Supervised learning} je metoda učení, která využívá člověkem
+    přiřazené výsledky ke vstupním trénovacím datům. Typickým příkladem je
+    klasifikace na základě znaků v datech. Trénovací data obsahují člověkem
+    vytvořené anotace s požadovanými výsledky.
+  \item
+    \textbf{Unsupervised learning} je metoda kdy nejsou data nijak označena,
+    ale algoritmus odhaluje klíčové znaky samostatně bez pomoci člověka.
+    Typickým příkladem je autoenkódování.
+  \item
+    \textbf{Reinforcement learning} je metoda kdy prostředí ve kterém program
+    operuje poskytuje informace o dopadu zásahů tohoto programu na dané
+    prostředí. Typickým příkladem může být řídící člen (agent) v simulaci. 
+\end{itemize}
+Programy v machine learning jsou v podstatě
 parametrizované matematické struktury a optimalizací jejich parametrů je možné
-měnit/zlepšovat chování programu.
+měnit/zlepšovat chování programu. Tyto programy dále obsahují tzv.
+hyperparametry, kterými se řídí struktura programů. 
 
 Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě (NN). Jsou
 totiž velmi univerzálními aproximátory matematických funkcí což je jejich
