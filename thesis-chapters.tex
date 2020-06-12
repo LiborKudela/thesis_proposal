@@ -1,11 +1,11 @@
 \chapter{Úvod}
 Vývoj centrálního zásobování teplem prošel od dob svého vzniku několika fázemi.
-Z hlediska dnešní doby je nejvýznamější býměna starých parovodů za
+Z hlediska dnešní doby je nejvýznamnější výměna starých parovodů za
 prefabrikované horkovody, čímž dochází ke snížení přestupu tepla z rozvodů do
-jejich okolí a snížemí nákladů při stavbě nových částí sitě. Z hlediska
+jejich okolí a snížení nákladů při stavbě nových částí sítě. Z hlediska
 několika budoucích dekád je žádoucí transformace na obnovitelné, plně
 udržitelné a efektivní zásobování teplem. To přináší nové technologické výzvy
-související zejeména s integrací obnovitelných zdrpjů, využitím odpadního tepla
+související zejména s integrací obnovitelných zdrojů, využitím odpadního tepla
 a celkově snižováním emisí oxidu uhličitého. Je totiž obecně přijímaným faktem,
 že pro smysluplnou implementaci obnovitelných zdrojů tepla a odpadní, jež lze
 obecně lze obecně považovat za nízkoteplotní zdroje, je nutné dále snižovat
@@ -53,17 +53,17 @@ Text abstraktu.
 
 \chapter{Současné shrnutí stavu poznání}
 \label{struktura}
-V této kapitole je provedena rešerše problematiky modelování CZT a popis
-vybraných matematických rovnic aplikovatelných pro daný kontext. Dále jsou
-popsány použitelné výpočetní přístupy spolu s aspekty, ovlivňující numerickou
-efektivnost.
+V této kapitole je provedena rešerše literatury zabývající se
+problematikou modelování CZT, kterou v  a popis vybraných matematických rovnic
+aplikovatelných pro daný kontext. Dále jsou popsány použitelné výpočetní
+přístupy metody spolu s aspekty, ovlivňující numerickou efektivnost simulací.
 
 \section{Stručná historie rozvoje teplárenství}
 \label{sec:history}
 Teplárenské potrubí slouží k dopravě tepla od jeho výrobce k jeho spotřebiteli
 pomocí teplonosného média. V minulosti se jako první teplonosné médium
 používala pára o teplotě i přes 240 °C. Tyto rozvody generovaly značné tepelné
-ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i váž:né
+ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i vážné
 explozivní nehody. Kvůli kondenzaci páry ve vratném potrubí docházelo k jeho
 korozi. Pára se jako hlavní teplonosné médium stále využívá například v Paříži
 či Manhattanu. Nástupce tohoto provedení využíval tlakovou horkou vodu většinou
@@ -101,7 +101,7 @@ problém zjednodušit na součinnost třech fyzikálních jevů:
 \begin{figure}[h] \capstart
   \label{fig:heatwave}
   \includegraphics[width=\textwidth]{figures/heat_front}
-  \caption{Proces šíření teplotní vlny v potrubí} 
+  \caption{Proces šíření teplotní vlny v potrubí}
 \end{figure}
 
 Parciální diferenciální rovnice (PDR) pro celkovou dynamiku je pak v tomto
@@ -117,28 +117,29 @@ měrná entalpie, ale lze pracovat i s teplotou.
 
 \begin{itemize}
   \item
-Advekce je jev, při kterém se transportují veličiny (jsou unášeny) ve směru
-objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce, neboť z velké
-části určuje čas transportu (zpoždění) teplotní fronty.
+    \textbf{Advekce} je jev, při kterém se transportují veličiny (jsou unášeny)
+    ve směru objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce,
+    neboť z velké části určuje čas transportu (zpoždění) teplotní fronty.
   \item
-Intenzita axiální difúze (velikost koeficientu D) je složena jednak z difúze
-kodkukcí tepla v tekutině a dále z tzv. turbulentního míchání v axiálním směru.
-Difúze způsobená kondukcí je u teplárenských rozvodů zanedbatelná
-\cite{VanderHeijde2017a,VanderHeijde2017b}. Za to turbulentní difúze roste dle
-přibližně lineárně s Reynoldsovým číslem \cite{Chertkov2018}. Axiální difúze
-způsobuje rozpínání (vyhlazování) teplotní fronty, což znamená, že náhlé změny
-na vstupu do potrubí se projevují pozvolnými změnami na jeho konci. V případě
-uvažování horizontálně uloženého potrubí lze tímto způsobem zahrnout i vliv
-gravitace. Nemá tak vliv na zpoždění teplotní fronty, ale výrazně ovlivňuje
-její tvar.
+    \textbf{Axiální difúze} je složena jednak z difúze kodkukcí tepla v
+    tekutině a dále z tzv. turbulentního míchání v axiálním směru. Difúze
+    způsobená kondukcí je u teplárenských rozvodů zanedbatelná
+    \cite{VanderHeijde2017a,VanderHeijde2017b}. Za to turbulentní difúze roste
+    dle přibližně lineárně s Reynoldsovým číslem \cite{Chertkov2018}. Axiální
+    difúze způsobuje rozpínání (vyhlazování) teplotní fronty, což znamená,
+    že náhlé změny na vstupu do potrubí se projevují pozvolnými změnami na jeho
+    konci. V případě uvažování horizontálně uloženého potrubí lze tímto
+    způsobem zahrnout i vliv gravitace. Axiální difúze nemá vliv na zpoždění
+    teplotní fronty, ale výrazně ovlivňuje její tvar.
   \item
-Zdrojový termín \(S_y\) zahrnuje především výměnu tepla mezi tekutinou a
-vnitřním povrchem přilehlé stěny ve kterém tekutina proudí (což v důsledku
-určuje vliv akumulace tepla na vývoj teplotní fronty). Velikost hustoty
-tepelného toku je závislá na rozdílu teploty vody a povrchu, vlastnostech
-tekutiny, velikosti a drsnosti povrchu a na rychlosti proudění. Výměna tepla
-ovlivňuje jak zpoždění teplotní fronty tak její tvar. Intenzitu výměny tepla
-lze vyjádřit obyčejnou rovnicí konvekce tepla \ref{eq:ConvHeatTransfer}.
+    \textbf{Zdrojový termín} \(S_y\) zahrnuje především výměnu tepla mezi
+    tekutinou a vnitřním povrchem přilehlé stěny ve kterém tekutina proudí (což
+    v důsledku určuje vliv akumulace tepla na vývoj teplotní fronty). Velikost
+    hustoty tepelného toku je závislá na rozdílu teploty vody a povrchu,
+    vlastnostech tekutiny, velikosti a drsnosti povrchu a na rychlosti
+    proudění. Výměna tepla ovlivňuje jak zpoždění teplotní fronty tak její
+    tvar. Tuto intenzitu lze vyjádřit rovnicí pro konvekci tepla
+    \ref{eq:ConvHeatTransfer}.
 \end{itemize}
 
 \begin{equation}
@@ -161,9 +162,9 @@ kde je \(Nu\) Nusseltovo číslo, \(L\) je charakteristický rozměr (pro kruhov
 potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny.
 
 \begin{figure}[h] \centering \capstart
-\includegraphics[scale=0.3]{figures/nusselt}
-\caption{Závislost Nusseltova čísla na Reynoldsově čísle \cite{Abraham2009}}
-\label{fig:NuReynolds}
+  \includegraphics[scale=0.3]{figures/nusselt}
+  \caption{Závislost Nusseltova čísla na Reynoldsově čísle \cite{Abraham2009}}
+  \label{fig:NuReynolds}
 \end{figure}
 
 Hodnotu Nusseltova čísla je možné určit na základě vztahů jak pro rovnoměrné
@@ -306,7 +307,7 @@ s konstantním nebo adaptivním časovým krokem. Jedny z nejefektivnějších
 algoritmů jsou součástí knihovny SUNDIALS \cite{sundials}, která je
 implementována v jazyce C.
 
-\section{Prorgamovací jazyky}
+\section{Vliv programovacích jazyků na modelování procesů}
 \label{sec:proglang}
 Programovací jazyky využité v jednotlivých modulech simulací mohou výrazně
 ovlivnit výpočtovou rychlost.
@@ -353,7 +354,7 @@ z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuj
 implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
 pak relativně rychlé a také velmi modulární.
 
-\section{Počítačové učení}
+\section{Počítačové učení a jeho vztah k modelování procesů}
 \label{sec:ML}
 Počítačové učení (anglicky machine learning) je metoda tvorby programů. Jedná
 se o postup kdy je program (nebo jeho část) vytvořen počítačem. Tato oblast se
@@ -371,23 +372,35 @@ dále dělí na následující oblasti:
   \item
     \textbf{Reinforcement learning} je metoda kdy prostředí ve kterém program
     operuje poskytuje informace o dopadu zásahů tohoto programu na dané
-    prostředí. Typickým příkladem může být řídící člen (agent) v simulaci. 
+    prostředí. Typickým příkladem může být řídící člen (agent) v simulaci.
 \end{itemize}
 Programy v machine learning jsou v podstatě
 parametrizované matematické struktury a optimalizací jejich parametrů je možné
 měnit/zlepšovat chování programu. Tyto programy dále obsahují tzv.
-hyperparametry, kterými se řídí struktura programů. 
+hyperparametry, kterými se řídí struktura programů.
 
 Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě (NN). Jsou
 totiž velmi univerzálními aproximátory matematických funkcí což je jejich
 velkou výhodou. Jejich nevýhodou je naopak poměrně náročný proces učení a také
-fakt, že vyžadují poměrně velké množství dat. Poměrně nedávno se objevily
-vědecké práce, které navrhují a demonstrují využití NN pro matematické
-modelování ODR systému \cite{diffEqFlux2019, chen2018neural}. Machine
-learning a mechanistické modelování na základě PDR lze tedy kombinovat. Tímto
-je možné modelovat procesy na základě experimentálních dat nebo zjednodušovat
-komplexnost programu na základě extrahovaných veličin z více komplexních
-simulací.
-\chapter{Analýza, interpretace a zhodnocení pooznatků získanných na základě
+fakt, že vyžadují poměrně velké množství dat.
+
+Nedávno (2019) se objevily vědecké práce, které navrhují a demonstrují využití
+NN pro matematické modelování ODR systémů (a tudíž i PDR)
+\cite{diffEqFlux2019, chen2018neural}. Ukázkové modely byly v těchto dvou
+implementacích prováděny akcelerovanou metodou gradient descend, přičemž
+gradient byl určen algoritmickou zpětnou propagací zkrze ODR solver (což je tím
+největším přínosem těchto prací). Gradient descend je obecně považován za
+nejvíce pokročilou metodu učení modelů avšak je poměrně náročný na
+implementaci.
+
+Existují i algoritmy jež nevyžadují derivace a jsou vhodné pro modely u kterých
+nelze derivace určit. Tyto algoritmy umožňují optimalizaci až na úrovni black
+box.
+
+Machine learning a mechanistické modelování na základě PDR lze tedy kombinovat.
+Tímto je možné modelovat procesy na základě experimentálních dat nebo
+zjednodušovat komplexnost programu na základě extrahovaných veličin z více
+komplexních simulací.
+\chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
 kritické rešerše}
 \textbf{Příklad}:
