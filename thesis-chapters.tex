@@ -8,7 +8,7 @@ udržitelné a efektivní zásobování teplem. To přináší nové technologic
 související zejména s integrací obnovitelných zdrojů, využitím odpadního tepla
 a celkově snižováním emisí oxidu uhličitého. Je totiž obecně přijímaným faktem,
 že pro smysluplnou implementaci obnovitelných zdrojů tepla a odpadní, jež lze
-obecně lze obecně považovat za nízkoteplotní zdroje, je nutné dále snižovat
+obecně považovat za nízkoteplotní zdroje, je nutné dále snižovat
 teplotu v teplárenských rozvodech. Snižovaní této teploty má za následek další
 redukci ztrát při distribuci tepla, ale komplikuje efektivní předávání tepla na
 straně spotřebitelů a zvyšuje provozní náklady čerpadel. Proto je nutné do sítě
@@ -22,7 +22,7 @@ se budou schopny vypořádat s těmito a dalšími výzvami lze obecně nazvat �
 generací teplárenských sítí \cite{Lund2014}.
 
 Množství hmoty, které ovlivňuje fyzikální dynamiku rozsáhlých energetických
-systémů již samo o sobě naznačuje komplexnost potencionálního matematického
+systémů již samo o sobě naznačuje komplexnost potenciálního matematického
 modelu (digitálního dvojčete či prototypu). Užitečnost takových modelů roste
 společně s jejich výpočtovou rychlostí a také s rychlostí s jakou je možné tyto
 modely sestavovat. Deklarativní programování může výrazně zjednodušit proces
@@ -30,8 +30,8 @@ kompletace z jednotlivých komponent. V numerickém řešení pak modely obvykle
 využívají matice, jež se v nich objevují zpravidla kvůli tzv. linearizaci
 diferenciálních rovnic (tedy rovnic řídících fyzikální chování). Výpočtová
 rychlost je pak úměrná velikosti a hustotě těchto matic. V dnešní době se
-můžeme často setkat se snahou o zmenšováním matic pomocí redukce směrem k tzv.
-jedno‑dimenzionálním modelům. Dalším výrazný vliv na výpočetní rychlost mají
+můžeme často setkat se snahou o zmenšování matic pomocí redukce směrem k tzv.
+jedno‑dimenzionálním modelům. Další výrazný vliv na výpočetní rychlost má
 programovací jazyk použitý pro implementaci (strojový kód zpravidla poběží
 rychleji než kód interpretovaný) a také míra a provedení paralelizace
 algoritmů.
@@ -53,10 +53,10 @@ Text abstraktu.
 
 \chapter{Současné shrnutí stavu poznání}
 \label{struktura}
-V této kapitole je provedena rešerše literatury zabývající se
-problematikou modelování CZT, kterou v  a popis vybraných matematických rovnic
-aplikovatelných pro daný kontext. Dále jsou popsány použitelné výpočetní
-přístupy metody spolu s aspekty, ovlivňující numerickou efektivnost simulací.
+V této kapitole jsou uvedeny relevantní rovnice pro modelování CZT. Dále je
+provedena stručná rešerše literatury na kterou tato práce navazuje, nebo
+využívá její poznatky. Následně jsou popsány použitelné výpočetní přístupy
+metody spolu s aspekty, ovlivňující numerickou efektivnost simulací.
 
 \section{Stručná historie rozvoje teplárenství}
 \label{sec:history}
@@ -66,8 +66,9 @@ používala pára o teplotě i přes 240 °C. Tyto rozvody generovaly značné t
 ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i vážné
 explozivní nehody. Kvůli kondenzaci páry ve vratném potrubí docházelo k jeho
 korozi. Pára se jako hlavní teplonosné médium stále využívá například v Paříži
-či Manhattanu. Nástupce tohoto provedení využíval tlakovou horkou vodu většinou
-přes 100 °C. Kvůli nestlačitelnosti vody se výrazně omezily explozivní nehody.
+či Manhattanu. Nástupce tohoto provedení využíval tlakovou horkou vodu o
+teplotě přes 100 °C. Kvůli nestlačitelnosti vody se výrazně omezily explozivní
+nehody.
 Motivací bylo snížení tepelných ztrát a možnost lepší implementace kombinované
 výroby tepla a elektrické energie v městských oblastech. Poté přišel trend
 snižování teploty v rozvodech pod 100 °C. Stále byla využívána tlaková horká
@@ -86,15 +87,15 @@ jednotlivých součástí systému se zaměřením na jejich dynamiku \cite{Lund
 
 \section{Tepelná dynamika teplárenských rozvodů/potrubí}
 \label{sec:HeatDynamics}
-Moderní teplárenské systémy s teplonosným médiem v kapalném skupenství. Fluidní
-dynamika je prostorovým fenoménem, ale lze zavádět zjednodušující předpoklady
-odpovídající kontextu aplikace. Při uvažování zjednodušené fyziky proudění
-tekutiny v potrubí (tj. na nestlačitelné a jedno-dimenzionální proudění) lze
-problém zjednodušit na součinnost třech fyzikálních jevů:
+Moderní teplárenské systémy pracují s teplonosným médiem v kapalném skupenství.
+Fluidní dynamika je prostorovým fenoménem, ale lze zavádět zjednodušující
+předpoklady odpovídající kontextu aplikace. Při uvažování zjednodušené fyziky
+proudění tekutiny v potrubí (tj. na nestlačitelné a jedno-dimenzionální
+proudění) lze problém zjednodušit na součinnost třech fyzikálních jevů:
 
 \begin{itemize}
   \item Advekce veličin jež jsou unášeny proudem podél potrubí
-  \item Difůze veličin v tekutině podél potrubí
+  \item Difúze veličin v tekutině podél potrubí
   \item Příspěvky do veličin vnitřními a/či externími zdroji
 \end{itemize}
 
@@ -121,11 +122,11 @@ měrná entalpie, ale lze pracovat i s teplotou.
     ve směru objemového pohybu. Tento jev ovlivňuje tepelnou dynamiku nejvíce,
     neboť z velké části určuje čas transportu (zpoždění) teplotní fronty.
   \item
-    \textbf{Axiální difúze} je složena jednak z difúze kodkukcí tepla v
+    \textbf{Axiální difúze} je složena jednak z difúze kondukcí tepla v
     tekutině a dále z tzv. turbulentního míchání v axiálním směru. Difúze
     způsobená kondukcí je u teplárenských rozvodů zanedbatelná
     \cite{VanderHeijde2017a,VanderHeijde2017b}. Za to turbulentní difúze roste
-    dle přibližně lineárně s Reynoldsovým číslem \cite{Chertkov2018}. Axiální
+    přibližně lineárně s Reynoldsovým číslem \cite{Chertkov2018}. Axiální
     difúze způsobuje rozpínání (vyhlazování) teplotní fronty, což znamená,
     že náhlé změny na vstupu do potrubí se projevují pozvolnými změnami na jeho
     konci. V případě uvažování horizontálně uloženého potrubí lze tímto
@@ -146,9 +147,9 @@ měrná entalpie, ale lze pracovat i s teplotou.
   \label{eq:ConvHeatTransfer}
   Q = \alpha S \Delta T
 \end{equation}
-kde \(Q\) je tepelný tok ze stěny do tekutiny,\(\alpha\) je součinitel přestupu
-tepla, \(S\) je velikost plochy kde je styčného povrchu a \(\Delta T\) je
-rozdíl teplot povrchu a tekutiny. Koeficient přenosu tepla  je možné určovat z
+kde \(Q\) je tepelný tok ze stěny do tekutiny, \(\alpha\) je součinitel přestupu
+tepla, \(S\) je velikost plochy styčného povrchu a \(\Delta T\) je rozdíl
+teplot povrchu a tekutiny. Koeficient přenosu tepla  je možné určovat z
 tzv. Nusseltova čísla, které vyjadřuje poměr mezi konvektivním a koduktivním
 přestupem tepla. Známe-li tedy množství tepla, jež by procházelo mezní vrstvou
 v případě čisté kondukce tepla je možné určit množství tepla v případě
@@ -169,7 +170,7 @@ potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny
 
 Hodnotu Nusseltova čísla je možné určit na základě vztahů jak pro rovnoměrné
 rozložení teploty na stěně (označováno jako UWT), tak pro rovnoměrné rozložení
-tepelného toku (označované jako UHF). Dle \cite{Abraham2009} je pro všecny
+tepelného toku (označované jako UHF). Dle \cite{Abraham2009} je pro všechny
 režimy proudění vhodné používat následující model Nusseltova čísla:
 \begin{equation}
 \label{eq:NuModel}
@@ -182,7 +183,7 @@ režimy proudění vhodné používat následující model Nusseltova čísla:
   \end{dcases}
 \end{equation}
 kde \(Pr\) je Prandtlovo číslo (vlastnost tekutiny) a \(f\) je Darcy-Weisbachův
-koeficient tření který je popsán v podkapitole \ref{sec:PressureLoss} (skrze
+koeficient tření, který je popsán v podkapitole \ref{sec:PressureLoss} (skrze
 něj se projevuje vliv drsnosti). Jednotlivé hodnoty parametrů tohoto modelu
 jsou:
 \begin{table}[H]
@@ -192,7 +193,7 @@ jsou:
   \centering
   \begin{tabular}{ccc}
     \toprule
-    Parameter & UWT & UHF \\ [0.5ex]
+    Parametr & UWT & UHF \\ [0.5ex]
     \hline
     \(c_0\) & 3,66 & 4,36 \\
     \(c_1\) & 3,52 & 2,2407 \\
@@ -207,27 +208,27 @@ V případě, že je teplota vnitřního povrchu potrubí známa je možné na z
 rovnic \ref{eq:ConvHeatTransfer} až \ref{eq:NuModel} určit intenzitu výměny
 tepla v konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež
 obklopuje fluidní region (např. ocelová trubka, izolace, zemina apod.) a tudíž
-je nutno korektně matematicky zachytit (viz kapitola \ref{sec:SurroundingMass}).
+je nutno korektně matematicky zachytit tuto tepelnou dynamiku v tomto okolí
+(viz~kapitola \ref{sec:SurroundingMass}).
 
 \section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
 \label{sec:PressureLoss}
 Tlakové vlny se v potrubí šíří výrazně rychleji (rychlostí zvuku) než vlny
-teplotní (přibližně rychlost proudění tekutiny), což znamená že lokální
+teplotní (přibližně rychlost proudění tekutiny), což znamená, že lokální
 události probíhají v daleko kratším časovém měřítku. Z tohoto důvodu je potřeba
-v immulacích s tlakovými pulsacemi využívat krátký časový krok. Predikce
-tlakových vln je užitečná pouze z hlediska ochrany proti poškození způsobených
-tlakovými rázy a na vývoj distribuce tepla nemá výraznější vliv.
-Při zandebání rychlých tlakových pulsací lze akceleraci tekutiny podél potrubí
+v simulacích s tlakovými pulsacemi využívat krátký časový krok. Predikce
+tlakových vln je užitečná pouze z hlediska ochrany proti poškozením, která
+jsou způsobena tlakovými rázy a na vývoj distribuce tepla nemá výraznější vliv.
+Při zanedbání rychlých tlakových pulsací lze akceleraci tekutiny podél potrubí
 modelovat pomocí následující PDR:
 
 \begin{equation}
   \label{eq:momentum}
   \frac{du}{dt} = -\frac{dp}{dx} - \frac{1}{2}\frac{f}{D}u|u|
 \end{equation}
-kde \(\rho\) je hustota tekutiny (závislá na teplotě), \(p\) je tlak a \(D\) je
-vnitřní průměr potrubí. Hodnotu třecího koeficinetu \(f\) lze určit z
-explicitní Churchilovy rovnice \ref{eq:Churchill} \cite{Churchill1977}, která
-je relativně přesná pro všechny režimy proudění.
+kde \(p\) je tlak a \(D\) je vnitřní průměr potrubí. Hodnotu třecího
+koeficientu \(f\) lze určit z explicitní Churchilovy rovnice \ref{eq:Churchill}
+\cite{Churchill1977}, která je relativně přesná pro všechny režimy proudění.
 
 \begin{equation}
   \label{eq:Churchill}
@@ -238,6 +239,8 @@ je relativně přesná pro všechny režimy proudění.
     B=\left(\frac{37530}{Re}\right)^{16}
   \end{gathered}
 \end{equation}
+kde \(\epsilon\) je drsnost vnitřního povrchu potrubí a \(D\) je vnitřní průměr
+potrubí.
 
 \section{Okolní hmota – kovová stěna, izolace, zemina}
 \label{sec:SurroundingMass}
@@ -250,8 +253,28 @@ obecnou PDR vedení tepla \ref{eq:HeatEq} v obecném \(\mathcal{R}^n\) prostoru.
 kde \(\rho\) je hustota, \(c_p\) je měrná tepelná kapacita, \(\lambda\) je
 tepelná vodivost, \(T\) je teplota a \(S\) je zdroj tepla. Tato rovnice platí
 pro všechny souřadnicové systémy, jelikož pro každý souřadnicový systém
-existuje konkrétní rozvin operátoru \(\nabla\).
-
+existuje konkrétní varianta operátoru \(\nabla\). Dále je třeba uvažovat
+okrajové podmínky zajišťující reflektující interakci \todo{se zbytkem světa}.
+\begin{itemize}
+  \item
+    \textbf{Okrajové podmínky pro nadzemní potrubí} musí reflektovat interakci
+    vnějšího povrchu rozvodů s okolním vzduchem. Dle aktuálních povětrnostních
+    podmínek se tedy jedná o přenos tepla přirozenou či nucenou
+    konvekcí tepla. Jde tedy o okrajovou podmínku třetího řádu (Robinovu). 
+  \item
+    \textbf{Okrajové podmínky pro podzemní potrubí} musí reflektovat jak
+    interakci s prostředím, které se nachází nad povrchem země (to může být
+    samotný vzduch nebo městská infrastruktura, budovy apod.) tak s dostatečně
+    vzdálenou zeminou jak v horizontálním tak vertikálním směru. Jedná se tedy
+    o tři různé okrajové podmínky. Dle \todo{cite source} je nevhodnější použít
+    okrajovou podmínku prvého řádu (Dirichletovu) pro spodní okraj uvažované
+    domény a podmínky druhého řádu (Neumannovu) pro oba její vertikální okraje.
+    Okrajová podmínka na horním okraji je pak řádu třetího podobně jako u
+    nadzemního potrubí nebo řádu čtvrtého v případě přítomnosti městské
+    infrastruktury (z hlediska numerického řešení jsou si podmínky třetího a
+    čtvrtého řádu velmi podobné).
+\end{itemize}
+\todo{picture of the two cases}
 \section{Vlastnosti média a materiálu}
 Vlastnosti tekutiny a materiálů jež vystupují v rovnicích \ref{eq:AdvDiff} až
 \ref{eq:HeatEq} jsou ve skutečnosti závislé na teplotě a na tlaku (nebo
@@ -261,7 +284,7 @@ vlastnosti vody a páry velmi přesně. Při uvažování nestlačitelnosti vody
 vlastnosti jako hustota, či viskozita stále výrazně proměnlivé s teplotou. Pro
 tuhé skupenství je zpravidla dostačující popis polynomiální funkcí nebo i
 konstantou. Při popisu zeminy se může výrazně projevit vliv její vlhkosti, což
-znamená že její vlastnosti jsou proměnlivé v čase.
+znamená, že její vlastnosti jsou proměnlivé v čase.
 
 \begin{figure}[h] \centering \capstart
   \includegraphics[scale=0.7]{figures/IF97}
@@ -272,17 +295,17 @@ znamená že její vlastnosti jsou proměnlivé v čase.
 \section{Numerické řešení a rychlost simulací}
 \label{sec:NumSpeed}
 V rovnicích \ref{eq:AdvDiff}, \ref{eq:momentum} a \ref{eq:HeatEq} vystupují
-diferenciální operátory jež jsou fundamentální příčinnou numerické náročnosti
+diferenciální operátory, jež jsou fundamentální příčinou numerické náročnosti
 simulací. I přesto, že je fyzika popsaná v sekcích \ref{sec:HeatDynamics},
 \ref{sec:PressureLoss} a \ref{sec:SurroundingMass} výrazně zjednodušena, je
 tyto PDR nutné diskretizovat v prostoru a čase (tzv. linearizovat problém). Lze
 využít metody jež jsou určeny a optimalizovány přímo pro daný kontext.
 Například pro rovnici \ref{eq:AdvDiff} lze využít integrační metody vyvinuté v
-NASA, které využívají aproximace derivací vyšších řádů nežli je v samotné PDR.
-Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním
-znejefektivnější schémat je ULTIMATE QUICKEST.
+NASA, které využívají aproximace derivací vyšších řádů, nežli je v samotné PDR.
+Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním z
+nejefektivnějších schémat je ULTIMATE QUICKEST.
 
-Av3ak mnohem častější postup při řešení PDR je její převedení na systém
+Avšak mnohem častější postup při řešení PDR je její převedení na systém
 ordinárních diferenciálních rovnic (ODR), jež je dále integrován (simulován) v
 čase pomocí separátních algoritmů. PDR jsou v prostoru nejčastěji linearizovány
 pomocí metody konečných diferencí (MKD), metody konečných objemů (MKO) či
@@ -292,13 +315,13 @@ systémy PDR. Z Open-Source projektů zabývajícími se automatizovaným řeše
 je vhodné zmínit FeniCS \cite{AlnaesBlechta2015a}, kterým je možné řešit PDR
 pomocí MKP (umožňuje i tzv. nespojitou Galerkinovu metodu, která je vhodná i
 pro fluidní dynamiku). Tato knihovna umožňuje velmi detailně kontrolovat jakým
-způsobem jsou sestavovány matice, jaké konečné elementy jso využívány, jakým
+způsobem jsou sestavovány matice, jaké konečné elementy jsou využívány, jakým
 způsobem bude během výpočtů manipulováno s objekty lineární algebry a mnoho
 dalšího.
 
 Výsledkem procesu linearizace je systém lineárních rovnic z pravidla
 reprezentovaný v maticové formě. Velikost a hustota (podíl nenulových hodnot)
-těchto matic pak přímo ovlivňují rychlost simulace, neboť přímo korespondují
+těchto matic pak přímo ovlivňují rychlost simulace, neboť přímo korespondují s
 počtem CPU cyklů, které musí procesor (či procesory) využít na aritmetické
 operace během jednoho časového kroku. V případě, že je výsledný systém
 nelineární (např. jsou-li tepelné vlastnosti závislé na teplotě) je tento vliv
@@ -314,7 +337,7 @@ ovlivnit výpočtovou rychlost.
 \begin{itemize}
   \item
     \textbf{Kompilované jazyky} jako jsou C, C++ či Fortran jsou zpravidla
-    jedny z nejrychlejších avšak za cenu náročnějšího často velmi
+    jedny z nejrychlejších, avšak za cenu náročnějšího často velmi
     nízkoúrovňového programovaní. Tato náročnost je způsobena faktem, že tyto
     jazyky (zejména jazyk C), jsou ''mnohem~blíže'' hardwaru. Programátor musí
     například staticky určit všechny typy proměnných a také zabezpečit, že
@@ -323,13 +346,13 @@ ovlivnit výpočtovou rychlost.
     \textbf{Interpretované jazyky} jako Python či Matlab jsou z hlediska
     programovaní mnohem jednodušší protože poskytují výrazně vyšší úroveň
     abstrakce a existuje k nim velké množství modulů a knihoven. Úkol spojený s
-    hlídáním datových typů proměnných a správnosti přístupů do paměti počítače,
+    hlídáním datových typů proměnných a správnosti přístupů do paměti počítače
     zajišťuje tzv. interpretr a programátor má výrazně ''jednodušší život'',
     protože se může soustředit pouze na vysokoúrovňový koncept výpočtů.
     Programy (nebo přesněji skripty) napsané v těchto jazycích jsou tak až o
     dva řády pomalejší o proti svým kompilovaným protějškům.
   \item
-    \textbf{Just-in-time kompilovaný jazyk} jako je Julia \cite{julia2017}
+    Nový \textbf{Just-in-time kompilovaný jazyk} Julia \cite{julia2017}
     dosahuje rychlosti srovnatelné s jazykem C, ale zároveň poskytuje velmi
     vysokou úroveň abstrakce. Jednotlivé varianty funkcí (určeno dle typu
     argumentů, které vstupují do funkce) jsou průběžně kompilovány. Julia
@@ -341,11 +364,11 @@ ovlivnit výpočtovou rychlost.
     mnoho vysokoúrovňových knihoven neexistuje nebo nejsou ve stavu ve kterém
     se na ně lze spoléhat.
 \end{itemize}
-Všechny výše zmíněné jazyky jsou imperativní (programy jsou definované sekvence
-výpočtových kroků), avšak existují i deklarativní programovací jazyky ve kterých
-programátor definuje logické a matematické výroky mezi objekty a konkrétní
-výpočtové posloupnosti jsou vytvářeny počítačem. To znamená, že programy mohou
-být z principu spouštěny libovolným směrem. Jeden z takových jazyků je například
+Všechny výše zmíněné jazyky jsou \textbf{imperativní} (programy jsou definované
+sekvence výpočtových kroků), avšak existují i \textbf{deklarativní} programovací jazyky
+ve kterých programátor definuje logické a matematické výroky mezi objekty a
+konkrétní výpočtové posloupnosti jsou vytvářeny počítačem. To znamená, že
+programy mohou být z principu spouštěny libovolným směrem. Jeden z takových jazyků je například
 modelica, který byl vyvinut pro matematické modelování systémů složených z
 interagujících komponent. OpenModelica \todo{cite OM} je open-source verze
 kompilátoru, který překládá modely ze syntaxe modelica do imperativních jazyků
@@ -380,7 +403,7 @@ měnit/zlepšovat chování programu. Tyto programy dále obsahují tzv.
 hyperparametry, kterými se řídí struktura programů.
 
 Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě (NN). Jsou
-totiž velmi univerzálními aproximátory matematických funkcí což je jejich
+totiž velmi univerzálními aproximátory matematických funkcí, což je jejich
 velkou výhodou. Jejich nevýhodou je naopak poměrně náročný proces učení a také
 fakt, že vyžadují poměrně velké množství dat.
 
@@ -388,14 +411,14 @@ Nedávno (2019) se objevily vědecké práce, které navrhují a demonstrují vy
 NN pro matematické modelování ODR systémů (a tudíž i PDR)
 \cite{diffEqFlux2019, chen2018neural}. Ukázkové modely byly v těchto dvou
 implementacích prováděny akcelerovanou metodou gradient descend, přičemž
-gradient byl určen algoritmickou zpětnou propagací zkrze ODR solver (což je tím
+gradient byl určen algoritmickou zpětnou propagací skrze ODR solver (což je
 největším přínosem těchto prací). Gradient descend je obecně považován za
-nejvíce pokročilou metodu učení modelů avšak je poměrně náročný na
+nejvíce pokročilou metodu učení modelů, avšak je poměrně náročný na
 implementaci.
 
-Existují i algoritmy jež nevyžadují derivace a jsou vhodné pro modely u kterých
-nelze derivace určit. Tyto algoritmy umožňují optimalizaci až na úrovni black
-box.
+Existují i algoritmy jež nevyžadují derivace a jsou vhodné pro modely, u
+kterých nelze derivace určit. Tyto algoritmy umožňují optimalizaci až na úrovni
+black box.
 
 Machine learning a mechanistické modelování na základě PDR lze tedy kombinovat.
 Tímto je možné modelovat procesy na základě experimentálních dat nebo
