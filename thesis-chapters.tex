@@ -56,7 +56,7 @@ Text abstraktu.
 V této kapitole jsou uvedeny relevantní rovnice pro modelování CZT. Dále je
 provedena stručná rešerše literatury na kterou tato práce navazuje, nebo
 využívá její poznatky. Následně jsou popsány použitelné výpočetní přístupy
-metody spolu s aspekty, ovlivňující numerickou efektivnost simulací.
+a metody spolu s aspekty, ovlivňující numerickou efektivnost simulací.
 
 \section{Stručná historie rozvoje teplárenství}
 \label{sec:history}
@@ -81,9 +81,9 @@ V následujících dvou až třech dekádách bude trend snižování teploty v
 rozvodech pokračovat ruku v ruce se snižující se náročností budov na prostorové
 vytápění. Bude existovat snaha o výraznější implementaci obnovitelných a
 odpadních zdrojů energie a k využívání synergií. Pro snížení následků fluktuací
-zdrojů, budou využívány akumulační systémy společně s prediktivním řízením
-využívající předpovědi meteorologických podmínek a matematické modely
-jednotlivých součástí systému se zaměřením na jejich dynamiku \cite{Lund2014}.
+zdrojů, budou využívány akumulační systémy a matematické modely jednotlivých
+součástí systému se zaměřením na jejich dynamiku jakožto základ prediktivního
+řízení využívající předpovědi meteorologických podmínek \cite{Lund2014}.
 
 \section{Tepelná dynamika teplárenských rozvodů/potrubí}
 \label{sec:HeatDynamics}
@@ -206,10 +206,10 @@ jsou:
 \end{table}
 V případě, že je teplota vnitřního povrchu potrubí známa je možné na základě
 rovnic \ref{eq:ConvHeatTransfer} až \ref{eq:NuModel} určit intenzitu výměny
-tepla v konkrétním okamžiku. Tato teplota je však ovlivněna tepelnou hmotou jež
-obklopuje fluidní region (např. ocelová trubka, izolace, zemina apod.) a tudíž
-je nutno korektně matematicky zachytit tuto tepelnou dynamiku v tomto okolí
-(viz~kapitola \ref{sec:SurroundingMass}).
+tepla v konkrétním okamžiku. Teplota tohoto povrchu je však ovlivněna tepelnou
+hmotou jež obklopuje fluidní region (např. ocelová trubka, izolace, zemina
+pod.) a tudíž je nutno korektně matematicky zachytit tepelnou dynamiku v tomto
+okolí (viz~kapitola \ref{sec:SurroundingMass}).
 
 \section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
 \label{sec:PressureLoss}
@@ -349,8 +349,9 @@ ovlivnit výpočtovou rychlost.
     hlídáním datových typů proměnných a správnosti přístupů do paměti počítače
     zajišťuje tzv. interpretr a programátor má výrazně ''jednodušší život'',
     protože se může soustředit pouze na vysokoúrovňový koncept výpočtů.
-    Programy (nebo přesněji skripty) napsané v těchto jazycích jsou tak až o
-    dva řády pomalejší o proti svým kompilovaným protějškům.
+    Programy (nebo přesněji skripty) napsané v těchto jazycích jsou však kvůli
+    práci interpetru až o dva řády pomalejší o proti svým kompilovaným
+    protějškům.
   \item
     Nový \textbf{Just-in-time kompilovaný jazyk} Julia \cite{julia2017}
     dosahuje rychlosti srovnatelné s jazykem C, ale zároveň poskytuje velmi
@@ -400,7 +401,7 @@ dále dělí na následující oblasti:
 Programy v machine learning jsou v podstatě
 parametrizované matematické struktury a optimalizací jejich parametrů je možné
 měnit/zlepšovat chování programu. Tyto programy dále obsahují tzv.
-hyperparametry, kterými se řídí struktura programů.
+hyperparametry, kterými se řídí struktura a komplexnost programů.
 
 Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě (NN). Jsou
 totiž velmi univerzálními aproximátory matematických funkcí, což je jejich
@@ -408,22 +409,23 @@ velkou výhodou. Jejich nevýhodou je naopak poměrně náročný proces učení
 fakt, že vyžadují poměrně velké množství dat.
 
 Nedávno (2019) se objevily vědecké práce, které navrhují a demonstrují využití
-NN pro matematické modelování ODR systémů (a tudíž i PDR)
-\cite{diffEqFlux2019, chen2018neural}. Ukázkové modely byly v těchto dvou
-implementacích prováděny akcelerovanou metodou gradient descend, přičemž
-gradient byl určen algoritmickou zpětnou propagací skrze ODR solver (což je
-největším přínosem těchto prací). Gradient descend je obecně považován za
-nejvíce pokročilou metodu učení modelů, avšak je poměrně náročný na
-implementaci.
+NN (nebo obecně parametrizovaných programů) pro matematické modelování ODR
+systémů (a tudíž i PDR) \cite{diffEqFlux2019, chen2018neural}. Ukázkové modely
+byly v těchto dvou implementacích prováděny akcelerovanou metodou gradient
+descend, přičemž gradient byl určen algoritmickou zpětnou propagací skrze ODR
+solver (což je největším přínosem těchto prací). Gradient descend je obecně
+považován za nejvíce pokročilou metodu učení modelů, avšak je poměrně náročný
+na implementaci.
 
 Existují i algoritmy jež nevyžadují derivace a jsou vhodné pro modely, u
 kterých nelze derivace určit. Tyto algoritmy umožňují optimalizaci až na úrovni
 black box.
 
 Machine learning a mechanistické modelování na základě PDR lze tedy kombinovat.
-Tímto je možné modelovat procesy na základě experimentálních dat nebo
-zjednodušovat komplexnost programu na základě extrahovaných veličin z více
-komplexních simulací.
+Tímto je možné modelovat procesy na základě experimentálních dat, zjednodušovat
+komplexnost programů na základě extrahovaných veličin z více komplexních
+simulací nebo optimalizovat (ladit) zmámé mechanistické struktury pomocí
+experimentálních dat.
 \chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
 kritické rešerše}
 \textbf{Příklad}:
