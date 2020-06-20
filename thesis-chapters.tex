@@ -274,7 +274,21 @@ okrajové podmínky zajišťující reflektující interakci \todo{se zbytkem sv
     infrastruktury (z hlediska numerického řešení jsou si podmínky třetího a
     čtvrtého řádu velmi podobné).
 \end{itemize}
-\todo{picture of the two cases}
+
+\begin{figure}[!tbph]
+  \centering
+  \begin{minipage}{.35\textwidth}
+    \includegraphics[width=\textwidth]{figures/above_ground_pipe}
+    \caption{Nadzemní potrubí}
+    \label{fig:above_ground_pipe}
+  \end{minipage}
+  \begin{minipage}{.55\textwidth}
+    \includegraphics[width=\textwidth]{figures/burried_pipe}
+    \caption{Podzemní potrubí}
+    \label{fig:burried_pipe}
+    \end{minipage}
+\end{figure}
+
 \section{Vlastnosti média a materiálu}
 Vlastnosti tekutiny a materiálů jež vystupují v rovnicích \ref{eq:AdvDiff} až
 \ref{eq:HeatEq} jsou ve skutečnosti závislé na teplotě a na tlaku (nebo
@@ -347,11 +361,11 @@ ovlivnit výpočtovou rychlost.
     programovaní mnohem jednodušší protože poskytují výrazně vyšší úroveň
     abstrakce a existuje k nim velké množství modulů a knihoven. Úkol spojený s
     hlídáním datových typů proměnných a správnosti přístupů do paměti počítače
-    zajišťuje tzv. interpretr a programátor má výrazně ''jednodušší život'',
-    protože se může soustředit pouze na vysokoúrovňový koncept výpočtů.
-    Programy (nebo přesněji skripty) napsané v těchto jazycích jsou však kvůli
-    práci interpetru až o dva řády pomalejší o proti svým kompilovaným
-    protějškům.
+    zajišťuje tzv. interpretr (interpretr pro Python je zkompilovaný C program
+    zvaný CPython) a programátor má výrazně ''jednodušší život'', protože se
+    může soustředit pouze na vysokoúrovňový koncept výpočtů. Programy (nebo
+    přesněji skripty) napsané v těchto jazycích jsou však kvůli práci
+    interpetru až o dva řády pomalejší o proti svým kompilovaným protějškům.
   \item
     Nový \textbf{Just-in-time kompilovaný jazyk} Julia \cite{julia2017}
     dosahuje rychlosti srovnatelné s jazykem C, ale zároveň poskytuje velmi
@@ -380,6 +394,17 @@ pak relativně rychlé a také velmi modulární.
 
 \section{Počítačové učení a jeho vztah k modelování procesů}
 \label{sec:ML}
+\begin{figure}[h] \centering \capstart
+  \includegraphics[scale=0.6]{figures/traditional_prog_cz}
+  \caption{Tradiční programování}
+  \label{fig:traditional_prog}
+\end{figure}
+
+\begin{figure}[h] \centering \capstart
+  \includegraphics[scale=0.6]{figures/machine_learning_cz}
+  \caption{Počítačové učení}
+  \label{fig:machine_learning}
+\end{figure}
 Počítačové učení (anglicky machine learning) je metoda tvorby programů. Jedná
 se o postup kdy je program (nebo jeho část) vytvořen počítačem. Tato oblast se
 dále dělí na následující oblasti:
@@ -426,6 +451,8 @@ Tímto je možné modelovat procesy na základě experimentálních dat, zjednod
 komplexnost programů na základě extrahovaných veličin z více komplexních
 simulací nebo optimalizovat (ladit) zmámé mechanistické struktury pomocí
 experimentálních dat.
+
+
 \chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
 kritické rešerše}
 \textbf{Příklad}:
