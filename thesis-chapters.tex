@@ -260,7 +260,7 @@ okrajové podmínky zajišťující reflektující interakci \todo{se zbytkem sv
     \textbf{Okrajové podmínky pro nadzemní potrubí} musí reflektovat interakci
     vnějšího povrchu rozvodů s okolním vzduchem. Dle aktuálních povětrnostních
     podmínek se tedy jedná o přenos tepla přirozenou či nucenou
-    konvekcí tepla. Jde tedy o okrajovou podmínku třetího řádu (Robinovu). 
+    konvekcí tepla. Jde tedy o okrajovou podmínku třetího řádu (Robinovu).
   \item
     \textbf{Okrajové podmínky pro podzemní potrubí} musí reflektovat jak
     interakci s prostředím, které se nachází nad povrchem země (to může být
@@ -380,15 +380,16 @@ ovlivnit výpočtovou rychlost.
     se na ně lze spoléhat.
 \end{itemize}
 Všechny výše zmíněné jazyky jsou \textbf{imperativní} (programy jsou definované
-sekvence výpočtových kroků), avšak existují i \textbf{deklarativní} programovací jazyky
-ve kterých programátor definuje logické a matematické výroky mezi objekty a
-konkrétní výpočtové posloupnosti jsou vytvářeny počítačem. To znamená, že
-programy mohou být z principu spouštěny libovolným směrem. Jeden z takových jazyků je například
-modelica, který byl vyvinut pro matematické modelování systémů složených z
-interagujících komponent. OpenModelica \todo{cite OM} je open-source verze
-kompilátoru, který překládá modely ze syntaxe modelica do imperativních jazyků
-(např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
-z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
+sekvence výpočtových kroků), avšak existují i \textbf{deklarativní}
+programovací jazyky ve kterých programátor definuje logické a matematické
+výroky mezi objekty a konkrétní výpočtové posloupnosti jsou vytvářeny
+počítačem. To znamená, že programy mohou být z principu spouštěny libovolným
+směrem. Jeden z takových jazyků je například modelica, který byl vyvinut pro
+matematické modelování systémů složených z interagujících komponent.
+OpenModelica \todo{cite OM} je open-source verze kompilátoru, který překládá
+modely ze syntaxe modelica do imperativních jazyků (např. jazyka C) a
+automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS z kapitoly
+\ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
 implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
 pak relativně rychlé a také velmi modulární.
 
@@ -449,10 +450,37 @@ black box.
 Machine learning a mechanistické modelování na základě PDR lze tedy kombinovat.
 Tímto je možné modelovat procesy na základě experimentálních dat, zjednodušovat
 komplexnost programů na základě extrahovaných veličin z více komplexních
-simulací nebo optimalizovat (ladit) zmámé mechanistické struktury pomocí
+simulací nebo optimalizovat (ladit) známé mechanistické struktury pomocí
 experimentálních dat.
-
 
 \chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
 kritické rešerše}
+\section{section name}
+\label{sec:section name}
+
+\chapter{Podstata, cíle a přínos disertační práce}
+\label{chap:Aims_of_disertation}
+\section{Podstata disertační práce}
+Podstatou této disertační práce je výzkum možností využití počítačového učení
+v oblasti matematické modelování fyzikálních procesů komponent a systémů
+složeného z těchto komponent se zaměřením na CZT. V principu se jde o
+modelování PDR. Jedná se tedy o základní výzkum zaměřený na optimalizaci
+numerických výpočtů/simulací. Jeho řešení spočívá ve vytvoření optimalizačního
+nástroje s aplikačními rozhraními umožňující jeho propojení s matematickými
+modely/simulacemi implementovanými v různých programovacích jazycích.
+\section{Cíle práce}
+\label{sec:section name}
+Cílem disertační práce je vytvořit a propojit nástroje pro optimalizaci
+parametrizovaných programů reprezentující matematické modely komponent a
+systémů a demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj
+bude schopen optimalizovat parametry jak mechanistických tak neuronových
+modelů. Cílovými veličinami mohou být jak experimentální data, ale také data z
+komplexnějších simulací nebo penalizační účelové funkce (například v případě
+optimalizace řídících veličin). 
+\begin{itemize}
+  \item
+  \item
+\end{itemize}
+\label{sec:Podstata}
+
 \textbf{Příklad}:
