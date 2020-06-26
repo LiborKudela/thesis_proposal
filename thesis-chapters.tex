@@ -463,23 +463,38 @@ kritické rešerše}
 \section{Podstata disertační práce}
 Podstatou této disertační práce je výzkum možností využití počítačového učení
 v oblasti matematické modelování fyzikálních procesů komponent a systémů
-složeného z těchto komponent se zaměřením na CZT. V principu se jde o
-modelování PDR. Jedná se tedy o základní výzkum zaměřený na optimalizaci
+složeného z těchto komponent se zaměřením na CZT. V principu jde tedy o
+modelování PDR. Jedná se o základní výzkum zaměřený na optimalizaci
 numerických výpočtů/simulací. Jeho řešení spočívá ve vytvoření optimalizačního
 nástroje s aplikačními rozhraními umožňující jeho propojení s matematickými
 modely/simulacemi implementovanými v různých programovacích jazycích.
 \section{Cíle práce}
 \label{sec:section name}
-Cílem disertační práce je vytvořit a propojit nástroje pro optimalizaci
-parametrizovaných programů reprezentující matematické modely komponent a
-systémů a demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj
-bude schopen optimalizovat parametry jak mechanistických tak neuronových
-modelů. Cílovými veličinami mohou být jak experimentální data, ale také data z
-komplexnějších simulací nebo penalizační účelové funkce (například v případě
-optimalizace řídících veličin). 
+Cílem disertační práce je vytvořit nástroje pro optimalizaci parametrizovaných
+programů, propojit je s matematickými modely komponent (a systémů) a
+demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj (s pracovním
+názvem LOFI) bude schopen optimalizovat parametry jak mechanistických tak
+neuronových modelů. Cílovými veličinami mohou být jak experimentální data, ale
+také data z komplexnějších simulací nebo penalizační účelové funkce (například
+v případě optimalizace řídících veličin). 
 \begin{itemize}
   \item
+
   \item
+    Naprogramovaní optimizátorů v jazyce Python/Julia schopných běhu na
+    počítačových clusterech splňující Unix standartazaci (Linux). Pro
+    komunikaci jednotlivých uzlů bude využit uzlový komunikační protokol MPI.
+    Ohled bude brán i na minimalizaci síťové komunikace také pomalých I/O
+    přístupů například pomocí ukládání do paměti RAM. 
+  \item
+    Pro snadnější implementaci výše zmíněného bude navržen jednoduchý plánovač
+    úloh s příhodnými funkcemi (využívající zejména MPI) pro efektivní saturaci
+    uzlů clusteru.
+  \item
+    Naprogramovaní aplikačního rozhraní OMC snadné propojení optimizátoru s
+    matematickými modely implementovanými v deklarativním jazyce modelica.
+  \item
+    
 \end{itemize}
 \label{sec:Podstata}
 
