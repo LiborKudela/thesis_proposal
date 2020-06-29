@@ -453,49 +453,122 @@ komplexnost programů na základě extrahovaných veličin z více komplexních
 simulací nebo optimalizovat (ladit) známé mechanistické struktury pomocí
 experimentálních dat.
 
+\section{Gradient free optimalizační algoritmy}
+\label{sec:opt_alg}
+Optimalizační algoritmy tzv. nultého řádu jsou i v dnešní době předmětem
+aktivního výzkumu. Například \cite{golovin2019gradientless} nabízí čerstvý
+pohled na využití Gausovské vzorkování jakožto klíčové metaheuristiky pro
+tzv. \textit{gradientless descend} (GLD). Mezi pokročilé techniky takovéhoto
+typu optimalizace patří evoluční strategie (zde je velmi známá metoda
+využívající adaptace kovariantí matice definující vzorkovací prostor)
+\todo{citeCMAES}, genetické algoritmy, náhodná hledání či stochastická hledání.
+Tyto algoritmy nebývají deterministické právě proto, že zpravidla využívají
+generátory náhodných čísel.
+
 \chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
 kritické rešerše}
-\section{section name}
-\label{sec:section name}
-
 \chapter{Podstata, cíle a přínos disertační práce}
 \label{chap:Aims_of_disertation}
 \section{Podstata disertační práce}
+\label{sec:Podstata}
 Podstatou této disertační práce je výzkum možností využití počítačového učení
 v oblasti matematické modelování fyzikálních procesů komponent a systémů
 složeného z těchto komponent se zaměřením na CZT. V principu jde tedy o
 modelování PDR. Jedná se o základní výzkum zaměřený na optimalizaci
-numerických výpočtů/simulací. Jeho řešení spočívá ve vytvoření optimalizačního
-nástroje s aplikačními rozhraními umožňující jeho propojení s matematickými
-modely/simulacemi implementovanými v různých programovacích jazycích.
+numerických výpočtů/simulací se zaměřením na maximalizace využití daného
+(distribuovaného) strojového vybavení. Jeho řešení spočívá ve vytvoření
+optimalizačního nástroje s aplikačními rozhraními umožňující jeho propojení s
+matematickými modely/simulacemi implementovanými v různých programovacích
+jazycích tak, aby bylo možné zlepšovat jejich efektivitu a/či přesnost nebo
+modelovat/zachycovat procesy s nedokonale objasněnými fyzikálními mechanismy.
 \section{Cíle práce}
-\label{sec:section name}
+\label{sec:Aims}
 Cílem disertační práce je vytvořit nástroje pro optimalizaci parametrizovaných
 programů, propojit je s matematickými modely komponent (a systémů) a
 demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj (s pracovním
 názvem LOFI) bude schopen optimalizovat parametry jak mechanistických tak
 neuronových modelů. Cílovými veličinami mohou být jak experimentální data, ale
 také data z komplexnějších simulací nebo penalizační účelové funkce (například
-v případě optimalizace řídících veličin). 
+v případě optimalizace řídících veličin).
 \begin{itemize}
-  \item
-
   \item
     Naprogramovaní optimizátorů v jazyce Python/Julia schopných běhu na
     počítačových clusterech splňující Unix standartazaci (Linux). Pro
     komunikaci jednotlivých uzlů bude využit uzlový komunikační protokol MPI.
     Ohled bude brán i na minimalizaci síťové komunikace také pomalých I/O
-    přístupů například pomocí ukládání do paměti RAM. 
+    přístupů například pomocí ukládání do paměti RAM.
   \item
     Pro snadnější implementaci výše zmíněného bude navržen jednoduchý plánovač
     úloh s příhodnými funkcemi (využívající zejména MPI) pro efektivní saturaci
     uzlů clusteru.
   \item
-    Naprogramovaní aplikačního rozhraní OMC snadné propojení optimizátoru s
-    matematickými modely implementovanými v deklarativním jazyce modelica.
+    Naprogramovaní aplikačního rozhraní na OMC pro snadné propojení
+    optimizátoru s matematickými modely implementovanými v
+    \textbf{deklarativním} jazyce modelica.
   \item
-    
+    Sestavení parametrizovaného modelu akumulace tepla do okolí teplárenských
+    rozvodů. 
+  \item
+    Sestavení modelu menšího teplárenského systému.
 \end{itemize}
-\label{sec:Podstata}
+\section{Přínos disertační práce}
+\label{sec:prinos}
+Hlavní přínos práce je v oblasti základního výzkumu. Navrhované postupy a
+nástroje mohou výrazně usnadnit hledaní řídících strategií s ohledem na
+integraci fluktuicích nízkoteplotních zdrojů a také usnadnit hledání
+optimalních matematických modelů komponent ze kterých, je vhodné sestavit model
+většího systémů. Navrhovaný postup a nástroje pro optimalizaci modelů mohou být
+následně využity i mimo oblast CZT.
 
-\textbf{Příklad}:
+\chapter{Vědecké otázky a pracovní hypotézy}
+\label{chap:SciQaH}
+\section*{Vědecká otázka č. 1}
+Jakou strukturu mají matematické modely teplárenských rozvodů, ze kterých lze
+snadno sestavit vetší potrubní systém a které reflektují akumulaci tepla do
+okolního materiálu a zároveň lze optimalizovat jejich numerické schopnosti?
+\section*{Hypotéza č. 1}
+Je možné sestavit ekvivalentní tepelné schéma o příslušné komplexnosti a
+optimalizovat jeho parametry tak aby model dosahoval co největší shody s plně
+disktretizovaným protějškem. Tímto může být dosaženo výrazné redukce
+komplexnosti při zachování dostatečné přesnosti.
+\section*{Vědecká otázka č. 2}
+Jak optimalizovat řídící veličiny teplárenského systému v rámci dlouhodobých
+horizontů z hlediska ekonomicky či účinnosti?
+\section*{Hypotéza č. 2}
+V čase rozmístěné řídící veličiny mohou být optimalizovány na základě simulací,
+které obsahují data o předpovědi počasí (nebo obecně předpovědi venkovních
+vlivů) kde skutečné řídící veličiny jsou interpolovány z diskrétních okamžiků.
+\section*{Vědecká otázka č. 3}
+Jak přistupovat k problému optimalizace dynamických modelů reprezentovanými
+systémy ODR nebo systémem diferenciálními algebraických rovnic (např. výše
+zmíněné tepelné schéma)?
+\section*{Hypotéza č. 3}
+Nejpraktičtější je využití optimizátoru jež nevyžaduje první derivace vůči
+parametrům modelu (např. evolučních strategie), protože odpadá problém s
+poměrně složitým výpočtem těchto derivací. Modely pak mohou být implementovánv
+v jazyce modelica nebo obecně jiném programovacím prostředí. Takovým přístup je
+možné optimalizovat obecně modely i řídící parametry.
+\chapter{Způsob řešení a použité vědecké metody zkoumání}
+Tato kapitola se věnuje způsobům a metodám řešení aplikovaných v jednotlivých
+vytyčených cílech.
+\section{Nástroj LOFI}
+\label{sec:tool_LOFI}
+V první části řešení bude sestaven optimalizační nástroj LOFI, který bude
+obsahovat aplikační rozhraní zejména k OMC. Nástroj bude implementován v jazyce
+Python. Bude obsahovat paralelizované verze evoločních strategií, hejnových
+algoritmů, klesání v bloku souřadnic apod. Jelikož se předpokládá, že pro
+některé parametry budou modely simulací produkovat neočekávané chování, nebo
+tzv. \textit{floating-point exceptions} či budou kompletně neschopné běhu, bude
+zapotřebí zajistit dostatečná opatření zvyšující pravděpodobnost optimalizace i
+za takto náročných podmínek. Pro paralellizaci na clusterech bude využito
+knihoven MPI se zaměřením na Unixové systémy. Architektura bude založená na
+tzv. \textit{master-worker} paradigmatu. Protože modely zkompilované
+pomocí OMC produkují výsledky do binárních souborů, které se ukládají na disk,
+bude využit RAMdisk (který je součástí Linuxového kernelu) pro akceleraci I/O
+přístupů. LOFI bude obsahovat dynamický plánovač úloh pro maximální saturaci
+clusteru simulacemi. LOFI buáde také schopno operovat v interaktivním režimu
+pomocí integrované konzole schopné vnitřne kominikovat s ostatními uzly
+clusteru.
+
+
+
