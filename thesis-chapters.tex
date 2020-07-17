@@ -189,7 +189,7 @@ jsou:
 \begin{table}[H]
   \label{tab:NuModel}
   \caption{Parametry modelu Nusseltova čísla}
-  \vskip6pt
+  \vskip
   \centering
   \begin{tabular}{ccc}
     \toprule
@@ -576,6 +576,14 @@ tekutinou a vnitřním povrchem bude implementován dle \cite{Abraham2009} s
 třecím koeficient dle \cite{Churchill1977}. Parametry modelu Nusseltova čísla
 mohou být následně optimalizovány pro daný kontext. Model bude obsahovat
 rozhraní pro spárování s modelem akumulace tepla.
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[scale=0.9]{figures/1D_model_pipe}
+\end{center}
+\caption{Model fluidního regionu}
+\label{fig:pipe_model}
+\end{figure}
+
 \section{Model akumulace tepla v okolí potrubí}
 \label{sec:PipeAcu}
 Pro nadzemní potrubí bude v jazyce modelica sestaven model reflektující
@@ -584,9 +592,9 @@ bude založen na MPK se specificky navrženými konečnými elementy. Pro
 podzemní potrubí bude nejdříve sestavena komplexní dvourozměrný model pomocí
 metody MKP. K tomuto účelu bude využit nástroj FeniCS. Na základě dat z těchto
 simulací bude chování modelu přeneseno (pomocí LOFI) do zjednodušeného
-ekvivalentního schématu naprogramovaného v jazyce modelica. Tyto modely
-akumulace budou obsahovat rozhraní pro spárování s modelem fluidního regionu a
-případně i vlivy okolí.
+ekvivalentního schématu naprogramovaného v jazyce modelica (a kompilovaného
+pomocí OMC). Tyto modely akumulace budou obsahovat rozhraní pro spárování s
+modelem fluidního regionu a případně i vlivy okolí.
 \section{Nástroj LOFI}
 \label{sec:tool_LOFI}
 Při řešení bude sestaven optimalizační nástroj LOFI, který bude obsahovat
@@ -610,5 +618,9 @@ vnitřně komunikovat s ostatními uzly clusteru.
 LOFI bude v poslední fázi použito pro optimalizaci základních řídících
 parametrů sítě. Po sestavení malého teplárenského systému z jednotlivých
 komponent bude do modelu zahrnuta časová distribuce řídících veličina jako jsou
-vody či průtok u zdroje.
+teplota vstupní vody či průtok u zdroje.
+\section{Dosavadní dosažené výsledky}
+\label{sec:Finished_parts}
+
+
 
