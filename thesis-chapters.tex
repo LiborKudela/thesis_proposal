@@ -220,11 +220,12 @@ v simulacích s tlakovými pulsacemi využívat krátký časový krok. Predikce
 tlakových vln je užitečná pouze z hlediska ochrany proti poškozením, která
 jsou způsobena tlakovými rázy a na vývoj distribuce tepla nemá výraznější vliv.
 Při zanedbání rychlých tlakových pulsací lze akceleraci tekutiny podél potrubí
-modelovat pomocí následující PDR:
+modelovat pomocí PDR \ref{eq:momentum}. Výsledné chování je ekvivalentní k
+okamžitému šíření informací o tlaku do celého systému.
 
 \begin{equation}
   \label{eq:momentum}
-  \frac{du}{dt} = -\frac{dp}{dx} - \frac{1}{2}\frac{f}{D}u|u|
+  \frac{du}{dt}\rho = -\frac{dp}{dx} - \frac{1}{2}\frac{f}{D}u|u|
 \end{equation}
 kde \(p\) je tlak a \(D\) je vnitřní průměr potrubí. Hodnotu třecího
 koeficientu \(f\) lze určit z explicitní Churchilovy rovnice \ref{eq:Churchill}
@@ -254,7 +255,7 @@ kde \(\rho\) je hustota, \(c_p\) je měrná tepelná kapacita, \(\lambda\) je
 tepelná vodivost, \(T\) je teplota a \(S\) je zdroj tepla. Tato rovnice platí
 pro všechny souřadnicové systémy, jelikož pro každý souřadnicový systém
 existuje konkrétní varianta operátoru \(\nabla\). Dále je třeba uvažovat
-okrajové podmínky zajišťující reflektující interakci \todo{se zbytkem světa}.
+okrajové podmínky zajišťující interakci s dalším okolím.
 \begin{itemize}
   \item
     \textbf{Okrajové podmínky pro nadzemní potrubí} musí reflektovat interakci
@@ -282,7 +283,7 @@ okrajové podmínky zajišťující reflektující interakci \todo{se zbytkem sv
     \caption{Nadzemní potrubí}
     \label{fig:above_ground_pipe}
   \end{minipage}
-  \begin{minipage}{.55\textwidth}
+  \begin{minipage}{.50\textwidth}
     \includegraphics[width=\textwidth]{figures/burried_pipe}
     \caption{Podzemní potrubí}
     \label{fig:burried_pipe}
@@ -300,7 +301,7 @@ konstantou. Při popisu zeminy se může výrazně projevit vliv její vlhkosti,
 znamená, že její vlastnosti jsou proměnlivé v čase.
 
 \begin{figure}[h] \centering \capstart
-  \includegraphics[scale=0.7]{figures/IF97}
+  \includegraphics[scale=0.4]{figures/IF97}
   \caption{Regiony implementace vlastností vody a páry IF97 \cite{IAPWS2007}}
   \label{fig:IF97}
 \end{figure}
@@ -378,20 +379,34 @@ ovlivnit výpočtovou rychlost.
     mnoho vysokoúrovňových knihoven neexistuje nebo nejsou ve stavu ve kterém
     se na ně lze spoléhat.
 \end{itemize}
-Všechny výše zmíněné jazyky jsou \textbf{imperativní} (programy jsou definované
-sekvence výpočtových kroků), avšak existují i \textbf{deklarativní}
-programovací jazyky ve kterých programátor definuje logické a matematické
-výroky mezi objekty a konkrétní výpočtové posloupnosti jsou vytvářeny
-počítačem. To znamená, že programy mohou být z principu spouštěny libovolným
-směrem. Jeden z takových jazyků je například modelica, který byl vyvinut pro
-matematické modelování systémů složených z interagujících komponent.
-OpenModelica \todo{cite OM} je open-source verze kompilátoru, který překládá
-modely ze syntaxe modelica do imperativních jazyků (např. jazyka C) a
-automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS z kapitoly
-\ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
+Další relevantní dělení programovacích paradigmatů je z hlediska řízení pořadí
+jednotlivých operací (instrukcí).
+\begin{itemize}
+\item
+\textbf{Imperativní} programovací jazyky (všechny jež jsou zmíněny výše), mění
+stav programu přesně dle programátorem definované sekvence. Programy jsou
+spouštěny z výchozího bodu a běží přesně definovaným směrem.
+\item
+\textbf{Deklarativní} programovací jazyky využívají paradigmatu ve kterém
+programátor definuje logické a matematické výroky mezi objekty a konkrétní
+výpočtové posloupnosti jsou vytvářeny počítačem (kompilerem). To znamená, že
+programy nemají přesně definovaný výchozí bod a mohou být z principu spouštěny
+libovolným směrem a z různých stavů. Jeden z takových jazyků je například
+modelica, který byl vyvinut pro matematické modelování systémů složených z
+interagujících komponent. OpenModelica \todo{cite OM} je open-source verze
+kompilátoru, který překládá modely ze syntaxe modelica do imperativních jazyků
+(např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
+z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
 implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
-pak relativně rychlé a také velmi modulární.
-
+pak relativně rychlé a také velmi modulární. Pro nezasvěceného se může
+deklarativní programování jevit poněkud krkolomné, ale po překonání této
+bariéry je tento styl programování často schůdnější (zejména u komponentami
+orientovaných simulací).
+\end{itemize}
+Obecně tedy nejde o to, který programovací jazyk je nejlepší, ale spíše o
+jejich spojení tak, aby spolu jednotlivé moduly dobře spolupracovali a
+programátor se vyhnul zbytečnému nízkoúrovňovému programování v situacích kde
+by nepřineslo dostatečné výhody.
 \section{Komplexní distribuční systém}
 \label{sec:Complex_distr_sys}
 Matematické modely systémů jež jsou složené z mnoha komponent (zde myšleno jak
@@ -490,12 +505,12 @@ Podstatou této disertační práce je výzkum možností využití počítačov
 v oblasti matematické modelování fyzikálních procesů komponent a systémů
 složeného z těchto komponent se zaměřením na CZT. V principu jde tedy o
 modelování PDR. Jedná se o základní výzkum zaměřený na optimalizaci
-numerických výpočtů/simulací se zaměřením na maximalizace využití daného
-(distribuovaného) strojového vybavení. Jeho řešení spočívá ve vytvoření
-optimalizačního nástroje s aplikačními rozhraními umožňující jeho propojení s
-matematickými modely/simulacemi implementovanými v různých programovacích
-jazycích tak, aby bylo možné zlepšovat jejich efektivitu a/či přesnost nebo
-modelovat/zachycovat procesy s nedokonale objasněnými fyzikálními mechanismy.
+numerických výpočtů/simulací využívající distribuované strojové vybavení.
+Jeho řešení spočívá ve vytvoření optimalizačního nástroje s aplikačními
+rozhraními umožňující jeho propojení s matematickými modely/simulacemi
+implementovanými v různých programovacích jazycích tak, aby bylo možné
+zlepšovat jejich efektivitu a/či přesnost nebo modelovat/zachycovat procesy s
+nedokonale objasněnými fyzikálními mechanismy s pomocí experimentálních dat.
 \section{Cíle práce}
 \label{sec:Aims}
 Cílem disertační práce je vytvořit nástroje pro optimalizaci parametrizovaných
@@ -533,7 +548,8 @@ nástroje mohou výrazně usnadnit hledaní řídících strategií s ohledem na
 integraci fluktuicích nízkoteplotních zdrojů a také usnadnit hledání
 optimalních matematických modelů komponent ze kterých, je vhodné sestavit model
 většího systémů. Navrhovaný postup a nástroje pro optimalizaci modelů mohou být
-následně využity i mimo oblast CZT.
+následně využity i mimo oblast CZT, jejichž vývojem se na našem pracovišti
+taktéž intenzivně zabýváme.
 
 \chapter{Vědecké otázky a pracovní hypotézy}
 \label{chap:SciQaH}
@@ -559,10 +575,10 @@ systémy ODR nebo systémem diferenciálními algebraických rovnic (např. vý�
 zmíněné tepelné schéma)?
 \section*{Hypotéza č. 3}
 Nejpraktičtější je využití optimizátoru jež nevyžaduje první derivace vůči
-parametrům modelu (např. evolučních strategie), protože odpadá problém s
-poměrně složitým výpočtem těchto derivací. Modely pak mohou být implementovánv
-v jazyce modelica nebo obecně jiném programovacím prostředí. Takovým přístup je
-možné optimalizovat obecně modely i řídící parametry.
+parametrům modelu (tzn. nultého řádu, např. evolučních strategie), protože
+odpadá problém s poměrně složitým výpočtem těchto derivací. Modely pak mohou
+být implementovánv v jazyce modelica nebo obecně jiném programovacím prostředí.
+Takovým přístup je možné optimalizovat obecně modely i řídící parametry.
 \chapter{Způsob řešení a použité vědecké metody zkoumání}
 Tato kapitola se věnuje způsobům a metodám řešení aplikovaných v jednotlivých
 vytyčených cílech.
@@ -597,30 +613,49 @@ pomocí OMC). Tyto modely akumulace budou obsahovat rozhraní pro spárování s
 modelem fluidního regionu a případně i vlivy okolí.
 \section{Nástroj LOFI}
 \label{sec:tool_LOFI}
-Při řešení bude sestaven optimalizační nástroj LOFI, který bude obsahovat
-aplikační rozhraní zejména k OMC. Nástroj bude implementován v jazyce Python.
-Bude obsahovat paralelizované verze evolučních strategií, hejnových algoritmů,
-klesání v bloku souřadnic apod. Jelikož se předpokládá, že pro některé
-parametry budou modely simulací produkovat neočekávané chování, nebo tzv.
-\textit{floating-point exceptions} či budou kompletně neschopné běhu, bude
-zapotřebí zajistit dostatečná opatření zvyšující pravděpodobnost optimalizace i
-za takto náročných podmínek. Pro paralellizaci na clusterech bude využito
-knihoven MPI se zaměřením na Unixové systémy. Architektura bude založená na
-tzv. \textit{master-worker} paradigmatu. Protože modely zkompilované
-pomocí OMC produkují výsledky do binárních souborů, které se ukládají na disk,
-bude využit RAMdisk (kterým je Linuxový kernel zpravidla vybaven) pro
-akceleraci I/O přístupů a také ochranu hardwaru. LOFI bude obsahovat dynamický
-plánovač úloh pro maximální saturaci clusteru simulacemi. LOFI bude také
-schopno operovat v interaktivním režimu pomocí integrované konzole schopné
-vnitřně komunikovat s ostatními uzly clusteru.
+Při řešení bude sestaven optimalizační nástroj LOFI (nejedná se o zkratku, ale
+pouze o dočasné jméno), který bude obsahovat aplikační rozhraní zejména k OMC.
+Nástroj bude implementován v jazyce Python. Bude obsahovat paralelizované verze
+evolučních strategií, hejnových algoritmů, klesání v bloku souřadnic apod.
+Jelikož se předpokládá, že pro některé parametry budou modely simulací
+produkovat neočekávané chování, nebo tzv. \textit{floating-point exceptions} či
+budou kompletně neschopné běhu, bude zapotřebí zajistit dostatečná opatření
+zvyšující pravděpodobnost optimalizace i za takto náročných podmínek. Pro
+paralellizaci na clusterech bude využito knihoven MPI se zaměřením na Unixové
+systémy. Architektura bude založená na tzv. \textit{master-worker} paradigmatu.
+Protože modely zkompilované pomocí OMC produkují výsledky do binárních souborů,
+které se ukládají na disk, bude využit RAMdisk (kterým je Linuxový kernel
+zpravidla vybaven) pro akceleraci I/O přístupů a také ochranu hardwaru. LOFI
+bude obsahovat dynamický plánovač úloh pro maximální saturaci clusteru
+simulacemi. LOFI bude také schopno operovat v interaktivním režimu pomocí
+integrované konzole schopné vnitřně komunikovat s ostatními uzly clusteru.
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[scale=0.5]{figures/LofiArchitecture}
+\end{center}
+\caption{Optimalizační nástroj LOFI}
+\label{fig:LOFI}
+\end{figure}
+
 \section{Prediktivní řízení}
 \label{sec:MPC}
 LOFI bude v poslední fázi použito pro optimalizaci základních řídících
 parametrů sítě. Po sestavení malého teplárenského systému z jednotlivých
 komponent bude do modelu zahrnuta časová distribuce řídících veličina jako jsou
 teplota vstupní vody či průtok u zdroje.
-\section{Dosavadní dosažené výsledky}
+\chapter{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
-
+\section{Jednodimenzionální model potrubí}
+V roce 2019 byl publikován článek \cite{Kudela2019pipe} (v režimu open access s
+IF=2.707), ve kterém je popsán matematický model nadzemního potrubí s
+akumulací. Model je založen na výše popsané metodice, ale není optimalizován
+nástrojem LOFI. Optimalizace probíhala pomocí generátoru schémat a následným
+výběrem nejefektivnějšího schématu na základě vybraných kritérií jako je míra
+numerické difúze či nefyzikální oscilace. Výsledný differenciální operátor pro
+advekci je druhého řádu a je z části podobný schématu QUICKEST. Model se
+vyznačuje dobrou numerickou účinností v porovnání s nástroji
+\textit{ANSYS Fluent} či \textit{\mbox{STAR-CCM+}} přičemž vykazuje velmi dobrou shodu
+ve výsledném řešení šíření teplotní fronty. V~tomto článku je porovnáno a
+zhodnoceno mnoho dalších potenciálních vlivů na simulaci.
 
 
