@@ -643,19 +643,48 @@ LOFI bude v poslední fázi použito pro optimalizaci základních řídících
 parametrů sítě. Po sestavení malého teplárenského systému z jednotlivých
 komponent bude do modelu zahrnuta časová distribuce řídících veličina jako jsou
 teplota vstupní vody či průtok u zdroje.
-\chapter{Dosavadní dosažené výsledky}
+\section{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
-\section{Jednodimenzionální model potrubí}
-V roce 2019 byl publikován článek \cite{Kudela2019pipe} (v režimu open access s
-IF=2.707), ve kterém je popsán matematický model nadzemního potrubí s
-akumulací. Model je založen na výše popsané metodice, ale není optimalizován
-nástrojem LOFI. Optimalizace probíhala pomocí generátoru schémat a následným
-výběrem nejefektivnějšího schématu na základě vybraných kritérií jako je míra
-numerické difúze či nefyzikální oscilace. Výsledný differenciální operátor pro
-advekci je druhého řádu a je z části podobný schématu QUICKEST. Model se
-vyznačuje dobrou numerickou účinností v porovnání s nástroji
-\textit{ANSYS Fluent} či \textit{\mbox{STAR-CCM+}} přičemž vykazuje velmi dobrou shodu
-ve výsledném řešení šíření teplotní fronty. V~tomto článku je porovnáno a
-zhodnoceno mnoho dalších potenciálních vlivů na simulaci.
+V roce 2019 byl publikován článek \cite{Kudela2019pipe}, ve kterém je popsán
+matematický model nadzemního potrubí s akumulací. Je zde popsán matematický
+model fluidního regionu. Model je založen na výše popsané metodice, ale není
+optimalizován nástrojem LOFI. Optimalizace probíhala pomocí generátoru schémat
+a následným výběrem nejefektivnějšího schématu na základě vybraných kritérií
+jako je míra numerické difúze či nefyzikální oscilace. Výsledný differenciální
+operátor pro advekci je druhého řádu a je z části podobný schématu QUICKEST.
+Model se vyznačuje dobrou numerickou účinností v porovnání s nástroji
+\textit{ANSYS Fluent} či \textit{\mbox{STAR-CCM+}} přičemž vykazuje velmi
+dobrou shodu ve výsledném řešení šíření teplotní fronty. V~tomto článku je
+porovnáno a zhodnoceno mnoho dalších potenciálních vlivů na simulaci. Je zde
+také obsaženo odvození tvarových funkcí pro variační model akumulace do válcové
+stěny založené na stacionárním řešení.
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[scale=0.7]{figures/pipe_CCM_OM}
+  \end{center}
+  \caption{Srovnání nového modelu se simulací ve STAR-CCM+}
+  \label{fig:}
+\end{figure}
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[scale=0.7]{figures/pipe_Fluent_OM}
+  \end{center}
+  \caption{Srovnání nového modelu se simulací v ANSYS Fluent}
+  \label{fig:}
+\end{figure}
 
+V programovacím jazyce python byl sestaven nástroj pro simulaci 2D řezů
+rozvodů potrubí zejména s využitím knihovny mshr a FeniCS. Nástroj na základě
+parametrů automaticky sestaví síť, vytvoří příslušné řídké matice (paralelizace
+probíhá na úrovní lineární algebry) a simuluje data pomocí integrační metody
+druhého řádu (Crank-Nicolson). Pro akceleraci výpočtu během méně dynamického
+průběhu je využito adaptrace časového kroku pomocí odhadu chyby v zákonu
+zachování energie. Tento model je vhodný i pro simulace tzv. twinpipe.
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[scale=0.65]{figures/fenics_sim_pipes}
+\end{center}
+\caption{Nástroj pro simulaci radiálního šíření tepla}
+\label{fig:}
+\end{figure}
 
