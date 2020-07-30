@@ -47,10 +47,6 @@ efektivnosti simulací s využitím deklarativního programování a počítačo
 učení. Model tepelného zásobování zde poslouží jako studijní příklad jejich
 aplikace.
 
-\chapter{Abstrakt}
-\label{abstrakt}
-Text abstraktu.
-
 \chapter{Současné shrnutí stavu poznání}
 \label{struktura}
 V této kapitole jsou uvedeny relevantní rovnice pro modelování CZT. Dále je
@@ -483,7 +479,7 @@ komplexnost programů na základě extrahovaných veličin z více komplexních
 simulací nebo optimalizovat (ladit) známé mechanistické struktury pomocí
 experimentálních dat.
 
-\section{Gradient free optimalizační algoritmy}
+\section{Optimalizační algoritmy nultého řádu}
 \label{sec:opt_alg}
 Optimalizační algoritmy tzv. nultého řádu jsou i v dnešní době předmětem
 aktivního výzkumu. Například \cite{golovin2019gradientless} nabízí čerstvý
@@ -493,7 +489,21 @@ typu optimalizace patří evoluční strategie (zde je velmi známá metoda
 využívající adaptace kovarianční matice definující vzorkovací prostor)
 \todo{citeCMAES}, genetické algoritmy, náhodná hledání či stochastická hledání.
 Tyto algoritmy nebývají deterministické právě proto, že zpravidla využívají
-generátory náhodných čísel.
+generátory náhodných čísel. Jejich úkolem je nalézt minimum či maximum funkce o
+níž není známa její gradient. Jediná hodnota která je pro takový algoritmus
+přístupná je hodnota tzv. účelové funkce, což je hodnota popisující vhodnost či
+nevhodnost jednotlivých řešení. Například při optimalizaci založené na
+jednoduché mutaci (evoluční strategie) se pro pokusná řešení využívá slovo
+vzorek. Tyto vzorky jsou konstruovány během tzv. epoch (nebo generací). Každá
+epocha začíná s určitým množstvím vzorků, jež jsou během epochy zhodnoceny a na
+základě těchto výsledků jsou vygenerovány nové vzorky pro další epochu.
+Meteheuristika evoluční strategie je proces, který manipuluje se vzorkovacím
+prostorem tak aby se zvýšila pravděpodobnost, že v následující epoše budou
+nalezeny lepší vzorky než v epoše předcházející. Tímto postupně nalézáme lepší
+a lepší řešení daného optimalizačního problému, dokud není nalezeno nejlepší
+možné řešení (může dojít k nalezení pouze tzv. lokálního optima). Jednotlivé
+strategie jsou vhodné jen pro určité problémy a proto jsou optimalizační
+nástroje zpravidla vybaveny celou sadou různých algoritmů.
 
 \chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
 kritické rešerše}
@@ -522,11 +532,18 @@ také data z komplexnějších simulací nebo penalizační účelové funkce (n
 v případě optimalizace řídících veličin).
 \begin{itemize}
   \item
-    Naprogramovaní optimizátorů v jazyce Python/Julia schopných běhu na
-    počítačových clusterech splňující Unix standartazaci (Linux). Pro
-    komunikaci jednotlivých uzlů bude využit uzlový komunikační protokol MPI.
-    Ohled bude brán i na minimalizaci síťové komunikace také pomalých I/O
-    přístupů například pomocí ukládání do paměti RAM.
+    Sestavení a naprogramování modulárního modelu advektivně-difúzivní
+    mechaniky pro fluidní region teplárenských rozvodů s přestupem tepla do
+    okolí.
+  \item
+    Sestavení parametrizovaného modelu akumulace tepla do okolí teplárenských
+    rozvodů. 
+  \item
+    Naprogramovaní optimizátorů v jazyce Python schopných běhu na počítačových
+    clusterech splňující Unix standartazaci (Linux). Pro komunikaci
+    jednotlivých uzlů bude využit uzlový komunikační protokol MPI. Ohled bude
+    brán i na minimalizaci síťové komunikace také pomalých I/O přístupů
+    například pomocí ukládání do paměti RAM.
   \item
     Pro snadnější implementaci výše zmíněného bude navržen jednoduchý plánovač
     úloh s příhodnými funkcemi (využívající zejména MPI) pro efektivní saturaci
@@ -536,10 +553,8 @@ v případě optimalizace řídících veličin).
     optimizátoru s matematickými modely implementovanými v
     \textbf{deklarativním} jazyce modelica.
   \item
-    Sestavení parametrizovaného modelu akumulace tepla do okolí teplárenských
-    rozvodů. 
-  \item
-    Sestavení modelu menšího teplárenského systému.
+    Sestavení modelu menšího teplárenského systému a optimalizace řídících
+    veličin.
 \end{itemize}
 \section{Přínos disertační práce}
 \label{sec:prinos}
@@ -558,10 +573,12 @@ Jakou strukturu mají matematické modely teplárenských rozvodů, ze kterých 
 snadno sestavit vetší potrubní systém a které reflektují akumulaci tepla do
 okolního materiálu a zároveň lze optimalizovat jejich numerické schopnosti?
 \section*{Hypotéza č. 1}
-Je možné sestavit ekvivalentní tepelné schéma o příslušné komplexnosti a
-optimalizovat jeho parametry tak aby model dosahoval co největší shody s plně
-disktretizovaným protějškem. Tímto může být dosaženo výrazné redukce
-komplexnosti při zachování dostatečné přesnosti.
+Je možné sestavit ekvivalentní tepelné schéma radiálního šíření tepla o
+příslušné komplexnosti a optimalizovat jeho parametry tak aby model dosahoval
+co největší shody s plně disktretizovaným 2D protějškem, přičemž fluidní
+region je modelován pomocí jednorozměrné advektivně-difúzivní mechaniky. Tímto
+může být dosaženo výrazné redukce komplexnosti při zachování dostatečné
+přesnosti.
 \section*{Vědecká otázka č. 2}
 Jak optimalizovat řídící veličiny teplárenského systému v rámci dlouhodobých
 horizontů z hlediska ekonomicky či účinnosti?
@@ -569,6 +586,7 @@ horizontů z hlediska ekonomicky či účinnosti?
 V čase rozmístěné řídící veličiny mohou být optimalizovány na základě simulací,
 které obsahují data o předpovědi počasí (nebo obecně předpovědi venkovních
 vlivů) kde skutečné řídící veličiny jsou interpolovány z diskrétních okamžiků.
+Tyto diskrétní body je pak nutné holisticky optimalizovat.
 \section*{Vědecká otázka č. 3}
 Jak přistupovat k problému optimalizace dynamických modelů reprezentovanými
 systémy ODR nebo systémem diferenciálními algebraických rovnic (např. výše
@@ -585,13 +603,14 @@ vytyčených cílech.
 \section{Jednodimenzionální model potrubí}
 \label{sec:1Dpipe}
 V programovacím jazyce modelica bude sestavena komponenta fluidního regionu
-potrubí s parametrizovaným advektivním schématem pro rozumnou minimalizaci
-numerické difúze ostré teplotní vlny (podobně jako v metodě QUICKEST) a také
-jednoduché schéma pro skutečnou fyzikální difúzi. Model výměny tepla mezi
-tekutinou a vnitřním povrchem bude implementován dle \cite{Abraham2009} s
-třecím koeficient dle \cite{Churchill1977}. Parametry modelu Nusseltova čísla
-mohou být následně optimalizovány pro daný kontext. Model bude obsahovat
-rozhraní pro spárování s modelem akumulace tepla.
+potrubí s parametrizovaným advektivním schématem druhého nebo třetího řádu pro
+rozumnou minimalizaci numerické difúze ostré teplotní vlny (podobně jako v
+metodě QUICKEST) a také jednoduché schéma prvého řádu pro skutečnou fyzikální
+difúzi. Model výměny tepla mezi tekutinou a vnitřním povrchem bude
+implementován dle \cite{Abraham2009} s třecím koeficient dle
+\cite{Churchill1977}. Parametry modelu Nusseltova čísla mohou být následně
+optimalizovány pro daný kontext. Model bude obsahovat rozhraní pro spárování s
+modelem akumulace tepla.
 \begin{figure}[h]
 \begin{center}
   \includegraphics[scale=0.9]{figures/1D_model_pipe}
@@ -607,10 +626,26 @@ tepelnou dynamiku jednotlivých válcových vrstev (ocel, izolace apod.). Model
 bude založen na MPK se specificky navrženými konečnými elementy. Pro
 podzemní potrubí bude nejdříve sestavena komplexní dvourozměrný model pomocí
 metody MKP. K tomuto účelu bude využit nástroj FeniCS. Na základě dat z těchto
-simulací bude chování modelu přeneseno (pomocí LOFI) do zjednodušeného
-ekvivalentního schématu naprogramovaného v jazyce modelica (a kompilovaného
-pomocí OMC). Tyto modely akumulace budou obsahovat rozhraní pro spárování s
-modelem fluidního regionu a případně i vlivy okolí.
+simulací bude chování modelu přeneseno optimalizací stupňů volnosti (pomocí
+LOFI) do zjednodušeného ekvivalentního schématu naprogramovaného v jazyce
+modelica (a kompilovaného pomocí OMC). Přidáváním, odebíráním a změnou
+topologie schématu je možné měnit chování zjednodušeného modelu (přesnost a
+numerická efektivita). Tyto modely akumulace budou obsahovat rozhraní pro
+spárování s modelem fluidního regionu a případně i vlivy okolí. 
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[scale=0.09]{figures/Assembly_TimeDependent}
+\end{center}
+\caption{Symbolická linearizace PDR vedení tepla v okolí potrubí pomocí MKP}
+\label{fig:VariationalMathTwoPipes}
+\end{figure}
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.75\textwidth]{figures/acumulation_burried}
+    \caption{Ekvivalentní tepelné schémata vedení tepla v zemině (nalevo
+      základní schéma, napravo schéma s více stupni volnosti)}
+    \label{fig:above_ground_pipe}
+\end{figure}
 \section{Nástroj LOFI}
 \label{sec:tool_LOFI}
 Při řešení bude sestaven optimalizační nástroj LOFI (nejedná se o zkratku, ale
@@ -645,6 +680,7 @@ komponent bude do modelu zahrnuta časová distribuce řídících veličina jak
 teplota vstupní vody či průtok u zdroje.
 \section{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
+\section*{Fluidní region rozvodů}
 V roce 2019 byl publikován článek \cite{Kudela2019pipe}, ve kterém je popsán
 matematický model nadzemního potrubí s akumulací. Je zde popsán matematický
 model fluidního regionu. Model je založen na výše popsané metodice, ale není
@@ -672,19 +708,55 @@ stěny založené na stacionárním řešení.
   \caption{Srovnání nového modelu se simulací v ANSYS Fluent}
   \label{fig:}
 \end{figure}
+\section*{Komplexní model akumulace tepla v zemině}
+V programovacím jazyce python byl sestaven efektivní nástroj pro simulaci 2D
+řezů rozvodů potrubí zejména s využitím knihovny mshr a FeniCS. Nástroj na
+základě parametrů automaticky sestaví síť, vytvoří příslušné řídké matice
+(paralelizace probíhá na úrovní lineární algebry) a simuluje data pomocí
+integrační metody druhého řádu (Crank-Nicolson). Pro akceleraci výpočtu se
+během méně dynamického průběhu je využito adaptace časového kroku pomocí odhadu
+chyby v zákonu zachování energie. Tento model je vhodný i pro simulace tzv.
+twinpipe rozvodů. Optimalizace zjednodušeného schématu (převod dynamiky z
+komplexní simulace) zatím nebyla otestována.
 
-V programovacím jazyce python byl sestaven nástroj pro simulaci 2D řezů
-rozvodů potrubí zejména s využitím knihovny mshr a FeniCS. Nástroj na základě
-parametrů automaticky sestaví síť, vytvoří příslušné řídké matice (paralelizace
-probíhá na úrovní lineární algebry) a simuluje data pomocí integrační metody
-druhého řádu (Crank-Nicolson). Pro akceleraci výpočtu během méně dynamického
-průběhu je využito adaptrace časového kroku pomocí odhadu chyby v zákonu
-zachování energie. Tento model je vhodný i pro simulace tzv. twinpipe.
 \begin{figure}[h]
 \begin{center}
   \includegraphics[scale=0.65]{figures/fenics_sim_pipes}
 \end{center}
 \caption{Nástroj pro simulaci radiálního šíření tepla}
 \label{fig:}
+\end{figure}
+\section*{Optimalizační nástroj LOFI}
+Nástroj LOFI je také ve stavu funkčního prototypu. Plánovač úloh, API pro OMC,
+tři funkční optimalizační algoritmy (hejnový algoritmus PSO, hejnový algoritmus s
+náhodnou adaptací GRAPSO a evoluční strategie s adaptací vzorkovacího prostoru
+OPLES), vizualizační callback a interaktivní konzole jsou otestovány. Samotný
+nástroj LOFI \todo{je nebo bude?} publikován v konferenčním sborníku
+\textit{SDEWES Cologne 2020}. LOFI bylo otestováno pro optimalizaci/nalezení
+advektivního schématu, řízení okrajové podmínky pro problém vedení tepla a
+učení neuronové síťě pro zachycení testovacího modelu Lotka-Voltera. Všechny
+tři modely byly implementovány v jazyce modelica a kompilovány pomocí OMC. 
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=\textwidth]{figures/Advection_GRAPSO}
+\end{center}
+\caption{Průběh optimalizace advektivního schématu algoritmem GRAPSO}
+\label{fig:Advection_GRAPSO}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=\textwidth]{figures/Inverse_OPLES}
+\end{center}
+\caption{Průběh optimalizace okrajové podmínky v problému vedení tepla
+algoritmem OPLES}
+\label{fig:Advection_GRAPSO}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=\textwidth]{figures/LotkaVoltera_NN_OPLES}
+\end{center}
+\caption{Průběh optimalizace neuronové sítě s 50 neurony ve vnitřní vrstvě
+reprezentující ODR systém Lotka-Voltera, kde optimalizace prbhala pomocí algoritmu OPLES}
+\label{fig:Advection_GRAPSO}
 \end{figure}
 
