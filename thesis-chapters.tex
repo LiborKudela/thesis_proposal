@@ -532,12 +532,20 @@ také data z komplexnějších simulací nebo penalizační účelové funkce (n
 v případě optimalizace řídících veličin).
 \begin{itemize}
   \item
+    Vytvořit nástroje pro optimalizaci parametrizovaných programů (simulací).
+  \item
+    Propojit tyto nástroje s modely komponent CZT a demostrovat jejich
+    funkčnost.
+\end{itemize}
+\subsection*{Jednotlivé kroky}
+\begin{itemize}
+  \item
     Sestavení a naprogramování modulárního modelu advektivně-difúzivní
     mechaniky pro fluidní region teplárenských rozvodů s přestupem tepla do
     okolí.
   \item
     Sestavení parametrizovaného modelu akumulace tepla do okolí teplárenských
-    rozvodů. 
+    rozvodů.
   \item
     Naprogramovaní optimizátorů v jazyce Python schopných běhu na počítačových
     clusterech splňující Unix standartazaci (Linux). Pro komunikaci
@@ -568,30 +576,30 @@ taktéž intenzivně zabýváme.
 
 \chapter{Vědecké otázky a pracovní hypotézy}
 \label{chap:SciQaH}
-\section*{Vědecká otázka č. 1}
+\subsection*{Vědecká otázka č. 1}
 Jakou strukturu mají matematické modely teplárenských rozvodů, ze kterých lze
 snadno sestavit vetší potrubní systém a které reflektují akumulaci tepla do
 okolního materiálu a zároveň lze optimalizovat jejich numerické schopnosti?
-\section*{Hypotéza č. 1}
+\subsection*{Hypotéza č. 1}
 Je možné sestavit ekvivalentní tepelné schéma radiálního šíření tepla o
 příslušné komplexnosti a optimalizovat jeho parametry tak aby model dosahoval
 co největší shody s plně disktretizovaným 2D protějškem, přičemž fluidní
 region je modelován pomocí jednorozměrné advektivně-difúzivní mechaniky. Tímto
 může být dosaženo výrazné redukce komplexnosti při zachování dostatečné
 přesnosti.
-\section*{Vědecká otázka č. 2}
+\subsection*{Vědecká otázka č. 2}
 Jak optimalizovat řídící veličiny teplárenského systému v rámci dlouhodobých
 horizontů z hlediska ekonomicky či účinnosti?
-\section*{Hypotéza č. 2}
+\subsection*{Hypotéza č. 2}
 V čase rozmístěné řídící veličiny mohou být optimalizovány na základě simulací,
 které obsahují data o předpovědi počasí (nebo obecně předpovědi venkovních
 vlivů) kde skutečné řídící veličiny jsou interpolovány z diskrétních okamžiků.
 Tyto diskrétní body je pak nutné holisticky optimalizovat.
-\section*{Vědecká otázka č. 3}
+\subsection*{Vědecká otázka č. 3}
 Jak přistupovat k problému optimalizace dynamických modelů reprezentovanými
 systémy ODR nebo systémem diferenciálními algebraických rovnic (např. výše
 zmíněné tepelné schéma)?
-\section*{Hypotéza č. 3}
+\subsection*{Hypotéza č. 3}
 Nejpraktičtější je využití optimizátoru jež nevyžaduje první derivace vůči
 parametrům modelu (tzn. nultého řádu, např. evolučních strategie), protože
 odpadá problém s poměrně složitým výpočtem těchto derivací. Modely pak mohou
@@ -680,7 +688,7 @@ komponent bude do modelu zahrnuta časová distribuce řídících veličina jak
 teplota vstupní vody či průtok u zdroje.
 \section{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
-\section*{Fluidní region rozvodů}
+\subsection*{Fluidní region rozvodů}
 V roce 2019 byl publikován článek \cite{Kudela2019pipe}, ve kterém je popsán
 matematický model nadzemního potrubí s akumulací. Je zde popsán matematický
 model fluidního regionu. Model je založen na výše popsané metodice, ale není
@@ -708,7 +716,7 @@ stěny založené na stacionárním řešení.
   \caption{Srovnání nového modelu se simulací v ANSYS Fluent}
   \label{fig:}
 \end{figure}
-\section*{Komplexní model akumulace tepla v zemině}
+\subsection*{Komplexní model akumulace tepla v zemině}
 V programovacím jazyce python byl sestaven efektivní nástroj pro simulaci 2D
 řezů rozvodů potrubí zejména s využitím knihovny mshr a FeniCS. Nástroj na
 základě parametrů automaticky sestaví síť, vytvoří příslušné řídké matice
@@ -726,7 +734,7 @@ komplexní simulace) zatím nebyla otestována.
 \caption{Nástroj pro simulaci radiálního šíření tepla}
 \label{fig:}
 \end{figure}
-\section*{Optimalizační nástroj LOFI}
+\subsection*{Optimalizační nástroj LOFI}
 Nástroj LOFI je také ve stavu funkčního prototypu. Plánovač úloh, API pro OMC,
 tři funkční optimalizační algoritmy (hejnový algoritmus PSO, hejnový algoritmus s
 náhodnou adaptací GRAPSO a evoluční strategie s adaptací vzorkovacího prostoru
