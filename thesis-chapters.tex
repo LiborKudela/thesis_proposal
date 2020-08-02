@@ -263,13 +263,13 @@ okrajové podmínky zajišťující interakci s dalším okolím.
     interakci s prostředím, které se nachází nad povrchem země (to může být
     samotný vzduch nebo městská infrastruktura, budovy apod.) tak s dostatečně
     vzdálenou zeminou jak v horizontálním tak vertikálním směru. Jedná se tedy
-    o tři různé okrajové podmínky. Dle \todo{cite source} je nevhodnější použít
-    okrajovou podmínku prvého řádu (Dirichletovu) pro spodní okraj uvažované
-    domény a podmínky druhého řádu (Neumannovu) pro oba její vertikální okraje.
-    Okrajová podmínka na horním okraji je pak řádu třetího podobně jako u
-    nadzemního potrubí nebo řádu čtvrtého v případě přítomnosti městské
-    infrastruktury (z hlediska numerického řešení jsou si podmínky třetího a
-    čtvrtého řádu velmi podobné).
+    o tři různé okrajové podmínky. Dle \cite{danielewicz2016172} je nevhodnější
+    použít okrajovou podmínku prvého řádu (Dirichletovu) pro spodní okraj
+    uvažované domény a podmínky druhého řádu (Neumannovu) pro oba její
+    vertikální okraje. Okrajová podmínka na horním okraji je pak řádu třetího
+    podobně jako u nadzemního potrubí nebo řádu čtvrtého v případě přítomnosti
+    městské infrastruktury (z hlediska numerického řešení jsou si podmínky
+    třetího a čtvrtého řádu velmi podobné).
 \end{itemize}
 
 \begin{figure}[!tbph]
@@ -389,7 +389,7 @@ výpočtové posloupnosti jsou vytvářeny počítačem (kompilerem). To znamen�
 programy nemají přesně definovaný výchozí bod a mohou být z principu spouštěny
 libovolným směrem a z různých stavů. Jeden z takových jazyků je například
 modelica, který byl vyvinut pro matematické modelování systémů složených z
-interagujících komponent. OpenModelica \todo{cite OM} je open-source verze
+interagujících komponent. OpenModelica \cite{Fritzson2019} je open-source verze
 kompilátoru, který překládá modely ze syntaxe modelica do imperativních jazyků
 (např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
 z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
@@ -462,7 +462,7 @@ fakt, že vyžadují poměrně velké množství dat.
 
 Nedávno (2019) se objevily vědecké práce, které navrhují a demonstrují využití
 NN (nebo obecně parametrizovaných programů) pro matematické modelování ODR
-systémů (a tudíž i PDR) \cite{diffEqFlux2019, chen2018neural}. Ukázkové modely
+systémů (a tudíž i PDR) \cite{diffEqFlux2019,chen2018neural}. Ukázkové modely
 byly v těchto dvou implementacích prováděny akcelerovanou metodou gradient
 descend, přičemž gradient byl určen algoritmickou zpětnou propagací skrze ODR
 solver (což je největším přínosem těchto prací). Gradient descend je obecně
@@ -487,7 +487,7 @@ pohled na využití Gausovské vzorkování jakožto klíčové metaheuristiky p
 tzv. \textit{gradientless descend} (GLD). Mezi pokročilé techniky takového
 typu optimalizace patří evoluční strategie (zde je velmi známá metoda
 využívající adaptace kovarianční matice definující vzorkovací prostor)
-\todo{citeCMAES}, genetické algoritmy, náhodná hledání či stochastická hledání.
+\cite{hansen2016cma}, genetické algoritmy, náhodná hledání či stochastická hledání.
 Tyto algoritmy nebývají deterministické právě proto, že zpravidla využívají
 generátory náhodných čísel. Jejich úkolem je nalézt minimum či maximum funkce o
 níž není známa její gradient. Jediná hodnota která je pro takový algoritmus
@@ -504,9 +504,11 @@ a lepší řešení daného optimalizačního problému, dokud není nalezeno ne
 možné řešení (může dojít k nalezení pouze tzv. lokálního optima). Jednotlivé
 strategie jsou vhodné jen pro určité problémy a proto jsou optimalizační
 nástroje zpravidla vybaveny celou sadou různých algoritmů.
+\chapter{Shrnutí vybraných studií}
+itext
 
-\chapter{Analýza, interpretace a zhodnocení poznatků získaných na základě
-kritické rešerše}
+\chapter{Analýza, interpretace a zhodnocení poznatků}
+itext
 \chapter{Podstata, cíle a přínos disertační práce}
 \label{chap:Aims_of_disertation}
 \section{Podstata disertační práce}
@@ -688,7 +690,7 @@ komponent bude do modelu zahrnuta časová distribuce řídících veličina jak
 teplota vstupní vody či průtok u zdroje.
 \section{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
-\subsection*{Fluidní region rozvodů}
+\subsection{Fluidní region rozvodů a akumlace v nadzemním potrubí}
 V roce 2019 byl publikován článek \cite{Kudela2019pipe}, ve kterém je popsán
 matematický model nadzemního potrubí s akumulací. Je zde popsán matematický
 model fluidního regionu. Model je založen na výše popsané metodice, ale není
@@ -716,7 +718,7 @@ stěny založené na stacionárním řešení.
   \caption{Srovnání nového modelu se simulací v ANSYS Fluent}
   \label{fig:}
 \end{figure}
-\subsection*{Komplexní model akumulace tepla v zemině}
+\subsection{Komplexní model akumulace tepla v zemině}
 V programovacím jazyce python byl sestaven efektivní nástroj pro simulaci 2D
 řezů rozvodů potrubí zejména s využitím knihovny mshr a FeniCS. Nástroj na
 základě parametrů automaticky sestaví síť, vytvoří příslušné řídké matice
@@ -734,12 +736,12 @@ komplexní simulace) zatím nebyla otestována.
 \caption{Nástroj pro simulaci radiálního šíření tepla}
 \label{fig:}
 \end{figure}
-\subsection*{Optimalizační nástroj LOFI}
+\subsection{Optimalizační nástroj LOFI}
 Nástroj LOFI je také ve stavu funkčního prototypu. Plánovač úloh, API pro OMC,
-tři funkční optimalizační algoritmy (hejnový algoritmus PSO, hejnový algoritmus s
-náhodnou adaptací GRAPSO a evoluční strategie s adaptací vzorkovacího prostoru
-OPLES), vizualizační callback a interaktivní konzole jsou otestovány. Samotný
-nástroj LOFI \todo{je nebo bude?} publikován v konferenčním sborníku
+tři funkční optimalizační algoritmy (hejnový algoritmus PSO, hejnový algoritmus
+s náhodnou adaptací GRAPSO a evoluční strategie s adaptací vzorkovacího
+prostoru OPLES), vizualizační callback a interaktivní konzole jsou otestovány.
+Samotný nástroj LOFI je publikován v konferenčním sborníku
 \textit{SDEWES Cologne 2020}. LOFI bylo otestováno pro optimalizaci/nalezení
 advektivního schématu, řízení okrajové podmínky pro problém vedení tepla a
 učení neuronové síťě pro zachycení testovacího modelu Lotka-Voltera. Všechny
@@ -764,7 +766,7 @@ algoritmem OPLES}
   \includegraphics[width=\textwidth]{figures/LotkaVoltera_NN_OPLES}
 \end{center}
 \caption{Průběh optimalizace neuronové sítě s 50 neurony ve vnitřní vrstvě
-reprezentující ODR systém Lotka-Voltera, kde optimalizace prbhala pomocí algoritmu OPLES}
+reprezentující ODR systém Lotka-Voltera, kde optimalizace proběhla pomocí algoritmu OPLES}
 \label{fig:Advection_GRAPSO}
 \end{figure}
 
