@@ -7,8 +7,8 @@ několika budoucích dekád je žádoucí transformace na obnovitelné, plně
 udržitelné a efektivní zásobování teplem. To přináší nové technologické výzvy
 související zejména s integrací obnovitelných zdrojů, využitím odpadního tepla
 a celkově snižováním emisí oxidu uhličitého. Je totiž obecně přijímaným faktem,
-že pro smysluplnou implementaci obnovitelných zdrojů tepla a odpadní, jež lze
-obecně považovat za nízkoteplotní zdroje, je nutné dále snižovat
+že pro smysluplnou implementaci obnovitelných zdrojů tepla a odpadního tepla,
+jež lze obecně považovat za nízkoteplotní zdroje, je nutné dále snižovat
 teplotu v teplárenských rozvodech. Snižovaní této teploty má za následek další
 redukci ztrát při distribuci tepla, ale komplikuje efektivní předávání tepla na
 straně spotřebitelů a zvyšuje provozní náklady čerpadel. Proto je nutné do sítě
@@ -16,10 +16,10 @@ implementovat další prvky, jež umožní efektivní zvýšení teploty blízko
 samotných spotřebitelů. Jako další problém lze zmínit značnou nestálost
 obnovitelných zdrojů tepla. Se zvyšující se komlexností sítí bude nutné zlepšit
 možnosti optimalizace jejich provozu. Toho lze dosáhnout například prediktivním
-řízením využívající matematické modely a vhodnou koncepcí akumulace tepla
-společně s předpovědí počasí a predikcí množství potřebného tepla. Systémy, jež
-se budou schopny vypořádat s těmito a dalšími výzvami lze obecně nazvat čtvrtou
-generací teplárenských sítí \cite{Lund2014}.
+řízením založeném na matematických modelech a vhodnou koncepcí akumulace tepla
+využívající předpovědi počasí a predikci množství potřebného tepla. Systémy,
+jež se budou schopny vypořádat s těmito a dalšími výzvami lze obecně nazvat
+čtvrtou generací teplárenských sítí \cite{Lund2014}.
 
 Množství hmoty, které ovlivňuje fyzikální dynamiku rozsáhlých energetických
 systémů již samo o sobě naznačuje komplexnost potenciálního matematického
@@ -52,7 +52,7 @@ aplikace.
 V této kapitole jsou uvedeny relevantní rovnice pro modelování CZT. Dále je
 provedena stručná rešerše literatury na kterou tato práce navazuje, nebo
 využívá její poznatky. Následně jsou popsány použitelné výpočetní přístupy
-a metody spolu s aspekty, ovlivňující numerickou efektivnost simulací.
+a metody spolu s aspekty, ovlivňujícími numerickou efektivnost simulací.
 
 \section{Stručná historie rozvoje teplárenství}
 \label{sec:history}
@@ -91,7 +91,7 @@ proudění) lze problém zjednodušit na součinnost třech fyzikálních jevů:
 
 \begin{itemize}
   \item Advekce veličin jež jsou unášeny proudem podél potrubí
-  \item Difúze veličin v tekutině podél potrubí
+  \item Difúze veličin v tekutině (její podélná složka)
   \item Příspěvky do veličin vnitřními a/či externími zdroji
 \end{itemize}
 
@@ -141,11 +141,11 @@ měrná entalpie, ale lze pracovat i s teplotou.
 
 \begin{equation}
   \label{eq:ConvHeatTransfer}
-  Q = \alpha S \Delta T
+  \dot{Q} = \alpha S \Delta T
 \end{equation}
-kde \(Q\) je tepelný tok ze stěny do tekutiny, \(\alpha\) je součinitel přestupu
-tepla, \(S\) je velikost plochy styčného povrchu a \(\Delta T\) je rozdíl
-teplot povrchu a tekutiny. Koeficient přenosu tepla  je možné určovat z
+kde \(\dot{Q}\) je tepelný tok ze stěny do tekutiny, \(\alpha\) je součinitel
+přestupu tepla, \(S\) je velikost plochy styčného povrchu a \(\Delta T\) je
+rozdíl teplot povrchu a tekutiny. Koeficient přenosu tepla  je možné určovat z
 tzv. Nusseltova čísla, které vyjadřuje poměr mezi konvektivním a koduktivním
 přestupem tepla. Známe-li tedy množství tepla, jež by procházelo mezní vrstvou
 v případě čisté kondukce tepla je možné určit množství tepla v případě
@@ -388,11 +388,11 @@ programátor definuje logické a matematické výroky mezi objekty a konkrétní
 výpočtové posloupnosti jsou vytvářeny počítačem (kompilerem). To znamená, že
 programy nemají přesně definovaný výchozí bod a mohou být z principu spouštěny
 libovolným směrem a z různých stavů. Jeden z takových jazyků je například
-modelica, který byl vyvinut pro matematické modelování systémů složených z
+Modelica, který byl vyvinut pro matematické modelování systémů složených z
 interagujících komponent. OpenModelica \cite{Fritzson2019} je open-source verze
-kompilátoru, který překládá modely ze syntaxe modelica do imperativních jazyků
+kompilátoru, který překládá modely ze syntaxe Modelica do imperativních jazyků
 (např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
-z kapitoly \ref{sec:NumSpeed}. Standardní knihovna modelica (MSL) také obsahuje
+z kapitoly \ref{sec:NumSpeed}. Standardní knihovna Modelica (MSL) také obsahuje
 implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
 pak relativně rychlé a také velmi modulární. Pro nezasvěceného se může
 deklarativní programování jevit poněkud krkolomné, ale po překonání této
@@ -408,7 +408,7 @@ by nepřineslo dostatečné výhody.
 Matematické modely systémů jež jsou složené z mnoha komponent (zde myšleno jak
 matematických tak fyzikálních abstrakcí) mohou být z hlediska komplementace
 značnou výzvou. Zejména zde se projevují výhody deklarativního jazyka jako je
-modelica. Jednotlivé naprogramované komponenty je možné propojovat a vnořovat
+Modelica. Jednotlivé naprogramované komponenty je možné propojovat a vnořovat
 do sebe bez nutnosti detailního popisu pořadí výpočtových instrukcí. OMC by měl
 v budoucnosti poskytovat možnosti pro kompilaci modelů s automatickou
 parallelizací. Pro paralelizaci systémů se značnou numerickou komplexností lze
@@ -421,17 +421,6 @@ správná interakce.
 
 \section{Počítačové učení a jeho vztah k modelování procesů}
 \label{sec:ML}
-\begin{figure}[h] \centering \capstart
-  \includegraphics[scale=0.6]{figures/traditional_prog_cz}
-  \caption{Tradiční programování}
-  \label{fig:traditional_prog}
-\end{figure}
-
-\begin{figure}[h] \centering \capstart
-  \includegraphics[scale=0.6]{figures/machine_learning_cz}
-  \caption{Počítačové učení}
-  \label{fig:machine_learning}
-\end{figure}
 Počítačové učení (anglicky machine learning) je metoda tvorby programů. Jedná
 se o postup kdy je program (nebo jeho část) vytvořen počítačem. Tato oblast se
 dále dělí na následující oblasti:
@@ -450,6 +439,17 @@ dále dělí na následující oblasti:
     operuje poskytuje informace o dopadu zásahů tohoto programu na dané
     prostředí. Typickým příkladem může být řídící člen (agent) v simulaci.
 \end{itemize}
+\begin{figure}[h] \centering \capstart
+  \includegraphics[scale=0.6]{figures/traditional_prog_cz}
+  \caption{Tradiční programování}
+  \label{fig:traditional_prog}
+\end{figure}
+
+\begin{figure}[h] \centering \capstart
+  \includegraphics[scale=0.6]{figures/machine_learning_cz}
+  \caption{Počítačové učení}
+  \label{fig:machine_learning}
+\end{figure}
 Programy v machine learning jsou v podstatě
 parametrizované matematické struktury a optimalizací jejich parametrů je možné
 měnit/zlepšovat chování programu. Tyto programy dále obsahují tzv.
@@ -498,7 +498,7 @@ vzorek. Tyto vzorky jsou konstruovány během tzv. epoch (nebo generací). Každ
 epocha začíná s určitým množstvím vzorků, jež jsou během epochy zhodnoceny a na
 základě těchto výsledků jsou vygenerovány nové vzorky pro další epochu.
 Meteheuristika evoluční strategie je proces, který manipuluje se vzorkovacím
-prostorem tak aby se zvýšila pravděpodobnost, že v následující epoše budou
+prostorem tak, aby se zvýšila pravděpodobnost, že v následující epoše budou
 nalezeny lepší vzorky než v epoše předcházející. Tímto postupně nalézáme lepší
 a lepší řešení daného optimalizačního problému, dokud není nalezeno nejlepší
 možné řešení (může dojít k nalezení pouze tzv. lokálního optima). Jednotlivé
@@ -525,13 +525,6 @@ zlepšovat jejich efektivitu a/či přesnost nebo modelovat/zachycovat procesy s
 nedokonale objasněnými fyzikálními mechanismy s pomocí experimentálních dat.
 \section{Cíle práce}
 \label{sec:Aims}
-Cílem disertační práce je vytvořit nástroje pro optimalizaci parametrizovaných
-programů, propojit je s matematickými modely komponent (a systémů) a
-demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj (s pracovním
-názvem LOFI) bude schopen optimalizovat parametry jak mechanistických tak
-neuronových modelů. Cílovými veličinami mohou být jak experimentální data, ale
-také data z komplexnějších simulací nebo penalizační účelové funkce (například
-v případě optimalizace řídících veličin).
 \begin{itemize}
   \item
     Vytvořit nástroje pro optimalizaci parametrizovaných programů (simulací).
@@ -539,7 +532,14 @@ v případě optimalizace řídících veličin).
     Propojit tyto nástroje s modely komponent CZT a demostrovat jejich
     funkčnost.
 \end{itemize}
-\subsection*{Jednotlivé kroky}
+Cílem disertační práce je vytvořit nástroje pro optimalizaci parametrizovaných
+programů, propojit je s matematickými modely komponent (a systémů) a
+demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj (s pracovním
+názvem LOFI) bude schopen optimalizovat parametry jak mechanistických tak
+neuronových modelů. Cílovými veličinami mohou být experimentální data, ale také
+data z komplexnějších simulací nebo penalizační účelové funkce (například v
+případě optimalizace řídících veličin).
+\subsection*{Dílčí kroky vedoucí k dosažení cíle práce}
 \begin{itemize}
   \item
     Sestavení a naprogramování modulárního modelu advektivně-difúzivní
@@ -561,7 +561,7 @@ v případě optimalizace řídících veličin).
   \item
     Naprogramovaní aplikačního rozhraní na OMC pro snadné propojení
     optimizátoru s matematickými modely implementovanými v
-    \textbf{deklarativním} jazyce modelica.
+    \textbf{deklarativním} jazyce Modelica.
   \item
     Sestavení modelu menšího teplárenského systému a optimalizace řídících
     veličin.
@@ -570,7 +570,7 @@ v případě optimalizace řídících veličin).
 \label{sec:prinos}
 Hlavní přínos práce je v oblasti základního výzkumu. Navrhované postupy a
 nástroje mohou výrazně usnadnit hledaní řídících strategií s ohledem na
-integraci fluktuicích nízkoteplotních zdrojů a také usnadnit hledání
+integraci fluktujících nízkoteplotních zdrojů a také usnadnit hledání
 optimalních matematických modelů komponent ze kterých, je vhodné sestavit model
 většího systémů. Navrhovaný postup a nástroje pro optimalizaci modelů mohou být
 následně využity i mimo oblast CZT, jejichž vývojem se na našem pracovišti
@@ -581,10 +581,10 @@ taktéž intenzivně zabýváme.
 \subsection*{Vědecká otázka č. 1}
 Jakou strukturu mají matematické modely teplárenských rozvodů, ze kterých lze
 snadno sestavit vetší potrubní systém a které reflektují akumulaci tepla do
-okolního materiálu a zároveň lze optimalizovat jejich numerické schopnosti?
+okolního materiálu a lze optimalizovat jejich numerické schopnosti?
 \subsection*{Hypotéza č. 1}
 Je možné sestavit ekvivalentní tepelné schéma radiálního šíření tepla o
-příslušné komplexnosti a optimalizovat jeho parametry tak aby model dosahoval
+příslušné komplexnosti a optimalizovat jeho parametry tak, aby model dosahoval
 co největší shody s plně disktretizovaným 2D protějškem, přičemž fluidní
 region je modelován pomocí jednorozměrné advektivně-difúzivní mechaniky. Tímto
 může být dosaženo výrazné redukce komplexnosti při zachování dostatečné
@@ -605,14 +605,14 @@ zmíněné tepelné schéma)?
 Nejpraktičtější je využití optimizátoru jež nevyžaduje první derivace vůči
 parametrům modelu (tzn. nultého řádu, např. evolučních strategie), protože
 odpadá problém s poměrně složitým výpočtem těchto derivací. Modely pak mohou
-být implementovánv v jazyce modelica nebo obecně jiném programovacím prostředí.
+být implementovánv v jazyce Modelica nebo obecně jiném programovacím prostředí.
 Takovým přístup je možné optimalizovat obecně modely i řídící parametry.
 \chapter{Způsob řešení a použité vědecké metody zkoumání}
 Tato kapitola se věnuje způsobům a metodám řešení aplikovaných v jednotlivých
 vytyčených cílech.
 \section{Jednodimenzionální model potrubí}
 \label{sec:1Dpipe}
-V programovacím jazyce modelica bude sestavena komponenta fluidního regionu
+V programovacím jazyce Modelica bude sestavena komponenta fluidního regionu
 potrubí s parametrizovaným advektivním schématem druhého nebo třetího řádu pro
 rozumnou minimalizaci numerické difúze ostré teplotní vlny (podobně jako v
 metodě QUICKEST) a také jednoduché schéma prvého řádu pro skutečnou fyzikální
@@ -631,27 +631,63 @@ modelem akumulace tepla.
 
 \section{Model akumulace tepla v okolí potrubí}
 \label{sec:PipeAcu}
-Pro nadzemní potrubí bude v jazyce modelica sestaven model reflektující
+Pro nadzemní potrubí bude v jazyce Modelica sestaven model reflektující
 tepelnou dynamiku jednotlivých válcových vrstev (ocel, izolace apod.). Model
-bude založen na MPK se specificky navrženými konečnými elementy. Pro
-podzemní potrubí bude nejdříve sestavena komplexní dvourozměrný model pomocí
-metody MKP. K tomuto účelu bude využit nástroj FeniCS. Na základě dat z těchto
-simulací bude chování modelu přeneseno optimalizací stupňů volnosti (pomocí
-LOFI) do zjednodušeného ekvivalentního schématu naprogramovaného v jazyce
-modelica (a kompilovaného pomocí OMC). Přidáváním, odebíráním a změnou
-topologie schématu je možné měnit chování zjednodušeného modelu (přesnost a
-numerická efektivita). Tyto modely akumulace budou obsahovat rozhraní pro
-spárování s modelem fluidního regionu a případně i vlivy okolí. 
-\begin{figure}[h]
-\begin{center}
-  \includegraphics[scale=0.09]{figures/Assembly_TimeDependent}
-\end{center}
-\caption{Symbolická linearizace PDR vedení tepla v okolí potrubí pomocí MKP}
-\label{fig:VariationalMathTwoPipes}
-\end{figure}
-\begin{figure}[h]
+bude založen na MKP se specificky navrženými konečnými elementy. Pro
+podzemní potrubí bude nejdříve sestaven komplexní dvourozměrný model pomocí
+metody MKP. K tomuto účelu bude využit nástroj FeniCS. Rovnice
+\ref{eq:BuriedPDEProblem} a \ref{eq:BuriedPDELinearised} představují tento
+variantu problému a jeho linearizaci. 
+\begin{equation}
+  \label{eq:BuriedPDEProblem}
+  \begin{gathered}
+    \frac{\partial{T}}{\partial{t}}\rho c_p = \nabla(\lambda\nabla T)\;
+    \forall{x} \in\Omega\;\;;\;\;
+    T = T_0\;\forall{x}\in\Omega \land t=0\;\;;\;\;
+    T=T_B\;\forall{x}\in\Gamma_B \\
+    -\frac{\partial{T}}{\partial{n}}=\frac{\alpha_S}{\lambda}(T-T_S)\;
+    \forall{x}\in\Gamma_S \;\;;\;\;
+    -\frac{\partial{T}}{\partial{n}}=\frac{\alpha_R}{\lambda}(T-T_R)\;
+    \forall{x}\in\Gamma_R \\
+    -\frac{\partial{T}}{\partial{n}}=\frac{\alpha_A}{\lambda}(T-T_A)\;
+    \forall{x}\in\Gamma_A \;\;;\;\;
+    \frac{\partial{T}}{\partial{n}}=0\;\forall{x}\in\partial\Omega \setminus
+    (\Gamma_S \cup \Gamma_R \cup \Gamma_B \cup \Gamma_A)
+  \end{gathered}
+\end{equation}
+kde indexy \(S\), \(R\), \(A\) a \(B\) korespondují s přívodním potrubím, vratným
+potrubím, povrchem země a spodním okrajem domény \(\Omega\).
+\begin{equation}
+  \label{eq:BuriedPDELinearised}
+  \begin{gathered}
+    \boldsymbol{M}=\int_\Omega\rho c_p\phi_i \hat{\phi_j}dx\;\;\;
+    \boldsymbol{K}=\int_\Omega\lambda\nabla\phi_i\nabla\hat{\phi_j}dx\;\;\;\\
+    \boldsymbol{B_A}=\int_{\Gamma_A}\alpha_A\phi_i\hat{\phi_j}dS\;\;\;
+    \boldsymbol{B_S}=\int_{\Gamma_S}\alpha_S\phi_i\hat{\phi_j}dS\;\;\;
+    \boldsymbol{B_R}=\int_{\Gamma_R}\alpha_R\phi_i\hat{\phi_j}dS\;\;\;\\
+    \boldsymbol{MT}^k+\Delta{t}\Theta(\boldsymbol{B_S}+\boldsymbol{B_R}+
+    \boldsymbol{B_A})\boldsymbol{T}^k
+    =\boldsymbol{MT}^{k-1}-\Delta{t}(1-\Theta)\boldsymbol{KT}^{k-1}\\
+    -\Delta{t}(1-\Theta)(\boldsymbol{B_S}+\boldsymbol{B_R}+\boldsymbol{B_A})\boldsymbol{T}^k
+    +\Delta{t}(1-\Theta)(\boldsymbol{B_ST_S}^{k-1}+\boldsymbol{B_RT_R}^{k-1}+
+    \boldsymbol{B_AT_A}^{k-1})\\+\Delta{t}\Theta(\boldsymbol{B_ST_S}^k
+    +\boldsymbol{B_RT_R}^k+\boldsymbol{B_AT_A}^k)
+  \end{gathered}
+\end{equation}
+kde \(\Theta \in \left[0,1\right]\) umožňuje řídit implicitnost metody
+(pro \(\Omega = \frac{1}{2}\) se jedná o \mbox{Crank-Nicolsonovu}) s časovým
+krokem \(\Delta{t}\). Funkce \(\phi_i\) a \(\hat{\phi_j}\) jsou tzv. test a
+trial funkce.
+
+Na základě dat z těchto simulací bude chování modelu přeneseno optimalizací
+parametrů (pomocí LOFI) do zjednodušeného ekvivalentního schématu
+naprogramovaného v jazyce Modelica. Změnou topologie schématu je možné měnit
+chování modelu (přesnost a numerická efektivita). Tyto modely akumulace budou
+schopny propojení s modelem fluidního regionu i vlivy okolí.
+
+\begin{figure}[h!]
   \centering
-    \includegraphics[width=0.75\textwidth]{figures/acumulation_burried}
+    \includegraphics[width=0.73\textwidth]{figures/acumulation_burried}
     \caption{Ekvivalentní tepelné schémata vedení tepla v zemině (nalevo
       základní schéma, napravo schéma s více stupni volnosti)}
     \label{fig:above_ground_pipe}
@@ -674,10 +710,8 @@ zpravidla vybaven) pro akceleraci I/O přístupů a také ochranu hardwaru. LOFI
 bude obsahovat dynamický plánovač úloh pro maximální saturaci clusteru
 simulacemi. LOFI bude také schopno operovat v interaktivním režimu pomocí
 integrované konzole schopné vnitřně komunikovat s ostatními uzly clusteru.
-\begin{figure}[h]
-\begin{center}
-  \includegraphics[scale=0.5]{figures/LofiArchitecture}
-\end{center}
+\begin{figure}[h]\centering
+  \includegraphics[scale=0.75]{figures/LofiArchitecture}
 \caption{Optimalizační nástroj LOFI}
 \label{fig:LOFI}
 \end{figure}
@@ -686,7 +720,7 @@ integrované konzole schopné vnitřně komunikovat s ostatními uzly clusteru.
 \label{sec:MPC}
 LOFI bude v poslední fázi použito pro optimalizaci základních řídících
 parametrů sítě. Po sestavení malého teplárenského systému z jednotlivých
-komponent bude do modelu zahrnuta časová distribuce řídících veličina jako jsou
+komponent bude do modelu zahrnuta časová distribuce řídících veličin jako jsou
 teplota vstupní vody či průtok u zdroje.
 \section{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
@@ -704,17 +738,13 @@ dobrou shodu ve výsledném řešení šíření teplotní fronty. V~tomto člá
 porovnáno a zhodnoceno mnoho dalších potenciálních vlivů na simulaci. Je zde
 také obsaženo odvození tvarových funkcí pro variační model akumulace do válcové
 stěny založené na stacionárním řešení.
-\begin{figure}[h]
-  \begin{center}
+\begin{figure}[h!]\centering
     \includegraphics[scale=0.7]{figures/pipe_CCM_OM}
-  \end{center}
   \caption{Srovnání nového modelu se simulací ve STAR-CCM+}
   \label{fig:}
 \end{figure}
-\begin{figure}[h]
-  \begin{center}
+\begin{figure}[h!]\centering
     \includegraphics[scale=0.7]{figures/pipe_Fluent_OM}
-  \end{center}
   \caption{Srovnání nového modelu se simulací v ANSYS Fluent}
   \label{fig:}
 \end{figure}
@@ -723,15 +753,15 @@ V programovacím jazyce python byl sestaven efektivní nástroj pro simulaci 2D
 řezů rozvodů potrubí zejména s využitím knihovny mshr a FeniCS. Nástroj na
 základě parametrů automaticky sestaví síť, vytvoří příslušné řídké matice
 (paralelizace probíhá na úrovní lineární algebry) a simuluje data pomocí
-integrační metody druhého řádu (Crank-Nicolson). Pro akceleraci výpočtu se
-během méně dynamického průběhu je využito adaptace časového kroku pomocí odhadu
+integrační metody druhého řádu (Crank-Nicolson). Pro akceleraci výpočtu během
+méně dynamického průběhu je využita adaptace časového kroku pomocí odhadu
 chyby v zákonu zachování energie. Tento model je vhodný i pro simulace tzv.
 twinpipe rozvodů. Optimalizace zjednodušeného schématu (převod dynamiky z
 komplexní simulace) zatím nebyla otestována.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{center}
-  \includegraphics[scale=0.65]{figures/fenics_sim_pipes}
+  \includegraphics[scale=0.7]{figures/fenics_sim_pipes}
 \end{center}
 \caption{Nástroj pro simulaci radiálního šíření tepla}
 \label{fig:}
@@ -745,7 +775,7 @@ Samotný nástroj LOFI je publikován v konferenčním sborníku
 \textit{SDEWES Cologne 2020}. LOFI bylo otestováno pro optimalizaci/nalezení
 advektivního schématu, řízení okrajové podmínky pro problém vedení tepla a
 učení neuronové síťě pro zachycení testovacího modelu Lotka-Voltera. Všechny
-tři modely byly implementovány v jazyce modelica a kompilovány pomocí OMC. 
+tři modely byly implementovány v jazyce Modelica a kompilovány pomocí OMC. 
 \begin{figure}[h]
 \begin{center}
   \includegraphics[width=\textwidth]{figures/Advection_GRAPSO}
