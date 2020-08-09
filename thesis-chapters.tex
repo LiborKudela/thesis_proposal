@@ -49,7 +49,8 @@ aplikace.
 
 \chapter{Současné shrnutí stavu poznání}
 \label{struktura}
-V této kapitole jsou uvedeny relevantní rovnice pro modelování CZT. Dále je
+\newacronym{czt}{CZT}{Centrální zásobování teplem}
+V této kapitole jsou uvedeny relevantní rovnice pro modelování \acrshort{czt}. Dále je
 provedena stručná rešerše literatury na kterou tato práce navazuje, nebo
 využívá její poznatky. Následně jsou popsány použitelné výpočetní přístupy
 a metody spolu s aspekty, ovlivňujícími numerickou efektivnost simulací.
@@ -58,17 +59,17 @@ a metody spolu s aspekty, ovlivňujícími numerickou efektivnost simulací.
 \label{sec:history}
 Teplárenské potrubí slouží k dopravě tepla od jeho výrobce k jeho spotřebiteli
 pomocí teplonosného média. V minulosti se jako první teplonosné médium
-používala pára o teplotě i přes 240 °C. Tyto rozvody generovaly značné tepelné
-ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i vážné
+používala pára o teplotě i přes 240 \degree C. Tyto rozvody generovaly značné
+tepelné ztráty a kvůli vysokému tlaku (naakumulované tlakové energii) i vážné
 explozivní nehody. Kvůli kondenzaci páry ve vratném potrubí docházelo k jeho
 korozi. Pára se jako hlavní teplonosné médium stále využívá například v Paříži
 či Manhattanu. Nástupce tohoto provedení využíval tlakovou horkou vodu o
-teplotě přes 100 °C. Kvůli nestlačitelnosti vody se výrazně omezily explozivní
-nehody.
+teplotě přes 100 \degree C. Kvůli nestlačitelnosti vody se výrazně omezily
+explozivní nehody.
 Motivací bylo snížení tepelných ztrát a možnost lepší implementace kombinované
 výroby tepla a elektrické energie v městských oblastech. Poté přišel trend
-snižování teploty v rozvodech pod 100 °C. Stále byla využívána tlaková horká
-voda. Začalo se značně využívat prefabrikované a před-izolované potrubí
+snižování teploty v rozvodech pod 100 \degree C. Stále byla využívána tlaková
+horká voda. Začalo se značně využívat prefabrikované a před-izolované potrubí
 snižující množství lidské práce při výstavbě a obnově rozvodů. Začala se
 využívat lokální paliva, odpady a na několika místech i sluneční či geotermální
 energie.
@@ -100,8 +101,8 @@ proudění) lze problém zjednodušit na součinnost třech fyzikálních jevů:
   \includegraphics[width=\textwidth]{figures/heat_front}
   \caption{Proces šíření teplotní vlny v potrubí}
 \end{figure}
-
-Parciální diferenciální rovnice (PDR) pro celkovou dynamiku je pak v tomto
+\newacronym{pdr}{PDR}{Parciální diferenciální rovnice}
+Parciální diferenciální rovnice \acrshort{pdr} pro celkovou dynamiku je pak v tomto
 kontextu následující:
 \begin{equation}
   \label{eq:AdvDiff}
@@ -163,11 +164,15 @@ potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny
   \caption{Závislost Nusseltova čísla na Reynoldsově čísle \cite{Abraham2009}}
   \label{fig:NuReynolds}
 \end{figure}
-
+\newacronym{uwt}{UWT}{Rovnoměrná teplota stěny z angl. uniform wall
+                      temperature}
+\newacronym{uhf}{UHF}{Rovnoměrná hustota tepleného toku z angl. uniform heat
+                      flux}
 Hodnotu Nusseltova čísla je možné určit na základě vztahů jak pro rovnoměrné
-rozložení teploty na stěně (označováno jako UWT), tak pro rovnoměrné rozložení
-tepelného toku (označované jako UHF). Dle \cite{Abraham2009} je pro všechny
-režimy proudění vhodné používat následující model Nusseltova čísla:
+rozložení teploty na stěně (označováno jako \acrshort{uwt}), tak pro rovnoměrné
+rozložení tepelného toku (označované jako \acrshort{uhf}). Dle 
+\cite{Abraham2009} je pro všechny režimy proudění vhodné používat následující
+model Nusseltova čísla:
 \begin{equation}
 \label{eq:NuModel}
   Nu =
@@ -185,11 +190,10 @@ jsou:
 \begin{table}[H]
   \label{tab:NuModel}
   \caption{Parametry modelu Nusseltova čísla}
-  \vskip
   \centering
   \begin{tabular}{ccc}
     \toprule
-    Parametr & UWT & UHF \\ [0.5ex]
+    Parametr & \acrshort{uwt} & \acrshort{uhf} \\ [0.5ex]
     \hline
     \(c_0\) & 3,66 & 4,36 \\
     \(c_1\) & 3,52 & 2,2407 \\
@@ -205,7 +209,7 @@ rovnic \ref{eq:ConvHeatTransfer} až \ref{eq:NuModel} určit intenzitu výměny
 tepla v konkrétním okamžiku. Teplota tohoto povrchu je však ovlivněna tepelnou
 hmotou jež obklopuje fluidní region (např. ocelová trubka, izolace, zemina
 pod.) a tudíž je nutno korektně matematicky zachytit tepelnou dynamiku v tomto
-okolí (viz~kapitola \ref{sec:SurroundingMass}).
+okolí (viz kapitola \ref{sec:SurroundingMass}).
 
 \section{Fluidní region - tlakové ztráty/akcelerace tekutiny}
 \label{sec:PressureLoss}
@@ -311,34 +315,44 @@ simulací. I přesto, že je fyzika popsaná v sekcích \ref{sec:HeatDynamics},
 tyto PDR nutné diskretizovat v prostoru a čase (tzv. linearizovat problém). Lze
 využít metody jež jsou určeny a optimalizovány přímo pro daný kontext.
 Například pro rovnici \ref{eq:AdvDiff} lze využít integrační metody vyvinuté v
-NASA, které využívají aproximace derivací vyšších řádů, nežli je v samotné PDR.
-Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním z
-nejefektivnějších schémat je ULTIMATE QUICKEST.
+NASA, které využívají aproximace derivací vyšších řádů, nežli je v samotné 
+\acrshort{pdr}. Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním
+z nejefektivnějších schémat je ULTIMATE QUICKEST.
 
-Avšak mnohem častější postup při řešení PDR je její převedení na systém
-ordinárních diferenciálních rovnic (ODR), jež je dále integrován (simulován) v
-čase pomocí separátních algoritmů. PDR jsou v prostoru nejčastěji linearizovány
-pomocí metody konečných diferencí (MKD), metody konečných objemů (MKO) či
-metod konečných prvků (MKP). Pro sestavení matic a následnou integraci v čase
-existuje celá řada komerčních nástrojů s přednastavenými řešiči pro jednotlivé
-systémy PDR. Z Open-Source projektů zabývajícími se automatizovaným řešení PDR
-je vhodné zmínit FeniCS \cite{AlnaesBlechta2015a}, kterým je možné řešit PDR
-pomocí MKP (umožňuje i tzv. nespojitou Galerkinovu metodu, která je vhodná i
-pro fluidní dynamiku). Tato knihovna umožňuje velmi detailně kontrolovat jakým
-způsobem jsou sestavovány matice, jaké konečné elementy jsou využívány, jakým
-způsobem bude během výpočtů manipulováno s objekty lineární algebry a mnoho
-dalšího.
+\newacronym{odr}{ODR}{Ordinární diferenciální rovnice}
+\newacronym{mkd}{MKD}{Metoda konečných diferencí}
+\newacronym{mkp}{MKP}{Metoda konečných prvků}
+\newacronym{mko}{MKO}{Metoda konečných objemů}
 
+Avšak mnohem častější postup při řešení \acrshort{pdr} je její převedení na
+systém ordinárních diferenciálních rovnic \acrshort{odr}, jež je dále
+integrován (simulován) v čase pomocí separátních algoritmů. \acrshort{pdr} jsou
+v prostoru nejčastěji linearizovány pomocí metody konečných diferencí
+\acrshort{mkd}, metody konečných objemů \acrshort{mko} či metod konečných prvků
+acrshort{mkp}. Pro sestavení matic a následnou integraci v čase existuje
+celá řada komerčních nástrojů s přednastavenými řešiči pro jednotlivé systémy
+\acrshort{pdr}. Z Open-Source projektů zabývajícími se automatizovaným řešení
+\acrshort{pdr} je vhodné zmínit FeniCS \cite{AlnaesBlechta2015a}, kterým je
+možné řešit \acrshort{pdr} pomocí \acrshort{mkp} (umožňuje i tzv. nespojitou
+Galerkinovu metodu, která je vhodná i pro fluidní dynamiku). Tato knihovna
+umožňuje velmi detailně kontrolovat jakým způsobem jsou sestavovány matice,
+jaké konečné elementy jsou využívány, jakým způsobem bude během výpočtů
+manipulováno s objekty lineární algebry a mnoho dalšího.
+
+\newacronym{cpu}{CPU}{Centrální procesorová jednotka z angl. Central processing
+                      unit}
+\newacronym{sundials}{SUNDIALS}{Suite of Nonlinear and Differential/Algebraic
+                                Equation Solvers}
 Výsledkem procesu linearizace je systém lineárních rovnic z pravidla
 reprezentovaný v maticové formě. Velikost a hustota (podíl nenulových hodnot)
 těchto matic pak přímo ovlivňují rychlost simulace, neboť přímo korespondují s
-počtem CPU cyklů, které musí procesor (či procesory) využít na aritmetické
-operace během jednoho časového kroku. V případě, že je výsledný systém
-nelineární (např. jsou-li tepelné vlastnosti závislé na teplotě) je tento vliv
-ještě umocněn. Pro integraci v čase existují explicitní či implicitní algoritmy
-s konstantním nebo adaptivním časovým krokem. Jedny z nejefektivnějších
-algoritmů jsou součástí knihovny SUNDIALS \cite{sundials}, která je
-implementována v jazyce C.
+počtem \acrshort{cpu} cyklů, které musí procesor (či procesory) využít na
+aritmetické operace během jednoho časového kroku. V případě, že je výsledný
+systém nelineární (např. jsou-li tepelné vlastnosti závislé na teplotě) je
+tento vliv ještě umocněn. Pro integraci v čase existují explicitní či
+implicitní algoritmy s konstantním nebo adaptivním časovým krokem. Jedny z
+nejefektivnějších algoritmů jsou součástí knihovny \acrshort{sundials}
+\cite{sundials}, která je implementována v jazyce C.
 
 \section{Vliv programovacích jazyků na modelování procesů}
 \label{sec:proglang}
@@ -349,7 +363,7 @@ ovlivnit výpočtovou rychlost.
     \textbf{Kompilované jazyky} jako jsou C, C++ či Fortran jsou zpravidla
     jedny z nejrychlejších, avšak za cenu náročnějšího často velmi
     nízkoúrovňového programovaní. Tato náročnost je způsobena faktem, že tyto
-    jazyky (zejména jazyk C), jsou ''mnohem~blíže'' hardwaru. Programátor musí
+    jazyky (zejména jazyk C), jsou ''mnohem blíže'' hardwaru. Programátor musí
     například staticky určit všechny typy proměnných a také zabezpečit, že
     nedojde k nesprávnému přístupu do paměti počítače.
   \item
@@ -375,6 +389,9 @@ ovlivnit výpočtovou rychlost.
     mnoho vysokoúrovňových knihoven neexistuje nebo nejsou ve stavu ve kterém
     se na ně lze spoléhat.
 \end{itemize}
+\newacronym{msl}{MSL}{Standartizovaná knihovna Modelica}
+\newacronym{if97}{IF97}{Industriální formulace vlastností vody z roku 1997}
+\newacronym{iapws}{IAPWS}{Mezinárodní asociace pro vlastnosti vody a vodní páry}
 Další relevantní dělení programovacích paradigmatů je z hlediska řízení pořadí
 jednotlivých operací (instrukcí).
 \begin{itemize}
@@ -391,13 +408,13 @@ libovolným směrem a z různých stavů. Jeden z takových jazyků je napříkl
 Modelica, který byl vyvinut pro matematické modelování systémů složených z
 interagujících komponent. OpenModelica \cite{Fritzson2019} je open-source verze
 kompilátoru, který překládá modely ze syntaxe Modelica do imperativních jazyků
-(např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě SUNDIALS
-z kapitoly \ref{sec:NumSpeed}. Standardní knihovna Modelica (MSL) také obsahuje
-implementaci vlastností vody dle standardu IF97 (standart IAPWS). Simulace jsou
-pak relativně rychlé a také velmi modulární. Pro nezasvěceného se může
-deklarativní programování jevit poněkud krkolomné, ale po překonání této
-bariéry je tento styl programování často schůdnější (zejména u komponentami
-orientovaných simulací).
+(např. jazyka C) a automaticky linkuje vůči knihovnám jako jsou právě
+\acrshort{sundials} z kapitoly \ref{sec:NumSpeed}. Standardní knihovna Modelica
+(\acrshort{msl}) také obsahuje implementaci vlastností vody dle standardu
+\acrshort{if97} (standart \acrshort{iapws}). Simulace jsou pak relativně rychlé
+a také velmi modulární. Pro nezasvěceného se může deklarativní programování
+jevit poněkud krkolomné, ale po překonání této bariéry je tento styl
+programování často schůdnější (zejména u komponentami orientovaných simulací).
 \end{itemize}
 Obecně tedy nejde o to, který programovací jazyk je nejlepší, ale spíše o
 jejich spojení tak, aby spolu jednotlivé moduly dobře spolupracovali a
@@ -405,19 +422,25 @@ programátor se vyhnul zbytečnému nízkoúrovňovému programování v situac�
 by nepřineslo dostatečné výhody.
 \section{Komplexní distribuční systém}
 \label{sec:Complex_distr_sys}
+\newacronym{fmi}{FMI}{Standart výměny a kosimulace modelů - angl. functional
+                      mock-up interface}
+\newacronym{fmu}{FMU}{Jednotlivý model standardu \acrshort{fmi} - angl.
+                      functional mock-up unit}
+\newacronym{omc}{OMC}{Open Modelica kompilátor z angl. Open Modelica compiler}
 Matematické modely systémů jež jsou složené z mnoha komponent (zde myšleno jak
 matematických tak fyzikálních abstrakcí) mohou být z hlediska komplementace
 značnou výzvou. Zejména zde se projevují výhody deklarativního jazyka jako je
 Modelica. Jednotlivé naprogramované komponenty je možné propojovat a vnořovat
-do sebe bez nutnosti detailního popisu pořadí výpočtových instrukcí. OMC by měl
-v budoucnosti poskytovat možnosti pro kompilaci modelů s automatickou
-parallelizací. Pro paralelizaci systémů se značnou numerickou komplexností lze
-využít open-source kosimulačního standardu zvaného \textit{functional mock-up
-interface} (FMI). V případě zásobování teplem by to např. znamenalo propojení
-simulací městských oblastí tedy jedné \textit{functional mock-up unit} (FMU),
-kde je každá oblast simulována na jiné části hardwaru a FMI standard poskytuje
-výměnu nezbytných proměnných mezi těmito modely tak aby byla zajištěna jejich
-správná interakce.
+do sebe bez nutnosti detailního popisu pořadí výpočtových instrukcí.
+\acrshort{omc} by měl v budoucnosti poskytovat možnosti pro kompilaci modelů s
+automatickou parallelizací. Pro paralelizaci systémů se značnou numerickou
+komplexností lze využít open-source kosimulačního standardu zvaného
+\textit{functional mock-up interface} (\acrshort{fmi}). V případě zásobování
+teplem by to např. znamenalo propojení simulací městských oblastí tedy jedné
+\textit{functional mock-up unit} (\acrshort{fmu}), kde je každá oblast
+simulována na jiné části hardwaru a  \acrshort{fmi} standard poskytuje výměnu
+nezbytných proměnných mezi těmito modely tak aby byla zajištěna jejich správná
+interakce.
 
 \section{Počítačové učení a jeho vztah k modelování procesů}
 \label{sec:ML}
@@ -455,25 +478,27 @@ parametrizované matematické struktury a optimalizací jejich parametrů je mo�
 měnit/zlepšovat chování programu. Tyto programy dále obsahují tzv.
 hyperparametry, kterými se řídí struktura a komplexnost programů.
 
-Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě (NN). Jsou
-totiž velmi univerzálními aproximátory matematických funkcí, což je jejich
-velkou výhodou. Jejich nevýhodou je naopak poměrně náročný proces učení a také
-fakt, že vyžadují poměrně velké množství dat.
+\newacronym{nn}{NN}{Neuronová síť z angl. neural network}
+Poměrně velký úspěch v této oblasti zaznamenaly tzv. neuronové sítě
+(\acrshort{nn}). Jsou totiž velmi univerzálními aproximátory matematických
+funkcí, což je jejich velkou výhodou. Jejich nevýhodou je naopak poměrně
+náročný proces učení a také fakt, že vyžadují poměrně velké množství dat.
 
 Nedávno (2019) se objevily vědecké práce, které navrhují a demonstrují využití
-NN (nebo obecně parametrizovaných programů) pro matematické modelování ODR
-systémů (a tudíž i PDR) \cite{diffEqFlux2019,chen2018neural}. Ukázkové modely
-byly v těchto dvou implementacích prováděny akcelerovanou metodou gradient
-descend, přičemž gradient byl určen algoritmickou zpětnou propagací skrze ODR
-solver (což je největším přínosem těchto prací). Gradient descend je obecně
-považován za nejvíce pokročilou metodu učení modelů, avšak je poměrně náročný
-na implementaci.
+\acrshort{nn} (nebo obecně parametrizovaných programů) pro matematické
+modelování \acrshort{odr} systémů (a tudíž i \acrshort{pdr})
+\cite{diffEqFlux2019,chen2018neural}. Ukázkové modely byly v těchto dvou
+implementacích prováděny akcelerovanou metodou gradient descend, přičemž
+gradient byl určen algoritmickou zpětnou propagací skrze \acrshort{odr} solver
+(což je největším přínosem těchto prací). Gradient descend je obecně považován
+za nejvíce pokročilou metodu učení modelů, avšak je poměrně náročný na
+implementaci.
 
 Existují i algoritmy jež nevyžadují derivace a jsou vhodné pro modely, u
 kterých nelze derivace určit. Tyto algoritmy umožňují optimalizaci až na úrovni
 black box. Více o těchto algoritmech lze nalézt v kap. \ref{sec:opt_alg}.
 
-Machine learning a mechanistické modelování na základě PDR lze tedy kombinovat.
+Machine learning a mechanistické modelování na základě \acrshort{pdr} lze tedy kombinovat.
 Tímto je možné modelovat procesy na základě experimentálních dat, zjednodušovat
 komplexnost programů na základě extrahovaných veličin z více komplexních
 simulací nebo optimalizovat (ladit) známé mechanistické struktury pomocí
@@ -481,11 +506,12 @@ experimentálních dat.
 
 \section{Optimalizační algoritmy nultého řádu}
 \label{sec:opt_alg}
+\newacronym{gld}{GLD}{Optimalizace bez gradientu z angl. gradientless descend}
 Optimalizační algoritmy tzv. nultého řádu jsou i v dnešní době předmětem
 aktivního výzkumu. Například \cite{golovin2019gradientless} nabízí čerstvý
-pohled na využití Gausovské vzorkování jakožto klíčové metaheuristiky pro
-tzv. \textit{gradientless descend} (GLD). Mezi pokročilé techniky takového
-typu optimalizace patří evoluční strategie (zde je velmi známá metoda
+pohled na využití Gausovské vzorkování jakožto klíčové heuristiky pro
+tzv. \textit{gradientless descend} (\acrshort{gld}). Mezi pokročilé techniky
+takového typu optimalizace patří evoluční strategie (zde je velmi známá metoda
 využívající adaptace kovarianční matice definující vzorkovací prostor)
 \cite{hansen2016cma}, genetické algoritmy, náhodná hledání či stochastická hledání.
 Tyto algoritmy nebývají deterministické právě proto, že zpravidla využívají
@@ -497,48 +523,75 @@ jednoduché mutaci (evoluční strategie) se pro pokusná řešení využívá s
 vzorek. Tyto vzorky jsou konstruovány během tzv. epoch (nebo generací). Každá
 epocha začíná s určitým množstvím vzorků, jež jsou během epochy zhodnoceny a na
 základě těchto výsledků jsou vygenerovány nové vzorky pro další epochu.
-Meteheuristika evoluční strategie je proces, který manipuluje se vzorkovacím
-prostorem tak, aby se zvýšila pravděpodobnost, že v následující epoše budou
-nalezeny lepší vzorky než v epoše předcházející. Tímto postupně nalézáme lepší
-a lepší řešení daného optimalizačního problému, dokud není nalezeno nejlepší
-možné řešení (může dojít k nalezení pouze tzv. lokálního optima). Jednotlivé
-strategie jsou vhodné jen pro určité problémy a proto jsou optimalizační
-nástroje zpravidla vybaveny celou sadou různých algoritmů.
-\chapter{Shrnutí vybraných studií}
-itext
+Heuristika je proces nebo způsob, který generuje vzorky na základě výsledků z
+předcházející epochy tak, aby se zvýšila pravděpodobnost, že v následující
+epoše budou nalezeny vzorky lepší. Tímto postupně nalézáme lepší a lepší řešení
+daného optimalizačního problému, dokud není nalezeno nejlepší možné řešení
+(může dojít k nalezení pouze tzv. lokálního optima) nebo řešení které splňuje
+minimální požadavky. Jednotlivé strategie jsou vhodné jen pro určité problémy a
+proto jsou optimalizační nástroje zpravidla vybaveny celou sadou různých
+algoritmů jež využívají různé heuristiky.
 
 \chapter{Analýza, interpretace a zhodnocení poznatků}
-itext
+Při tvorbě modelů dynamických pochodů/procesů s dobrou numerickou
+účinnosti je častým postupem redukce na jednorozměrné řešení. Mechanistický
+přístup při tomto úsilí však nemusí být příliš zřejmý a je potřeba testovat
+vetší množství různých hypotéz, manuálně hledat mechanistickou cestu až ke
+konečnému modelu. Postup který je vhodný při jednom problému je
+často nepřenositelný na problém jiný, právě kvůli jiným fyzikálním zákonům jež
+dané procesy řídí. V tomto smyslu pak člověk řeší stejný problém znovu a znovu.
+Počítačové učení poskytuje prostor pro unikátní spolupráci člověka a počítače,
+kde člověk navrhuje matematické struktury jež považuje za smysluplné (například
+na základě zkušenosti či intuice) a počítač upřesňuje konkrétní chování dané
+struktury pomocí dat či účelových funkcí. Tímto způsobem je možné rychleji
+navrhovat a testovat správnost úvah (hypotéz).
+
+Například model akumulace pro nadzemní teplárenské potrubí je možné přímočaře
+odvodit mechanistickým přístupem \cite{Kudela2019pipe}, avšak pro model
+akumulace pro interagujícího potrubí uloženého v zemi je tento přístup výrazně
+složitější. Nicméně existuje předpoklad, že výsledná struktura druhého modelu
+bude velmi podobná struktuře modelu prvního. V takovém případě je možné
+počítačovým učením (matematickou optimalizací parametrů dynamické simulace)
+určit řešení pro druhý problém bez nutnosti odvozování mechanistického postupu.
+Při kombinaci tohoto postupu s deklarativním programováním je příhodnost
+takovéto metody řešení na velmi vysoké úrovni.
+
+Bílým místem v současném stavu poznání je tedy tento obecnější a opakovatelný
+postup, kterým je možné modelovat dynamické procesy a fyzikální komponenty bez
+znalosti detailní mechanistické cesty k výslednému modelu.
+
 \chapter{Podstata, cíle a přínos disertační práce}
 \label{chap:Aims_of_disertation}
 \section{Podstata disertační práce}
 \label{sec:Podstata}
 Podstatou této disertační práce je výzkum možností využití počítačového učení
 v oblasti matematické modelování fyzikálních procesů komponent a systémů
-složeného z těchto komponent se zaměřením na CZT. V principu jde tedy o
-modelování PDR. Jedná se o základní výzkum zaměřený na optimalizaci
-numerických výpočtů/simulací využívající distribuované strojové vybavení.
-Jeho řešení spočívá ve vytvoření optimalizačního nástroje s aplikačními
-rozhraními umožňující jeho propojení s matematickými modely/simulacemi
-implementovanými v různých programovacích jazycích tak, aby bylo možné
-zlepšovat jejich efektivitu a/či přesnost nebo modelovat/zachycovat procesy s
-nedokonale objasněnými fyzikálními mechanismy s pomocí experimentálních dat.
+složeného z těchto komponent se zaměřením na \acrshort{czt}. V principu jde
+tedy o modelování \acrshort{pdr}. Jedná se o základní výzkum zaměřený na
+optimalizaci numerických výpočtů/simulací využívající distribuované strojové
+vybavení. Jeho řešení spočívá ve vytvoření optimalizačního nástroje s
+aplikačními rozhraními umožňující jeho propojení s matematickými
+modely/simulacemi implementovanými v různých programovacích jazycích tak, aby
+bylo možné zlepšovat jejich efektivitu a/či přesnost nebo modelovat/zachycovat
+procesy s nedokonale objasněnými fyzikálními mechanismy s pomocí
+experimentálních dat.
 \section{Cíle práce}
 \label{sec:Aims}
 \begin{itemize}
   \item
     Vytvořit nástroje pro optimalizaci parametrizovaných programů (simulací).
   \item
-    Propojit tyto nástroje s modely komponent CZT a demostrovat jejich
-    funkčnost.
+    Propojit tyto nástroje s modely komponent \acrshort{czt} a demostrovat
+    jejich funkčnost.
 \end{itemize}
+\newacronym{lofi}{LOFI}{Název navrhovaného optimalizačního nástoje}
 Cílem disertační práce je vytvořit nástroje pro optimalizaci parametrizovaných
 programů, propojit je s matematickými modely komponent (a systémů) a
-demonstrovat jeho funkčnost pro modely CZT. Optimalizační nástroj (s pracovním
-názvem LOFI) bude schopen optimalizovat parametry jak mechanistických tak
-neuronových modelů. Cílovými veličinami mohou být experimentální data, ale také
-data z komplexnějších simulací nebo penalizační účelové funkce (například v
-případě optimalizace řídících veličin).
+demonstrovat jeho funkčnost pro modely \acrshort{czt}. Optimalizační nástroj
+(s pracovním názvem \acrshort{lofi}) bude schopen optimalizovat parametry jak
+mechanistických tak neuronových modelů. Cílovými veličinami mohou být
+experimentální data, ale také data z komplexnějších simulací nebo penalizační
+účelové funkce (například v případě optimalizace řídících veličin).
 \subsection*{Dílčí kroky vedoucí k dosažení cíle práce}
 \begin{itemize}
   \item
@@ -559,7 +612,7 @@ případě optimalizace řídících veličin).
     úloh s příhodnými funkcemi (využívající zejména MPI) pro efektivní saturaci
     uzlů clusteru.
   \item
-    Naprogramovaní aplikačního rozhraní na OMC pro snadné propojení
+    Naprogramovaní aplikačního rozhraní na \acrshort{omc} pro snadné propojení
     optimizátoru s matematickými modely implementovanými v
     \textbf{deklarativním} jazyce Modelica.
   \item
@@ -585,7 +638,7 @@ okolního materiálu a lze optimalizovat jejich numerické schopnosti?
 \subsection*{Hypotéza č. 1}
 Je možné sestavit ekvivalentní tepelné schéma radiálního šíření tepla o
 příslušné komplexnosti a optimalizovat jeho parametry tak, aby model dosahoval
-co největší shody s plně disktretizovaným 2D protějškem, přičemž fluidní
+co největší shody s plně diskretizovaným 2D protějškem, přičemž fluidní
 region je modelován pomocí jednorozměrné advektivně-difúzivní mechaniky. Tímto
 může být dosaženo výrazné redukce komplexnosti při zachování dostatečné
 přesnosti.
@@ -674,79 +727,83 @@ potrubím, povrchem země a spodním okrajem domény \(\Omega\).
     +\boldsymbol{B_RT_R}^k+\boldsymbol{B_AT_A}^k)
   \end{gathered}
 \end{equation}
-kde \(\Theta \in \left[0,1\right]\) umožňuje řídit implicitnost metody
-(pro \(\Omega = \frac{1}{2}\) se jedná o \mbox{Crank-Nicolsonovu}) s časovým
-krokem \(\Delta{t}\). Funkce \(\phi_i\) a \(\hat{\phi_j}\) jsou tzv. test a
-trial funkce.
-
-Na základě dat z těchto simulací bude chování modelu přeneseno optimalizací
-parametrů (pomocí LOFI) do zjednodušeného ekvivalentního schématu
-naprogramovaného v jazyce Modelica. Změnou topologie schématu je možné měnit
-chování modelu (přesnost a numerická efektivita). Tyto modely akumulace budou
-schopny propojení s modelem fluidního regionu i vlivy okolí.
+kde \(\boldsymbol{M}\) je matice tepelné kapacity, \(\boldsymbol{K}\) je matice
+tepelné vodivosti, \(\boldsymbol{B_A}\), \(\boldsymbol{B_S}\) a
+\(\boldsymbol{B_R}\) jsou matice okrajových podmínek povrchu
+země a potrubí, \(\Theta \in \left[0,1\right]\) umožňuje řídit implicitnost
+metody s časovým krokem \(\Delta{t}\) a \(\phi_i\) a \(\hat{\phi_j}\)
+jsou tzv. test a trial funkce. Na základě dat z těchto simulací bude chování
+modelu přeneseno optimalizací parametrů (pomocí \acrshort{lofi}) do
+zjednodušeného ekvivalentního schématu naprogramovaného v jazyce Modelica.
+Změnou topologie schématu je možné měnit chování modelu (přesnost a numerická
+efektivita). Tyto modely akumulace budou schopny propojení s modelem fluidního
+regionu i vlivy okolí.
 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.73\textwidth]{figures/acumulation_burried}
     \caption{Ekvivalentní tepelné schémata vedení tepla v zemině (nalevo
       základní schéma, napravo schéma s více stupni volnosti)}
-    \label{fig:above_ground_pipe}
+    \label{fig:equivalent_scheme}
 \end{figure}
 \section{Nástroj LOFI}
 \label{sec:tool_LOFI}
-Při řešení bude sestaven optimalizační nástroj LOFI (nejedná se o zkratku, ale
-pouze o dočasné jméno), který bude obsahovat aplikační rozhraní zejména k OMC.
-Nástroj bude implementován v jazyce Python. Bude obsahovat paralelizované verze
-evolučních strategií, hejnových algoritmů, klesání v bloku souřadnic apod.
-Jelikož se předpokládá, že pro některé parametry budou modely simulací
-produkovat neočekávané chování, nebo tzv. \textit{floating-point exceptions} či
-budou kompletně neschopné běhu, bude zapotřebí zajistit dostatečná opatření
-zvyšující pravděpodobnost optimalizace i za takto náročných podmínek. Pro
-paralellizaci na clusterech bude využito knihoven MPI se zaměřením na Unixové
-systémy. Architektura bude založená na tzv. \textit{master-worker} paradigmatu.
-Protože modely zkompilované pomocí OMC produkují výsledky do binárních souborů,
+\newacronym{mpi}{MPI}{Komunikační rozhraní pro cluster - angl. message passing interface}
+Při řešení bude sestaven optimalizační nástroj \acrshort{lofi} (nejedná se o
+zkratku, ale pouze o dočasné jméno), který bude obsahovat aplikační rozhraní
+zejména k \acrshort{omc}. Nástroj bude implementován v jazyce Python. Bude
+obsahovat paralelizované verze evolučních strategií, hejnových algoritmů,
+klesání v bloku souřadnic apod. Jelikož se předpokládá, že pro některé
+parametry budou modely simulací produkovat neočekávané chování, nebo tzv.
+\textit{floating-point exceptions} či budou kompletně neschopné běhu, bude
+zapotřebí zajistit dostatečná opatření zvyšující pravděpodobnost optimalizace i
+za takto náročných podmínek. Pro paralellizaci na clusterech bude využito
+knihoven \acrshort{mpi} se zaměřením na Unixové systémy. Architektura bude
+založená na tzv. \textit{master-worker} paradigmatu. Protože modely
+zkompilované pomocí \acrshort{omc} produkují výsledky do binárních souborů,
 které se ukládají na disk, bude využit RAMdisk (kterým je Linuxový kernel
-zpravidla vybaven) pro akceleraci I/O přístupů a také ochranu hardwaru. LOFI
-bude obsahovat dynamický plánovač úloh pro maximální saturaci clusteru
-simulacemi. LOFI bude také schopno operovat v interaktivním režimu pomocí
-integrované konzole schopné vnitřně komunikovat s ostatními uzly clusteru.
+zpravidla vybaven) pro akceleraci I/O přístupů a také ochranu hardwaru.
+\acrshort{lofi} bude obsahovat dynamický plánovač úloh pro maximální saturaci
+clusteru simulacemi. \acrshort{lofi} bude také schopno operovat v interaktivním
+režimu pomocí integrované konzole schopné vnitřně komunikovat s ostatními uzly
+clusteru.
 \begin{figure}[h]\centering
   \includegraphics[scale=0.75]{figures/LofiArchitecture}
-\caption{Optimalizační nástroj LOFI}
+\caption{Optimalizační nástroj \acrshort{lofi}}
 \label{fig:LOFI}
 \end{figure}
 
 \section{Prediktivní řízení}
 \label{sec:MPC}
-LOFI bude v poslední fázi použito pro optimalizaci základních řídících
-parametrů sítě. Po sestavení malého teplárenského systému z jednotlivých
-komponent bude do modelu zahrnuta časová distribuce řídících veličin jako jsou
-teplota vstupní vody či průtok u zdroje.
+\acrshort{lofi} bude v poslední fázi použito pro optimalizaci základních
+řídících parametrů sítě. Po sestavení malého teplárenského systému z
+jednotlivých komponent bude do modelu zahrnuta časová distribuce řídících
+veličin jako jsou teplota vstupní vody či průtok u zdroje.
 \section{Dosavadní dosažené výsledky}
 \label{sec:Finished_parts}
 \subsection{Fluidní region rozvodů a akumlace v nadzemním potrubí}
 V roce 2019 byl publikován článek \cite{Kudela2019pipe}, ve kterém je popsán
 matematický model nadzemního potrubí s akumulací. Je zde popsán matematický
 model fluidního regionu. Model je založen na výše popsané metodice, ale není
-optimalizován nástrojem LOFI. Optimalizace probíhala pomocí generátoru schémat
-a následným výběrem nejefektivnějšího schématu na základě vybraných kritérií
-jako je míra numerické difúze či nefyzikální oscilace. Výsledný differenciální
-operátor pro advekci je druhého řádu a je z části podobný schématu QUICKEST.
-Model se vyznačuje dobrou numerickou účinností v porovnání s nástroji
-\textit{ANSYS Fluent} či \textit{\mbox{STAR-CCM+}} přičemž vykazuje velmi
-dobrou shodu ve výsledném řešení šíření teplotní fronty. V~tomto článku je
-porovnáno a zhodnoceno mnoho dalších potenciálních vlivů na simulaci. Je zde
-také obsaženo odvození tvarových funkcí pro variační model akumulace do válcové
-stěny založené na stacionárním řešení.
+optimalizován nástrojem \acrshort{lofi}. Optimalizace probíhala pomocí
+generátoru schémat a následným výběrem nejefektivnějšího schématu na základě
+vybraných kritérií jako je míra numerické difúze či nefyzikální oscilace.
+Výsledný differenciální operátor pro advekci je druhého řádu a je z části
+podobný schématu QUICKEST. Model se vyznačuje dobrou numerickou účinností v
+porovnání s nástroji \textit{ANSYS Fluent} či \textit{\mbox{STAR-CCM+}} přičemž
+vykazuje velmi dobrou shodu ve výsledném řešení šíření teplotní fronty. V tomto
+článku je porovnáno a zhodnoceno mnoho dalších potenciálních vlivů na simulaci.
+Je zde také obsaženo odvození tvarových funkcí pro variační model akumulace do
+válcové stěny založené na stacionárním řešení.
 \begin{figure}[h!]\centering
     \includegraphics[scale=0.7]{figures/pipe_CCM_OM}
   \caption{Srovnání nového modelu se simulací ve STAR-CCM+}
-  \label{fig:}
+  \label{fig:OM_vs_CCM}
 \end{figure}
 \begin{figure}[h!]\centering
     \includegraphics[scale=0.7]{figures/pipe_Fluent_OM}
   \caption{Srovnání nového modelu se simulací v ANSYS Fluent}
-  \label{fig:}
+  \label{fig:OM_vs_Fluent}
 \end{figure}
 \subsection{Komplexní model akumulace tepla v zemině}
 V programovacím jazyce python byl sestaven efektivní nástroj pro simulaci 2D
@@ -767,15 +824,21 @@ komplexní simulace) zatím nebyla otestována.
 \label{fig:}
 \end{figure}
 \subsection{Optimalizační nástroj LOFI}
-Nástroj LOFI je také ve stavu funkčního prototypu. Plánovač úloh, API pro OMC,
-tři funkční optimalizační algoritmy (hejnový algoritmus PSO, hejnový algoritmus
-s náhodnou adaptací GRAPSO a evoluční strategie s adaptací vzorkovacího
-prostoru OPLES), vizualizační callback a interaktivní konzole jsou otestovány.
-Samotný nástroj LOFI je publikován v konferenčním sborníku
-\textit{SDEWES Cologne 2020}. LOFI bylo otestováno pro optimalizaci/nalezení
-advektivního schématu, řízení okrajové podmínky pro problém vedení tepla a
-učení neuronové síťě pro zachycení testovacího modelu Lotka-Voltera. Všechny
-tři modely byly implementovány v jazyce Modelica a kompilovány pomocí OMC. 
+\newacronym{api}{API}{Aplikační rozhraní z angl. aplication interface}
+\newacronym{pso}{PSO}{Hejnový optimalizační algoritmus z angl. Particle swarm optimizer}
+\newacronym{grapso}{GRAPSO}{\acrshort{pso} s náhodnou adaptací}
+\newacronym{oples}{OPLES}{tzv. One plus lambda}
+Nástroj \acrshort{lofi} je také ve stavu funkčního prototypu. Plánovač úloh,
+\acrshort{api} pro \acrshort{omc}, tři funkční optimalizační algoritmy (hejnový
+algoritmus \acrshort{pso}, hejnový algoritmus s náhodnou adaptací
+\acrshort{grapso} a evoluční strategie s adaptací vzorkovacího prostoru
+\acrshort{oples}), vizualizační callback a interaktivní konzole jsou otestovány.
+Samotný nástroj \acrshort{lofi} je publikován v konferenčním sborníku
+\textit{SDEWES Cologne 2020}. \acrshort{lofi} bylo otestováno pro
+optimalizaci/nalezení advektivního schématu, řízení okrajové podmínky pro
+problém vedení tepla a učení neuronové síťě pro zachycení testovacího modelu
+Lotka-Voltera. Všechny tři modely byly implementovány v jazyce Modelica a
+kompilovány pomocí \acrshort{omc}. 
 \begin{figure}[h]
 \begin{center}
   \includegraphics[width=\textwidth]{figures/Advection_GRAPSO}
@@ -789,7 +852,7 @@ tři modely byly implementovány v jazyce Modelica a kompilovány pomocí OMC.
 \end{center}
 \caption{Průběh optimalizace okrajové podmínky v problému vedení tepla
 algoritmem OPLES}
-\label{fig:Advection_GRAPSO}
+\label{fig:Inverse_OPLES}
 \end{figure}
 \begin{figure}[h]
 \begin{center}
@@ -797,6 +860,6 @@ algoritmem OPLES}
 \end{center}
 \caption{Průběh optimalizace neuronové sítě s 50 neurony ve vnitřní vrstvě
 reprezentující ODR systém Lotka-Voltera, kde optimalizace proběhla pomocí algoritmu OPLES}
-\label{fig:Advection_GRAPSO}
+\label{fig:lotka_voltera_oples}
 \end{figure}
 

@@ -10,7 +10,10 @@
 \renewcommand{\ttdefault}{lmtt}
 \csdoublequotesoff
 \usepackage{url}
+\usepackage{gensymb}
 \usepackage{mathtools}
+\usepackage[acronym]{glossaries}
+\makeglossaries
 \ifWis
   \ifx\pdfoutput\undefined
 \else
@@ -119,7 +122,6 @@
 % checklist
 \newlist{checklist}{itemize}{1}
 \setlist[checklist]{label=$\square$}
-
 \begin{document}
   % Typesetting of the title pages
   \maketitle
@@ -192,5 +194,11 @@
   \iftwoside
     \cleardoublepage
   \fi
+  \renewcommand{\glossarypreamble}{\glsfindwidesttoplevelname[\currentglossary]}
+  \printglossary[nogroupskip=true,
+                 style=alttree,
+                 type=\acronymtype,
+                 title={Seznam zkratek},
+                 nonumberlist]
   \input{thesis-academic-curriculum-vitae}  
 \end{document}
