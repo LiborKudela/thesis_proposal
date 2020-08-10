@@ -50,9 +50,9 @@ aplikace.
 \chapter{Současné shrnutí stavu poznání}
 \label{struktura}
 \newacronym{czt}{CZT}{Centrální zásobování teplem}
-V této kapitole jsou uvedeny relevantní rovnice pro modelování \acrshort{czt}. Dále je
-provedena stručná rešerše literatury na kterou tato práce navazuje, nebo
-využívá její poznatky. Následně jsou popsány použitelné výpočetní přístupy
+V této kapitole jsou uvedeny relevantní rovnice pro modelování \acrshort{czt}.
+Dále je provedena stručná rešerše literatury na kterou tato práce navazuje,
+nebo využívá její poznatky. Následně jsou popsány použitelné výpočetní přístupy
 a metody spolu s aspekty, ovlivňujícími numerickou efektivnost simulací.
 
 \section{Stručná historie rozvoje teplárenství}
@@ -102,8 +102,8 @@ proudění) lze problém zjednodušit na součinnost třech fyzikálních jevů:
   \caption{Proces šíření teplotní vlny v potrubí}
 \end{figure}
 \newacronym{pdr}{PDR}{Parciální diferenciální rovnice}
-Parciální diferenciální rovnice \acrshort{pdr} pro celkovou dynamiku je pak v tomto
-kontextu následující:
+Parciální diferenciální rovnice \acrshort{pdr} pro celkovou dynamiku je pak v
+tomto kontextu následující:
 \begin{equation}
   \label{eq:AdvDiff}
   \frac{dy}{dt} = -u \frac{dy}{dx} + D\frac{d^{2}y}{dx^2} + {S_y}
@@ -170,7 +170,7 @@ potrubí je jím vnitřní průměr) a \(\lambda\) je tepelná vodivost tekutiny
                       flux}
 Hodnotu Nusseltova čísla je možné určit na základě vztahů jak pro rovnoměrné
 rozložení teploty na stěně (označováno jako \acrshort{uwt}), tak pro rovnoměrné
-rozložení tepelného toku (označované jako \acrshort{uhf}). Dle 
+rozložení tepelného toku (označované jako \acrshort{uhf}). Dle
 \cite{Abraham2009} je pro všechny režimy proudění vhodné používat následující
 model Nusseltova čísla:
 \begin{equation}
@@ -315,7 +315,7 @@ simulací. I přesto, že je fyzika popsaná v sekcích \ref{sec:HeatDynamics},
 tyto PDR nutné diskretizovat v prostoru a čase (tzv. linearizovat problém). Lze
 využít metody jež jsou určeny a optimalizovány přímo pro daný kontext.
 Například pro rovnici \ref{eq:AdvDiff} lze využít integrační metody vyvinuté v
-NASA, které využívají aproximace derivací vyšších řádů, nežli je v samotné 
+NASA, které využívají aproximace derivací vyšších řádů, nežli je v samotné
 \acrshort{pdr}. Takové řešení lze nalézt např. v \cite{leonard1988}, kde jedním
 z nejefektivnějších schémat je ULTIMATE QUICKEST.
 
@@ -498,11 +498,11 @@ Existují i algoritmy jež nevyžadují derivace a jsou vhodné pro modely, u
 kterých nelze derivace určit. Tyto algoritmy umožňují optimalizaci až na úrovni
 black box. Více o těchto algoritmech lze nalézt v kap. \ref{sec:opt_alg}.
 
-Machine learning a mechanistické modelování na základě \acrshort{pdr} lze tedy kombinovat.
-Tímto je možné modelovat procesy na základě experimentálních dat, zjednodušovat
-komplexnost programů na základě extrahovaných veličin z více komplexních
-simulací nebo optimalizovat (ladit) známé mechanistické struktury pomocí
-experimentálních dat.
+Machine learning a mechanistické modelování na základě \acrshort{pdr} lze tedy
+kombinovat. Tímto je možné modelovat procesy na základě experimentálních dat,
+zjednodušovat komplexnost programů na základě extrahovaných veličin z více
+komplexních simulací nebo optimalizovat (ladit) známé mechanistické struktury
+pomocí experimentálních dat.
 
 \section{Optimalizační algoritmy nultého řádu}
 \label{sec:opt_alg}
@@ -513,31 +513,31 @@ pohled na využití Gausovské vzorkování jakožto klíčové heuristiky pro
 tzv. \textit{gradientless descend} (\acrshort{gld}). Mezi pokročilé techniky
 takového typu optimalizace patří evoluční strategie (zde je velmi známá metoda
 využívající adaptace kovarianční matice definující vzorkovací prostor)
-\cite{hansen2016cma}, genetické algoritmy, náhodná hledání či stochastická hledání.
-Tyto algoritmy nebývají deterministické právě proto, že zpravidla využívají
-generátory náhodných čísel. Jejich úkolem je nalézt minimum či maximum funkce o
-níž není známa její gradient. Jediná hodnota která je pro takový algoritmus
-přístupná je hodnota tzv. účelové funkce, což je hodnota popisující vhodnost či
-nevhodnost jednotlivých řešení. Například při optimalizaci založené na
-jednoduché mutaci (evoluční strategie) se pro pokusná řešení využívá slovo
-vzorek. Tyto vzorky jsou konstruovány během tzv. epoch (nebo generací). Každá
-epocha začíná s určitým množstvím vzorků, jež jsou během epochy zhodnoceny a na
-základě těchto výsledků jsou vygenerovány nové vzorky pro další epochu.
-Heuristika je proces nebo způsob, který generuje vzorky na základě výsledků z
-předcházející epochy tak, aby se zvýšila pravděpodobnost, že v následující
-epoše budou nalezeny vzorky lepší. Tímto postupně nalézáme lepší a lepší řešení
-daného optimalizačního problému, dokud není nalezeno nejlepší možné řešení
-(může dojít k nalezení pouze tzv. lokálního optima) nebo řešení které splňuje
-minimální požadavky. Jednotlivé strategie jsou vhodné jen pro určité problémy a
-proto jsou optimalizační nástroje zpravidla vybaveny celou sadou různých
-algoritmů jež využívají různé heuristiky.
+\cite{hansen2016cma}, genetické algoritmy, náhodná hledání či stochastická
+hledání. Tyto algoritmy nebývají deterministické právě proto, že zpravidla
+využívají generátory náhodných čísel. Jejich úkolem je nalézt minimum či
+maximum funkce o níž není známa její gradient. Jediná hodnota která je pro
+takový algoritmus přístupná je hodnota tzv. účelové funkce, což je hodnota
+popisující vhodnost či nevhodnost jednotlivých řešení. Například při
+optimalizaci založené na jednoduché mutaci (evoluční strategie) se pro pokusná
+řešení využívá slovo vzorek. Tyto vzorky jsou konstruovány během tzv. epoch
+(nebo generací). Každá epocha začíná s určitým množstvím vzorků, jež jsou během
+epochy zhodnoceny a na základě těchto výsledků jsou vygenerovány nové vzorky
+pro další epochu. Heuristika je proces nebo způsob, který generuje vzorky na
+základě výsledků z předcházející epochy tak, aby se zvýšila pravděpodobnost, že
+v následující epoše budou nalezeny vzorky lepší. Tímto postupně nalézáme lepší
+a lepší řešení daného optimalizačního problému, dokud není nalezeno nejlepší
+možné řešení (může dojít k nalezení pouze tzv. lokálního optima) nebo řešení
+které splňuje minimální požadavky. Jednotlivé strategie jsou vhodné jen pro
+určité problémy a proto jsou optimalizační nástroje zpravidla vybaveny celou
+sadou různých algoritmů jež využívají různé heuristiky.
 
 \chapter{Analýza, interpretace a zhodnocení poznatků}
 Při tvorbě modelů dynamických pochodů/procesů s dobrou numerickou
 účinnosti je častým postupem redukce na jednorozměrné řešení. Mechanistický
 přístup při tomto úsilí však nemusí být příliš zřejmý a je potřeba testovat
-vetší množství různých hypotéz, manuálně hledat mechanistickou cestu až ke
-konečnému modelu. Postup který je vhodný při jednom problému je
+vetší množství různých hypotéz (manuálně hledat mechanistickou cestu až ke
+konečnému modelu). Postup který je vhodný při jednom problému je
 často nepřenositelný na problém jiný, právě kvůli jiným fyzikálním zákonům jež
 dané procesy řídí. V tomto smyslu pak člověk řeší stejný problém znovu a znovu.
 Počítačové učení poskytuje prostor pro unikátní spolupráci člověka a počítače,
@@ -547,14 +547,15 @@ struktury pomocí dat či účelových funkcí. Tímto způsobem je možné rych
 navrhovat a testovat správnost úvah (hypotéz).
 
 Například model akumulace pro nadzemní teplárenské potrubí je možné přímočaře
-odvodit mechanistickým přístupem \cite{Kudela2019pipe}, avšak pro model
-akumulace pro interagujícího potrubí uloženého v zemi je tento přístup výrazně
-složitější. Nicméně existuje předpoklad, že výsledná struktura druhého modelu
-bude velmi podobná struktuře modelu prvního. V takovém případě je možné
-počítačovým učením (matematickou optimalizací parametrů dynamické simulace)
-určit řešení pro druhý problém bez nutnosti odvozování mechanistického postupu.
-Při kombinaci tohoto postupu s deklarativním programováním je příhodnost
-takovéto metody řešení na velmi vysoké úrovni.
+odvodit čistě mechanistickým přístupem \cite{Kudela2019pipe}, avšak pro model
+akumulace s dvěma a více interagujícími potrubími uloženými v zemi je tento
+přístup výrazně složitější. Nicméně existuje předpoklad, že výsledná struktura
+tohoto komplexnějšího modelu bude velmi podobná struktuře modelu jednodušího
+odvozeného čistě mechanisticky. V takovém případě je možné počítačovým učením
+(matematickou optimalizací parametrů dynamické simulace) určit řešení pro druhý
+problém bez nutnosti odvozování mechanistického postupu. Navíc kombinace tohoto
+postupu s deklarativním programováním a optimalizací nultého řádu je velmi
+příhodná.
 
 Bílým místem v současném stavu poznání je tedy tento obecnější a opakovatelný
 postup, kterým je možné modelovat dynamické procesy a fyzikální komponenty bez
@@ -603,7 +604,7 @@ experimentální data, ale také data z komplexnějších simulací nebo penaliz
     rozvodů.
   \item
     Naprogramovaní optimizátorů v jazyce Python schopných běhu na počítačových
-    clusterech splňující Unix standartazaci (Linux). Pro komunikaci
+    clusterech splňující Unix standartazaci (GNU/Linux). Pro komunikaci
     jednotlivých uzlů bude využit uzlový komunikační protokol MPI. Ohled bude
     brán i na minimalizaci síťové komunikace také pomalých I/O přístupů
     například pomocí ukládání do paměti RAM.
@@ -690,7 +691,7 @@ bude založen na MKP se specificky navrženými konečnými elementy. Pro
 podzemní potrubí bude nejdříve sestaven komplexní dvourozměrný model pomocí
 metody MKP. K tomuto účelu bude využit nástroj FeniCS. Rovnice
 \ref{eq:BuriedPDEProblem} a \ref{eq:BuriedPDELinearised} představují tento
-variantu problému a jeho linearizaci. 
+variantu problému a jeho linearizaci.
 \begin{equation}
   \label{eq:BuriedPDEProblem}
   \begin{gathered}
@@ -708,8 +709,8 @@ variantu problému a jeho linearizaci.
     (\Gamma_S \cup \Gamma_R \cup \Gamma_B \cup \Gamma_A)
   \end{gathered}
 \end{equation}
-kde indexy \(S\), \(R\), \(A\) a \(B\) korespondují s přívodním potrubím, vratným
-potrubím, povrchem země a spodním okrajem domény \(\Omega\).
+kde indexy \(S\), \(R\), \(A\) a \(B\) korespondují s přívodním potrubím,
+vratným potrubím, povrchem země a spodním okrajem domény \(\Omega\).
 \begin{equation}
   \label{eq:BuriedPDELinearised}
   \begin{gathered}
@@ -721,7 +722,8 @@ potrubím, povrchem země a spodním okrajem domény \(\Omega\).
     \boldsymbol{MT}^k+\Delta{t}\Theta(\boldsymbol{B_S}+\boldsymbol{B_R}+
     \boldsymbol{B_A})\boldsymbol{T}^k
     =\boldsymbol{MT}^{k-1}-\Delta{t}(1-\Theta)\boldsymbol{KT}^{k-1}\\
-    -\Delta{t}(1-\Theta)(\boldsymbol{B_S}+\boldsymbol{B_R}+\boldsymbol{B_A})\boldsymbol{T}^k
+    -\Delta{t}(1-\Theta)(\boldsymbol{B_S}+\boldsymbol{B_R}+\boldsymbol{B_A})
+    \boldsymbol{T}^k
     +\Delta{t}(1-\Theta)(\boldsymbol{B_ST_S}^{k-1}+\boldsymbol{B_RT_R}^{k-1}+
     \boldsymbol{B_AT_A}^{k-1})\\+\Delta{t}\Theta(\boldsymbol{B_ST_S}^k
     +\boldsymbol{B_RT_R}^k+\boldsymbol{B_AT_A}^k)
@@ -748,7 +750,8 @@ regionu i vlivy okolí.
 \end{figure}
 \section{Nástroj LOFI}
 \label{sec:tool_LOFI}
-\newacronym{mpi}{MPI}{Komunikační rozhraní pro cluster - angl. message passing interface}
+\newacronym{mpi}{MPI}{Komunikační rozhraní pro cluster - angl. message passing
+                      interface}
 Při řešení bude sestaven optimalizační nástroj \acrshort{lofi} (nejedná se o
 zkratku, ale pouze o dočasné jméno), který bude obsahovat aplikační rozhraní
 zejména k \acrshort{omc}. Nástroj bude implementován v jazyce Python. Bude
@@ -825,7 +828,8 @@ komplexní simulace) zatím nebyla otestována.
 \end{figure}
 \subsection{Optimalizační nástroj LOFI}
 \newacronym{api}{API}{Aplikační rozhraní z angl. aplication interface}
-\newacronym{pso}{PSO}{Hejnový optimalizační algoritmus z angl. Particle swarm optimizer}
+\newacronym{pso}{PSO}{Hejnový optimalizační algoritmus z angl. Particle swarm
+                      optimizer}
 \newacronym{grapso}{GRAPSO}{\acrshort{pso} s náhodnou adaptací}
 \newacronym{oples}{OPLES}{tzv. One plus lambda}
 Nástroj \acrshort{lofi} je také ve stavu funkčního prototypu. Plánovač úloh,
@@ -838,7 +842,7 @@ Samotný nástroj \acrshort{lofi} je publikován v konferenčním sborníku
 optimalizaci/nalezení advektivního schématu, řízení okrajové podmínky pro
 problém vedení tepla a učení neuronové síťě pro zachycení testovacího modelu
 Lotka-Voltera. Všechny tři modely byly implementovány v jazyce Modelica a
-kompilovány pomocí \acrshort{omc}. 
+kompilovány pomocí \acrshort{omc}.
 \begin{figure}[h]
 \begin{center}
   \includegraphics[width=\textwidth]{figures/Advection_GRAPSO}
@@ -859,7 +863,8 @@ algoritmem OPLES}
   \includegraphics[width=\textwidth]{figures/LotkaVoltera_NN_OPLES}
 \end{center}
 \caption{Průběh optimalizace neuronové sítě s 50 neurony ve vnitřní vrstvě
-reprezentující ODR systém Lotka-Voltera, kde optimalizace proběhla pomocí algoritmu OPLES}
+reprezentující ODR systém Lotka-Voltera, kde optimalizace proběhla pomocí
+algoritmu OPLES}
 \label{fig:lotka_voltera_oples}
 \end{figure}
 
